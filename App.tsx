@@ -31,12 +31,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "ch2", name: "Incline Bench Press", description: "Focus on upper (clavicular) portion.", executionTips: ["Elbows at 45 degrees", "Bar to upper chest"] },
       [Language.ES]: { id: "ch2", name: "Press Inclinado", description: "Foco en la porción superior (clavicular).", executionTips: ["Codos a 45 grados", "Barra al pecho superior"] },
       common: { videoUrl: "https://www.youtube.com/embed/8iPEnn-ltC8", muscleGroup: "CHEST", sets: 3, reps: "12", tags: ["UPPER"] }
-    },
-    {
-      [Language.PT]: { id: "ch3", name: "Dips (Paralelas)", description: "Foco na porção inferior do peitoral.", executionTips: ["Tronco inclinado para frente", "Amplitude total"] },
-      [Language.EN]: { id: "ch3", name: "Chest Dips", description: "Focus on lower pectoral portion.", executionTips: ["Leaning torso forward", "Full range of motion"] },
-      [Language.ES]: { id: "ch3", name: "Fondos de Pecho", description: "Foco en la porción inferior del pectoral.", executionTips: ["Tronco inclinado hacia adelante", "Amplitud total"] },
-      common: { videoUrl: "https://www.youtube.com/embed/2z8JmcrW-As", muscleGroup: "CHEST", sets: 3, reps: "10", tags: ["LOWER"] }
     }
   ],
   BACK: [
@@ -45,6 +39,24 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "bk1", name: "Lat Pulldown", description: "Focus on back width (Lats).", executionTips: ["Pull with elbows", "Avoid rocking"] },
       [Language.ES]: { id: "bk1", name: "Jalón al Pecho", description: "Foco en la anchura de la espalda.", executionTips: ["Tira con los codos", "No balancees el cuerpo"] },
       common: { videoUrl: "https://www.youtube.com/embed/CAwf7n6Luuc", muscleGroup: "BACK", sets: 4, reps: "12", tags: ["WIDTH"] }
+    },
+    {
+      [Language.PT]: { id: "bk2", name: "Barra Fixa", description: "Desenvolvimento de força funcional e lats.", executionTips: ["Amplitude máxima", "Peito em direção à barra"] },
+      [Language.EN]: { id: "bk2", name: "Pull-ups", description: "Developing functional strength and lats.", executionTips: ["Full range of motion", "Chest toward the bar"] },
+      [Language.ES]: { id: "bk2", name: "Dominadas", description: "Desarrollo de fuerza funcional y lats.", executionTips: ["Amplitud máxima", "Pecho hacia la barra"] },
+      common: { videoUrl: "https://www.youtube.com/embed/eGo4IYlbE5g", muscleGroup: "BACK", sets: 3, reps: "8", tags: ["STRENGTH"] }
+    },
+    {
+      [Language.PT]: { id: "bk3", name: "Remada Curvada", description: "Foco na espessura das costas e romboides.", executionTips: ["Mantenha o tronco estável", "Puxe em direção ao umbigo"] },
+      [Language.EN]: { id: "bk3", name: "Barbell Row", description: "Focus on back thickness and rhomboids.", executionTips: ["Keep torso stable", "Pull toward navel"] },
+      [Language.ES]: { id: "bk3", name: "Remo con Barra", description: "Foco en el grosor de la espalda y romboides.", executionTips: ["Mantén el tronco estable", "Tira hacia el ombligo"] },
+      common: { videoUrl: "https://www.youtube.com/embed/9efgcAjQW7E", muscleGroup: "BACK", sets: 4, reps: "10", tags: ["WIDTH"] }
+    },
+    {
+      [Language.PT]: { id: "bk4", name: "Levantamento Terra", description: "Exercício de força total para a cadeia posterior.", executionTips: ["Costas seladas", "Empurre o chão com os pés"] },
+      [Language.EN]: { id: "bk4", name: "Deadlift", description: "Full power exercise for the posterior chain.", executionTips: ["Keep back neutral", "Push floor away with feet"] },
+      [Language.ES]: { id: "bk4", name: "Peso Muerto", description: "Ejercicio de fuerza total para la cadena posterior.", executionTips: ["Espalda neutra", "Empuja el suelo con los pies"] },
+      common: { videoUrl: "https://www.youtube.com/embed/op9kVnSso6Q", muscleGroup: "BACK", sets: 3, reps: "5", tags: ["STRENGTH"] }
     }
   ],
   LEGS: [
@@ -53,6 +65,12 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "lg1", name: "Barbell Squat", description: "Focus on quads and glutes.", executionTips: ["Heels on floor", "Knees out"] },
       [Language.ES]: { id: "lg1", name: "Sentadilla Libre", description: "Foco en cuádriceps y glúteos.", executionTips: ["Talones en suelo", "Rodillas hacia fuera"] },
       common: { videoUrl: "https://www.youtube.com/embed/m0GcZ24pK6k", muscleGroup: "LEGS", sets: 4, reps: "10", tags: ["COMPOUND"] }
+    },
+    {
+      [Language.PT]: { id: "lg2", name: "Afundo", description: "Exercício unilateral para quadríceps e estabilidade.", executionTips: ["Tronco ereto", "Joelhos a 90 graus"] },
+      [Language.EN]: { id: "lg2", name: "Lunges", description: "Unilateral exercise for quads and stability.", executionTips: ["Upright torso", "Knees at 90 degrees"] },
+      [Language.ES]: { id: "lg2", name: "Zancadas", description: "Ejercicio unilateral para cuádriceps y estabilidad.", executionTips: ["Tronco erguido", "Rodillas a 90 grados"] },
+      common: { videoUrl: "https://www.youtube.com/embed/D7KaRcUTQeE", muscleGroup: "LEGS", sets: 3, reps: "12", tags: ["LEGS"] }
     }
   ],
   SHOULDERS: [
@@ -61,6 +79,18 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "sh1", name: "Military Press", description: "Focus on anterior and lateral delts.", executionTips: ["Tight core", "Straight bar path"] },
       [Language.ES]: { id: "sh1", name: "Press Militar", description: "Foco en deltoide anterior y medio.", executionTips: ["Core firme", "Trayecto de barra recto"] },
       common: { videoUrl: "https://www.youtube.com/embed/B-aVuyhvLHU", muscleGroup: "SHOULDERS", sets: 4, reps: "10", tags: ["STRENGTH"] }
+    },
+    {
+      [Language.PT]: { id: "sh2", name: "Elevação Lateral", description: "Isolamento do deltoide lateral para largura.", executionTips: ["Cotovelos levemente flexionados", "Não ultrapassar linha dos ombros"] },
+      [Language.EN]: { id: "sh2", name: "Lateral Raises", description: "Lateral delt isolation for shoulder width.", executionTips: ["Slightly bent elbows", "Don't exceed shoulder line"] },
+      [Language.ES]: { id: "sh2", name: "Elevación Lateral", description: "Aislamiento del deltoide lateral para anchura.", executionTips: ["Codos ligeramente flexionados", "No superar línea de hombros"] },
+      common: { videoUrl: "https://www.youtube.com/embed/3VcKaXpzqRo", muscleGroup: "SHOULDERS", sets: 3, reps: "15", tags: ["SHOULDERS"] }
+    },
+    {
+      [Language.PT]: { id: "sh3", name: "Face Pull", description: "Foco no deltoide posterior e saúde dos ombros.", executionTips: ["Puxe em direção ao rosto", "Afaste os cotovelos"] },
+      [Language.EN]: { id: "sh3", name: "Face Pulls", description: "Focus on rear delts and shoulder health.", executionTips: ["Pull toward face", "Pull elbows apart"] },
+      [Language.ES]: { id: "sh3", name: "Face Pull", description: "Foco en deltoides posteriores y salud del hombro.", executionTips: ["Tira hacia la cara", "Separa los codos"] },
+      common: { videoUrl: "https://www.youtube.com/embed/rep-qVhpqE8", muscleGroup: "SHOULDERS", sets: 3, reps: "15", tags: ["SHOULDERS"] }
     }
   ],
   ARMS: [
@@ -69,6 +99,24 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "ar1", name: "Barbell Curls", description: "Focus on biceps brachii (mass).", executionTips: ["Elbows fixed at sides", "No swinging"] },
       [Language.ES]: { id: "ar1", name: "Curl de Bíceps", description: "Foco en bíceps braquial (masa).", executionTips: ["Codos fijos al lado", "Sin balanceo"] },
       common: { videoUrl: "https://www.youtube.com/embed/ykJmrZ5v0Oo", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["BICEPS"] }
+    },
+    {
+      [Language.PT]: { id: "ar2", name: "Tríceps Pulley", description: "Isolamento da cabeça longa do tríceps.", executionTips: ["Cotovelos colados ao tronco", "Extensão completa"] },
+      [Language.EN]: { id: "ar2", name: "Triceps Pushdown", description: "Isolation of the triceps long head.", executionTips: ["Elbows glued to torso", "Full extension"] },
+      [Language.ES]: { id: "ar2", name: "Tríceps Polea", description: "Aislamiento de la cabeza larga del tríceps.", executionTips: ["Codos pegados al tronco", "Extensión completa"] },
+      common: { videoUrl: "https://www.youtube.com/embed/2-LAMcpzHLU", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["ARMS"] }
+    },
+    {
+      [Language.PT]: { id: "ar3", name: "Rosca Martelo", description: "Foco no braquial e braquiorradial.", executionTips: ["Pegada neutra", "Sem balanço"] },
+      [Language.EN]: { id: "ar3", name: "Hammer Curls", description: "Focus on brachialis and brachioradialis.", executionTips: ["Neutral grip", "Avoid swinging"] },
+      [Language.ES]: { id: "ar3", name: "Curl Martillo", description: "Foco en braquial y braquiorradial.", executionTips: ["Agarre neutro", "Sin balanceo"] },
+      common: { videoUrl: "https://www.youtube.com/embed/zC3nLlEvin4", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["BICEPS"] }
+    },
+    {
+      [Language.PT]: { id: "ar4", name: "Extensão Francesa", description: "Foco na cabeça longa do tríceps.", executionTips: ["Cotovelos apontados para cima", "Amplitude total"] },
+      [Language.EN]: { id: "ar4", name: "Overhead Triceps Extension", description: "Focus on the long head of the triceps.", executionTips: ["Keep elbows pointing up", "Full range"] },
+      [Language.ES]: { id: "ar4", name: "Extensión Francesa", description: "Foco en la cabeza larga del tríceps.", executionTips: ["Codos apuntando hacia arriba", "Rango completo"] },
+      common: { videoUrl: "https://www.youtube.com/embed/-Vyt2QdsR7E", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["ARMS"] }
     }
   ],
   GLUTES: [
@@ -77,6 +125,12 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "gl1", name: "Hip Thrust", description: "Maximum focus on gluteus maximus.", executionTips: ["Chin to chest", "Hold 1s at top"] },
       [Language.ES]: { id: "gl1", name: "Empuje de Cadera", description: "Foco máximo en glúteo mayor.", executionTips: ["Barbilla al pecho", "Aguanta 1s arriba"] },
       common: { videoUrl: "https://www.youtube.com/embed/SEdqBc_z_Yw", muscleGroup: "GLUTES", sets: 4, reps: "10", tags: ["POWER"] }
+    },
+    {
+      [Language.PT]: { id: "gl2", name: "Ponte de Glúteo", description: "Estabilidade de quadril e ativação dos glúteos.", executionTips: ["Calcanhares próximos ao quadril", "Contraia glúteos no topo"] },
+      [Language.EN]: { id: "gl2", name: "Glute Bridge", description: "Hip stability and glute activation.", executionTips: ["Heels close to hips", "Squeeze glutes at top"] },
+      [Language.ES]: { id: "gl2", name: "Puente de Glúteos", description: "Estabilidad de cadera y activación de glúteos.", executionTips: ["Talones cerca de cadera", "Contrae glúteos arriba"] },
+      common: { videoUrl: "https://www.youtube.com/embed/wPM8icPu6H8", muscleGroup: "GLUTES", sets: 3, reps: "15", tags: ["GLUTES"] }
     }
   ],
   CORE: [
@@ -267,7 +321,6 @@ const App: React.FC = () => {
     
     let currentIds = dayPlan.customExerciseIds;
     if (!currentIds) {
-      // If no custom IDs, use the generated ones based on type
       const generated = (EXERCISE_CATALOG[dayPlan.type] || []).map(e => e[Language.EN].id);
       currentIds = generated;
     }
