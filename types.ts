@@ -11,12 +11,17 @@ export enum Language {
   ES = 'ES'
 }
 
+export type Theme = 'light' | 'dark';
+
 export enum WorkoutFocus {
   PERFORMANCE = 'PERFORMANCE',
   QUALITY = 'QUALITY',
   STRENGTH = 'STRENGTH',
   HYPERTROPHY = 'HYPERTROPHY',
-  LONGEVITY = 'LONGEVITY'
+  LONGEVITY = 'LONGEVITY',
+  BALANCE = 'BALANCE',
+  WEIGHT_LOSS = 'WEIGHT_LOSS',
+  BODYWEIGHT = 'BODYWEIGHT'
 }
 
 export enum FitnessGoal {
@@ -44,7 +49,8 @@ export interface Exercise {
   description: string;
   executionTips: string[];
   imageUrl: string;
-  videoUrl: string; // URL do YouTube ou vídeo curto
+  videoUrl: string;
+  tags?: string[];
 }
 
 export interface WorkoutDay {
@@ -53,6 +59,11 @@ export interface WorkoutDay {
   title: string;
   exercises: Exercise[];
   isRestDay: boolean;
+}
+
+export interface DayPlan {
+  type: string; // 'CHEST' | 'LEGS' | 'BACK' | 'SHOULDERS' | 'ARMS' | 'CORE' | 'GLUTES' | 'FULLBODY' | 'REST'
+  customExerciseIds?: string[];
 }
 
 export interface UserProfile {
@@ -65,8 +76,10 @@ export interface UserProfile {
   preference: WorkoutPreference;
   membership: MembershipType;
   language: Language;
+  theme?: Theme;
   weeklyTarget: number;
-  availableDays: string[];
+  availableDays: string[]; 
+  customSchedule: Record<string, DayPlan>;
   sessionDuration: number;
   subscriptionActive: boolean;
   nextBillingDate: string;
