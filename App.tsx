@@ -4,7 +4,8 @@ import {
   Dumbbell, User, Settings, Calendar, MessageSquare, Info, CheckCircle2, ChevronRight,
   Globe, Flame, Activity, Award, Scale, Ruler, Target, Trophy, Clock, RotateCcw,
   Zap, Coffee, Star, Users, Play, CreditCard, ShieldCheck, ChevronLeft, Send, Save, X,
-  LayoutList, Plus, Trash2, AlertTriangle, BookOpen, Check, Timer, Moon, Sun
+  LayoutList, Plus, Trash2, AlertTriangle, BookOpen, Check, Timer, Moon, Sun, ShoppingCart, Lock,
+  HeartPulse, TrendingUp, ZapOff, Fingerprint, Lightbulb, ChevronUp, ChevronDown
 } from 'lucide-react';
 import { 
   Language, ExperienceLevel, UserProfile, WorkoutDay, WorkoutFocus, FitnessGoal, 
@@ -14,6 +15,7 @@ import { translations } from './translations';
 import { getAIFeedback } from './services/gemini';
 
 const DAYS_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const;
+const TRIAL_DAYS = 7;
 
 // Significantly Expanded Localized Exercise Catalog
 const EXERCISE_CATALOG: Record<string, any[]> = {
@@ -35,24 +37,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "ch3", name: "Chest Dips", description: "Focus on lower pectoral portion.", executionTips: ["Leaning torso forward", "Full range of motion"] },
       [Language.ES]: { id: "ch3", name: "Fondos de Pecho", description: "Foco en la porción inferior del pectoral.", executionTips: ["Tronco inclinado hacia adelante", "Amplitud total"] },
       common: { videoUrl: "https://www.youtube.com/embed/2z8JmcrW-As", muscleGroup: "CHEST", sets: 3, reps: "10", tags: ["LOWER"] }
-    },
-    {
-      [Language.PT]: { id: "ch4", name: "Crucifixo Reto", description: "Isolamento e alongamento das fibras radiais.", executionTips: ["Leve flexão nos cotovelos", "Sinta o alongamento"] },
-      [Language.EN]: { id: "ch4", name: "Chest Flyes", description: "Isolation and stretching of fibers.", executionTips: ["Slight elbow bend", "Feel the stretch"] },
-      [Language.ES]: { id: "ch4", name: "Aperturas de Pecho", description: "Aislamiento y estiramiento de fibras.", executionTips: ["Ligera flexión de codos", "Siente el estiramiento"] },
-      common: { videoUrl: "https://www.youtube.com/embed/eozdVDA78K0", muscleGroup: "CHEST", sets: 3, reps: "15", tags: ["ISOLATION"] }
-    },
-    {
-      [Language.PT]: { id: "ch5", name: "Crossover Polia Alta", description: "Foco no miolo e porção inferior.", executionTips: ["Cruze as mãos no final", "Contração máxima"] },
-      [Language.EN]: { id: "ch5", name: "High Cable Crossover", description: "Focus on inner and lower chest.", executionTips: ["Cross hands at bottom", "Maximum contraction"] },
-      [Language.ES]: { id: "ch5", name: "Crossover Polea Alta", description: "Foco en la parte interna e inferior.", executionTips: ["Cruza las manos al final", "Contracción máxima"] },
-      common: { videoUrl: "https://www.youtube.com/embed/taI4XduLpTk", muscleGroup: "CHEST", sets: 3, reps: "15", tags: ["DEFINITION"] }
-    },
-    {
-      [Language.PT]: { id: "ch6", name: "Flexão de Braços", description: "Trabalho funcional e estabilidade.", executionTips: ["Core ativado", "Corpo em linha reta"] },
-      [Language.EN]: { id: "ch6", name: "Push Ups", description: "Functional work and stability.", executionTips: ["Engaged core", "Straight body line"] },
-      [Language.ES]: { id: "ch6", name: "Flexiones de Brazo", description: "Trabajo funcional y estabilidad.", executionTips: ["Core activado", "Cuerpo en línea recta"] },
-      common: { videoUrl: "https://www.youtube.com/embed/IODxDxX7oi4", muscleGroup: "CHEST", sets: 3, reps: "MAX", tags: ["BODYWEIGHT"] }
     }
   ],
   BACK: [
@@ -61,36 +45,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "bk1", name: "Lat Pulldown", description: "Focus on back width (Lats).", executionTips: ["Pull with elbows", "Avoid rocking"] },
       [Language.ES]: { id: "bk1", name: "Jalón al Pecho", description: "Foco en la anchura de la espalda.", executionTips: ["Tira con los codos", "No balancees el cuerpo"] },
       common: { videoUrl: "https://www.youtube.com/embed/CAwf7n6Luuc", muscleGroup: "BACK", sets: 4, reps: "12", tags: ["WIDTH"] }
-    },
-    {
-      [Language.PT]: { id: "bk2", name: "Remada Curvada", description: "Foco na espessura total das costas.", executionTips: ["Costas paralelas ao chão", "Puxe em direção ao umbigo"] },
-      [Language.EN]: { id: "bk2", name: "Bent Over Row", description: "Focus on total back thickness.", executionTips: ["Back parallel to floor", "Pull to navel"] },
-      [Language.ES]: { id: "bk2", name: "Remo inclinado", description: "Foco en el grosor total de la espalda.", executionTips: ["Espalda paralela al suelo", "Tira hacia el ombligo"] },
-      common: { videoUrl: "https://www.youtube.com/embed/6KA-L6uXQp4", muscleGroup: "BACK", sets: 4, reps: "10", tags: ["THICKNESS"] }
-    },
-    {
-      [Language.PT]: { id: "bk3", name: "Remada Baixa", description: "Foco no miolo das costas e trapézio médio.", executionTips: ["Peito estufado", "Escápulas fechadas no final"] },
-      [Language.EN]: { id: "bk3", name: "Seated Row", description: "Focus on mid-back and rhomboids.", executionTips: ["Chest out", "Squeeze shoulder blades"] },
-      [Language.ES]: { id: "bk3", name: "Remo Sentado", description: "Foco en la parte media de la espalda.", executionTips: ["Pecho fuera", "Cierra escápulas al final"] },
-      common: { videoUrl: "https://www.youtube.com/embed/GZbfZ033f74", muscleGroup: "BACK", sets: 3, reps: "12", tags: ["MIDBACK"] }
-    },
-    {
-      [Language.PT]: { id: "bk4", name: "Pull Down", description: "Isolamento de grande dorsal.", executionTips: ["Braços quase retos", "Puxe até a coxa"] },
-      [Language.EN]: { id: "bk4", name: "Straight Arm Pulldown", description: "Isolation of latissimus dorsi.", executionTips: ["Arms nearly straight", "Pull to thighs"] },
-      [Language.ES]: { id: "bk4", name: "Pull Down con Brazos Rectos", description: "Aislamiento de dorsal ancho.", executionTips: ["Brazos casi rectos", "Tira hasta el muslo"] },
-      common: { videoUrl: "https://www.youtube.com/embed/6KA-L6uXQp4", muscleGroup: "BACK", sets: 3, reps: "15", tags: ["ISOLATION"] }
-    },
-    {
-      [Language.PT]: { id: "bk5", name: "Extensão Lombar", description: "Foco na musculatura eretora da espinha.", executionTips: ["Movimento controlado", "Não hiperextenda demais"] },
-      [Language.EN]: { id: "bk5", name: "Back Extension", description: "Focus on erector spinae.", executionTips: ["Controlled motion", "Don't overextend"] },
-      [Language.ES]: { id: "bk5", name: "Extensión Lumbar", description: "Foco en la musculatura erectora.", executionTips: ["Movimiento controlado", "No hiperextiendas"] },
-      common: { videoUrl: "https://www.youtube.com/embed/ph3pddpKzzw", muscleGroup: "BACK", sets: 3, reps: "15", tags: ["LOWERBACK"] }
-    },
-    {
-      [Language.PT]: { id: "bk6", name: "Barra Fixa", description: "Exercício fundamental de força e largura.", executionTips: ["Amplitude total", "Queixo acima da barra"] },
-      [Language.EN]: { id: "bk6", name: "Pull Ups", description: "Fundamental strength and width exercise.", executionTips: ["Full range", "Chin over bar"] },
-      [Language.ES]: { id: "bk6", name: "Dominadas", description: "Ejercicio fundamental de fuerza.", executionTips: ["Amplitud total", "Barbilla sobre la barra"] },
-      common: { videoUrl: "https://www.youtube.com/embed/eGo4IYlbE5g", muscleGroup: "BACK", sets: 3, reps: "MAX", tags: ["STRENGTH"] }
     }
   ],
   LEGS: [
@@ -99,36 +53,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "lg1", name: "Barbell Squat", description: "Focus on quads and glutes.", executionTips: ["Heels on floor", "Knees out"] },
       [Language.ES]: { id: "lg1", name: "Sentadilla Libre", description: "Foco en cuádriceps y glúteos.", executionTips: ["Talones en suelo", "Rodillas hacia fuera"] },
       common: { videoUrl: "https://www.youtube.com/embed/m0GcZ24pK6k", muscleGroup: "LEGS", sets: 4, reps: "10", tags: ["COMPOUND"] }
-    },
-    {
-      [Language.PT]: { id: "lg2", name: "Leg Press 45", description: "Foco em quadríceps e força bruta.", executionTips: ["Pés na largura dos ombros", "Não trave os joelhos"] },
-      [Language.EN]: { id: "lg2", name: "Leg Press 45", description: "Focus on quads and raw strength.", executionTips: ["Shoulder width feet", "Don't lock knees"] },
-      [Language.ES]: { id: "lg2", name: "Prensa 45", description: "Foco en cuádriceps y fuerza.", executionTips: ["Pies ancho hombros", "No bloquees rodillas"] },
-      common: { videoUrl: "https://www.youtube.com/embed/IZxyjW7MPJQ", muscleGroup: "LEGS", sets: 4, reps: "12", tags: ["STRENGTH"] }
-    },
-    {
-      [Language.PT]: { id: "lg3", name: "Cadeira Extensora", description: "Isolamento de quadríceps.", executionTips: ["Ponta do pé para cima", "Contração no topo"] },
-      [Language.EN]: { id: "lg3", name: "Leg Extension", description: "Quad isolation.", executionTips: ["Toes up", "Contract at top"] },
-      [Language.ES]: { id: "lg3", name: "Extensión de Cuádriceps", description: "Aislamiento de cuádriceps.", executionTips: ["Puntas arriba", "Contracción arriba"] },
-      common: { videoUrl: "https://www.youtube.com/embed/YyvSfVjKUH0", muscleGroup: "LEGS", sets: 3, reps: "15", tags: ["ISOLATION"] }
-    },
-    {
-      [Language.PT]: { id: "lg4", name: "Mesa Flexora", description: "Isolamento de posteriores (isquiotibiais).", executionTips: ["Mantenha o quadril colado no banco"] },
-      [Language.EN]: { id: "lg4", name: "Lying Leg Curl", description: "Hamstring isolation.", executionTips: ["Keep hips glued to bench"] },
-      [Language.ES]: { id: "lg4", name: "Curl de Piernas Tumbado", description: "Aislamiento de isquios.", executionTips: ["Cadera pegada al banco"] },
-      common: { videoUrl: "https://www.youtube.com/embed/1Tq3QdIUuHs", muscleGroup: "LEGS", sets: 3, reps: "12", tags: ["HAMSTRINGS"] }
-    },
-    {
-      [Language.PT]: { id: "lg5", name: "Afundo com Halteres", description: "Trabalho unilateral de perna e glúteo.", executionTips: ["Passo longo", "Tronco vertical"] },
-      [Language.EN]: { id: "lg5", name: "Dumbbell Lunges", description: "Unilateral leg and glute work.", executionTips: ["Wide step", "Vertical torso"] },
-      [Language.ES]: { id: "lg5", name: "Zancadas con Mancuernas", description: "Trabajo unilateral de pierna.", executionTips: ["Paso largo", "Tronco vertical"] },
-      common: { videoUrl: "https://www.youtube.com/embed/wrwwXE_6VVg", muscleGroup: "LEGS", sets: 3, reps: "12 cada", tags: ["UNILATERAL"] }
-    },
-    {
-      [Language.PT]: { id: "lg6", name: "Elevação de Panturrilha", description: "Trabalho de gastrocnêmio.", executionTips: ["Amplitude total", "Pausa no topo e embaixo"] },
-      [Language.EN]: { id: "lg6", name: "Calf Raises", description: "Gastrocnemius work.", executionTips: ["Full range", "Pause at top/bottom"] },
-      [Language.ES]: { id: "lg6", name: "Elevación de Gemelos", description: "Trabajo de gastrocnemio.", executionTips: ["Amplitud total", "Pausa arriba/abajo"] },
-      common: { videoUrl: "https://www.youtube.com/embed/vst2f3R624s", muscleGroup: "LEGS", sets: 4, reps: "20", tags: ["CALVES"] }
     }
   ],
   SHOULDERS: [
@@ -137,36 +61,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "sh1", name: "Military Press", description: "Focus on anterior and lateral delts.", executionTips: ["Tight core", "Straight bar path"] },
       [Language.ES]: { id: "sh1", name: "Press Militar", description: "Foco en deltoide anterior y medio.", executionTips: ["Core firme", "Trayecto de barra recto"] },
       common: { videoUrl: "https://www.youtube.com/embed/B-aVuyhvLHU", muscleGroup: "SHOULDERS", sets: 4, reps: "10", tags: ["STRENGTH"] }
-    },
-    {
-      [Language.PT]: { id: "sh2", name: "Elevação Lateral", description: "Foco no deltoide médio (largura).", executionTips: ["Cotovelos levemente flexionados", "Suba até a altura dos ombros"] },
-      [Language.EN]: { id: "sh2", name: "Lateral Raise", description: "Focus on lateral delts (width).", executionTips: ["Slight elbow bend", "Up to shoulder height"] },
-      [Language.ES]: { id: "sh2", name: "Elevación Lateral", description: "Foco en deltoide medio (anchura).", executionTips: ["Codos flexionados", "Sube hasta el hombro"] },
-      common: { videoUrl: "https://www.youtube.com/embed/3VcKaXpzqRo", muscleGroup: "SHOULDERS", sets: 3, reps: "15", tags: ["WIDTH"] }
-    },
-    {
-      [Language.PT]: { id: "sh3", name: "Elevação Frontal", description: "Isolamento de deltoide anterior.", executionTips: ["Sem balançar", "Controle a descida"] },
-      [Language.EN]: { id: "sh3", name: "Front Raise", description: "Anterior delt isolation.", executionTips: ["No swinging", "Control descent"] },
-      [Language.ES]: { id: "sh3", name: "Elevación Frontal", description: "Aislamiento de deltoide anterior.", executionTips: ["Sin balanceo", "Controla el descenso"] },
-      common: { videoUrl: "https://www.youtube.com/embed/hRJ6EB_1-pA", muscleGroup: "SHOULDERS", sets: 3, reps: "12", tags: ["ANTERIOR"] }
-    },
-    {
-      [Language.PT]: { id: "sh4", name: "Crucifixo Inverso", description: "Foco no deltoide posterior.", executionTips: ["Tronco inclinado", "Puxe com as costas do ombro"] },
-      [Language.EN]: { id: "sh4", name: "Reverse Flyes", description: "Focus on posterior delts.", executionTips: ["Bent torso", "Pull with rear delts"] },
-      [Language.ES]: { id: "sh4", name: "Pájaros", description: "Foco en deltoide posterior.", executionTips: ["Tronco inclinado", "Tira con deltoide trasero"] },
-      common: { videoUrl: "https://www.youtube.com/embed/H530fW3KWfk", muscleGroup: "SHOULDERS", sets: 3, reps: "15", tags: ["POSTERIOR"] }
-    },
-    {
-      [Language.PT]: { id: "sh5", name: "Arnold Press", description: "Trabalho completo de deltoides.", executionTips: ["Gire os halteres durante a subida"] },
-      [Language.EN]: { id: "sh5", name: "Arnold Press", description: "Complete delt rotation work.", executionTips: ["Rotate dumbbells as you press"] },
-      [Language.ES]: { id: "sh5", name: "Press Arnold", description: "Trabajo completo de deltoides.", executionTips: ["Gira las mancuernas al subir"] },
-      common: { videoUrl: "https://www.youtube.com/embed/6Z15_WdxSwQ", muscleGroup: "SHOULDERS", sets: 3, reps: "12", tags: ["ROTATION"] }
-    },
-    {
-      [Language.PT]: { id: "sh6", name: "Encolhimento", description: "Trabalho de trapézio superior.", executionTips: ["Eleve os ombros ao máximo", "Pausa no topo"] },
-      [Language.EN]: { id: "sh6", name: "Shrugs", description: "Upper traps work.", executionTips: ["Raise shoulders fully", "Pause at top"] },
-      [Language.ES]: { id: "sh6", name: "Encogimientos", description: "Trabajo de trapecio.", executionTips: ["Sube los hombros al máximo", "Pausa arriba"] },
-      common: { videoUrl: "https://www.youtube.com/embed/g6qbq4i1cl8", muscleGroup: "SHOULDERS", sets: 3, reps: "15", tags: ["TRAPS"] }
     }
   ],
   ARMS: [
@@ -175,36 +69,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "ar1", name: "Barbell Curls", description: "Focus on biceps brachii (mass).", executionTips: ["Elbows fixed at sides", "No swinging"] },
       [Language.ES]: { id: "ar1", name: "Curl de Bíceps", description: "Foco en bíceps braquial (masa).", executionTips: ["Codos fijos al lado", "Sin balanceo"] },
       common: { videoUrl: "https://www.youtube.com/embed/ykJmrZ5v0Oo", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["BICEPS"] }
-    },
-    {
-      [Language.PT]: { id: "ar2", name: "Rosca Martelo", description: "Trabalha o braquiorradial e espessura do braço.", executionTips: ["Pegada neutra (como um martelo)"] },
-      [Language.EN]: { id: "ar2", name: "Hammer Curls", description: "Works brachioradialis and arm thickness.", executionTips: ["Neutral grip (like a hammer)"] },
-      [Language.ES]: { id: "ar2", name: "Curl Martillo", description: "Trabaja braquiorradial y grosor.", executionTips: ["Agarre neutro (martillo)"] },
-      common: { videoUrl: "https://www.youtube.com/embed/zC3nLlEvin4", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["BICEPS"] }
-    },
-    {
-      [Language.PT]: { id: "ar3", name: "Rosca Concentrada", description: "Isolamento total de bíceps.", executionTips: ["Cotovelo apoiado na coxa", "Contração máxima"] },
-      [Language.EN]: { id: "ar3", name: "Concentration Curl", description: "Total bicep isolation.", executionTips: ["Elbow supported on thigh", "Max contraction"] },
-      [Language.ES]: { id: "ar3", name: "Curl Concentrado", description: "Aislamiento total de bíceps.", executionTips: ["Codo apoyado en muslo", "Contracción máxima"] },
-      common: { videoUrl: "https://www.youtube.com/embed/0AUGkch3tzc", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["BICEPS"] }
-    },
-    {
-      [Language.PT]: { id: "ar4", name: "Tríceps Pulley Corda", description: "Foco na porção lateral do tríceps.", executionTips: ["Abra a corda no final do movimento"] },
-      [Language.EN]: { id: "ar4", name: "Tricep Pushdown Rope", description: "Focus on lateral tricep head.", executionTips: ["Open rope at the bottom"] },
-      [Language.ES]: { id: "ar4", name: "Tríceps Polea Cuerda", description: "Foco en la cabeza lateral.", executionTips: ["Abre la cuerda al final"] },
-      common: { videoUrl: "https://www.youtube.com/embed/6Fzep104f0s", muscleGroup: "ARMS", sets: 3, reps: "15", tags: ["TRICEPS"] }
-    },
-    {
-      [Language.PT]: { id: "ar5", name: "Tríceps Testa", description: "Trabalho de massa e potência do tríceps.", executionTips: ["Cotovelos fechados", "Desça a barra até a testa"] },
-      [Language.EN]: { id: "ar5", name: "Skull Crushers", description: "Mass and power work for triceps.", executionTips: ["Keep elbows in", "Lower bar to forehead"] },
-      [Language.ES]: { id: "ar5", name: "Press Francés", description: "Trabajo de masa y potencia.", executionTips: ["Codos cerrados", "Barra a la frente"] },
-      common: { videoUrl: "https://www.youtube.com/embed/d_KZx7p6N-Y", muscleGroup: "ARMS", sets: 3, reps: "12", tags: ["TRICEPS"] }
-    },
-    {
-      [Language.PT]: { id: "ar6", name: "Tríceps Coice", description: "Isolamento da cabeça longa do tríceps.", executionTips: ["Braço paralelo ao chão", "Estenda totalmente"] },
-      [Language.EN]: { id: "ar6", name: "Tricep Kickbacks", description: "Isolation of the long head.", executionTips: ["Arm parallel to floor", "Extend fully"] },
-      [Language.ES]: { id: "ar6", name: "Patada de Tríceps", description: "Aislamiento de cabeza larga.", executionTips: ["Brazo paralelo al suelo", "Extiende total"] },
-      common: { videoUrl: "https://www.youtube.com/embed/6SS6K3lAwZ8", muscleGroup: "ARMS", sets: 3, reps: "15", tags: ["TRICEPS"] }
     }
   ],
   GLUTES: [
@@ -213,18 +77,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "gl1", name: "Hip Thrust", description: "Maximum focus on gluteus maximus.", executionTips: ["Chin to chest", "Hold 1s at top"] },
       [Language.ES]: { id: "gl1", name: "Empuje de Cadera", description: "Foco máximo en glúteo mayor.", executionTips: ["Barbilla al pecho", "Aguanta 1s arriba"] },
       common: { videoUrl: "https://www.youtube.com/embed/SEdqBc_z_Yw", muscleGroup: "GLUTES", sets: 4, reps: "10", tags: ["POWER"] }
-    },
-    {
-      [Language.PT]: { id: "gl2", name: "Glúteo Coice Cabo", description: "Isolamento e definição.", executionTips: ["Coluna neutra", "Estenda a perna para trás"] },
-      [Language.EN]: { id: "gl2", name: "Cable Glute Kickback", description: "Isolation and definition.", executionTips: ["Neutral spine", "Extend leg backward"] },
-      [Language.ES]: { id: "gl2", name: "Patada Glúteo Polea", description: "Aislamiento y definición.", executionTips: ["Columna neutra", "Extiende pierna atrás"] },
-      common: { videoUrl: "https://www.youtube.com/embed/SJ1Xuz9D-ZQ", muscleGroup: "GLUTES", sets: 3, reps: "15", tags: ["ISOLATION"] }
-    },
-    {
-      [Language.PT]: { id: "gl3", name: "Abdução de Quadril", description: "Foco no glúteo médio (estabilidade).", executionTips: ["Coluna reta", "Afaste as pernas contra resistência"] },
-      [Language.EN]: { id: "gl3", name: "Hip Abduction", description: "Focus on gluteus medius (stability).", executionTips: ["Back straight", "Push legs outward"] },
-      [Language.ES]: { id: "gl3", name: "Abducción de Cadera", description: "Foco en glúteo medio.", executionTips: ["Espalda recta", "Separa piernas"] },
-      common: { videoUrl: "https://www.youtube.com/embed/YyvSfVjKUH0", muscleGroup: "GLUTES", sets: 3, reps: "20", tags: ["STABILITY"] }
     }
   ],
   CORE: [
@@ -233,24 +85,6 @@ const EXERCISE_CATALOG: Record<string, any[]> = {
       [Language.EN]: { id: "cr1", name: "Plank", description: "Static core stability.", executionTips: ["Aligned body", "Breathe deeply"] },
       [Language.ES]: { id: "cr1", name: "Plancha Abdominal", description: "Estabilidad estática.", executionTips: ["Cuerpo alineado", "Respira profundo"] },
       common: { videoUrl: "https://www.youtube.com/embed/ASdvN_XEl_c", muscleGroup: "CORE", sets: 3, reps: "60s", tags: ["STABILITY"] }
-    },
-    {
-      [Language.PT]: { id: "cr2", name: "Abdominal Infra", description: "Foco na porção inferior do abdômen.", executionTips: ["Não encoste os pés no chão", "Lombar colada no chão"] },
-      [Language.EN]: { id: "cr2", name: "Leg Raises", description: "Focus on lower abs.", executionTips: ["Don't touch feet to floor", "Low back flat"] },
-      [Language.ES]: { id: "cr2", name: "Elevación de Piernas", description: "Foco en abdomen inferior.", executionTips: ["No toques el suelo", "Lumbares pegadas"] },
-      common: { videoUrl: "https://www.youtube.com/embed/l4kQd9eWclE", muscleGroup: "CORE", sets: 3, reps: "15", tags: ["ABS"] }
-    },
-    {
-      [Language.PT]: { id: "cr3", name: "Abdominal Supra", description: "Foco na porção superior do reto abdominal.", executionTips: ["Pense em levar o peito ao umbigo"] },
-      [Language.EN]: { id: "cr3", name: "Standard Crunch", description: "Focus on upper rectus abdominis.", executionTips: ["Think of bringing chest to navel"] },
-      [Language.ES]: { id: "cr3", name: "Crunch Abdominal", description: "Foco en abdomen superior.", executionTips: ["Lleva el pecho al ombligo"] },
-      common: { videoUrl: "https://www.youtube.com/embed/Xyd_fa5zoEU", muscleGroup: "CORE", sets: 3, reps: "20", tags: ["ABS"] }
-    },
-    {
-      [Language.PT]: { id: "cr4", name: "Russian Twist", description: "Foco em oblíquos e rotação.", executionTips: ["Gire o tronco totalmente", "Siga com o olhar"] },
-      [Language.EN]: { id: "cr4", name: "Russian Twist", description: "Focus on obliques and rotation.", executionTips: ["Rotate torso fully", "Follow with eyes"] },
-      [Language.ES]: { id: "cr4", name: "Giro Ruso", description: "Foco en oblicuos y rotación.", executionTips: ["Gira el tronco totalmente", "Sigue con la mirada"] },
-      common: { videoUrl: "https://www.youtube.com/embed/wkD8rjkodUI", muscleGroup: "CORE", sets: 3, reps: "20", tags: ["OBLIQUES"] }
     }
   ],
   BALANCE: [
@@ -281,7 +115,6 @@ const getLocalizedLibrary = (lang: Language): Record<string, Exercise[]> => {
   return lib;
 };
 
-// Logic to generate 5-7 exercises per day based on category
 const generateWeeklySchedule = (profile: UserProfile, lang: Language): WorkoutDay[] => {
   const t = translations[lang] as any;
   const schedule: WorkoutDay[] = [];
@@ -300,29 +133,24 @@ const generateWeeklySchedule = (profile: UserProfile, lang: Language): WorkoutDa
       } else {
         const muscleGroup = dayPlan.type;
         if (muscleGroup === 'FULLBODY') {
-          // Full body: 2 from chest, 2 from back, 2 from legs, 1-2 core
           const chest = currentLib['CHEST']?.slice(0, 2) || [];
-          const back = currentLib['BACK']?.slice(0, 2) || [];
+          const back = currentLib['BACK']?.slice(0, 1) || [];
           const legs = currentLib['LEGS']?.slice(0, 2) || [];
           const core = currentLib['CORE']?.slice(0, 1) || [];
           dailyExercises = [...chest, ...back, ...legs, ...core];
         } else if (muscleGroup === 'CHEST') {
-          // Chest day: 4-5 chest + 2-3 shoulders (as requested)
           const chest = currentLib['CHEST']?.slice(0, 5) || [];
           const shoulders = currentLib['SHOULDERS']?.slice(0, 2) || [];
           dailyExercises = [...chest, ...shoulders];
         } else if (muscleGroup === 'LEGS') {
-          // Legs day: 5 legs + 1-2 glutes (as requested)
           const legs = currentLib['LEGS']?.slice(0, 5) || [];
           const glutes = currentLib['GLUTES']?.slice(0, 2) || [];
           dailyExercises = [...legs, ...glutes];
         } else if (muscleGroup === 'ARMS') {
-          // Arms day: 3 biceps + 3 triceps (as requested)
-          const biceps = currentLib['ARMS']?.filter(ex => ex.tags?.includes('BICEPS')).slice(0, 3) || [];
-          const triceps = currentLib['ARMS']?.filter(ex => ex.tags?.includes('TRICEPS')).slice(0, 3) || [];
+          const biceps = currentLib['ARMS']?.slice(0, 3) || [];
+          const triceps = currentLib['ARMS']?.slice(3, 6) || [];
           dailyExercises = [...biceps, ...triceps];
         } else {
-          // Default: Up to 7 exercises from specified group
           const pool = currentLib[muscleGroup];
           if (pool) dailyExercises = [...pool].slice(0, 7);
         }
@@ -338,6 +166,18 @@ const PRESETS: Record<string, Record<string, DayPlan>> = {
   STRENGTH_SPLIT: { mon: { type: 'CHEST' }, tue: { type: 'BACK' }, wed: { type: 'REST' }, thu: { type: 'LEGS' }, fri: { type: 'REST' }, sat: { type: 'ARMS' }, sun: { type: 'REST' } }
 };
 
+const getTrialStatus = (startDate: string) => {
+  const start = new Date(startDate).getTime();
+  const now = new Date().getTime();
+  const diff = now - start;
+  const daysPassed = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const remaining = TRIAL_DAYS - daysPassed;
+  return {
+    isExpired: remaining <= 0,
+    remainingDays: Math.max(0, remaining)
+  };
+};
+
 const App: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(() => {
     const saved = localStorage.getItem('myfitroute_profile');
@@ -346,8 +186,9 @@ const App: React.FC = () => {
   
   const [lang, setLang] = useState<Language>(profile?.language || Language.PT);
   const [theme, setTheme] = useState<Theme>(profile?.theme || 'dark');
-  const [view, setView] = useState<'home' | 'workout' | 'schedule' | 'ai' | 'profile'>('home');
+  const [view, setView] = useState<'home' | 'workout' | 'schedule' | 'ai' | 'profile' | 'checkout' | 'longevity'>('home');
   const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [isEditingSchedule, setIsEditingSchedule] = useState(false);
   const [aiQuery, setAiQuery] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false);
@@ -373,14 +214,37 @@ const App: React.FC = () => {
   }, [schedule]);
 
   const activeWorkoutDay = useMemo(() => {
-    if (selectedDayId) return schedule.find(d => d.id === selectedDayId) || currentDayWorkout;
+    if (!schedule.length) return null;
+    if (selectedDayId) {
+      return schedule.find(d => d.id === selectedDayId) || currentDayWorkout;
+    }
     return currentDayWorkout;
-  }, [selectedDayId, schedule, currentDayWorkout]);
+  }, [schedule, selectedDayId, currentDayWorkout]);
+
+  const trialStatus = useMemo(() => {
+    if (!profile) return { isExpired: false, remainingDays: 7 };
+    return getTrialStatus(profile.trialStartDate);
+  }, [profile]);
 
   const saveProfile = (newProfile: UserProfile) => {
     setProfile(newProfile);
     localStorage.setItem('myfitroute_profile', JSON.stringify(newProfile));
     setIsEditingProfile(false);
+  };
+
+  const purchasePass = () => {
+    if (!profile) return;
+    saveProfile({ ...profile, hasPass: true });
+    setView('home');
+  };
+
+  const handleStartJourney = () => {
+    if (!profile?.hasPass && trialStatus.isExpired) {
+      setView('checkout');
+    } else {
+      setSelectedDayId(null);
+      setView('workout');
+    }
   };
 
   const toggleTheme = () => {
@@ -399,9 +263,50 @@ const App: React.FC = () => {
   const handleRemoveExercise = (dayId: string, exId: string) => {
     if (!profile) return;
     const newSchedule = { ...profile.customSchedule };
-    const dayPlan = newSchedule[dayId];
-    let currentIds = dayPlan.customExerciseIds || (EXERCISE_CATALOG[dayPlan.type] || []).map(e => e[Language.EN].id);
+    const dayPlan = { ...newSchedule[dayId] };
+    
+    let currentIds = dayPlan.customExerciseIds;
+    if (!currentIds) {
+      // If no custom IDs, use the generated ones based on type
+      const generated = (EXERCISE_CATALOG[dayPlan.type] || []).map(e => e[Language.EN].id);
+      currentIds = generated;
+    }
+    
     newSchedule[dayId] = { ...dayPlan, customExerciseIds: currentIds.filter(id => id !== exId) };
+    saveProfile({ ...profile, customSchedule: newSchedule });
+  };
+
+  const handleAddRandomExercise = (dayId: string) => {
+    if (!profile) return;
+    const groups = Object.keys(EXERCISE_CATALOG);
+    const randomGroup = groups[Math.floor(Math.random() * groups.length)];
+    const exercises = EXERCISE_CATALOG[randomGroup];
+    const randomEx = exercises[Math.floor(Math.random() * exercises.length)];
+    const exId = randomEx[Language.EN].id;
+
+    const newSchedule = { ...profile.customSchedule };
+    const dayPlan = { ...newSchedule[dayId] };
+    const currentIds = dayPlan.customExerciseIds || (EXERCISE_CATALOG[dayPlan.type] || []).map(e => e[Language.EN].id);
+    
+    if (!currentIds.includes(exId)) {
+      newSchedule[dayId] = { ...dayPlan, customExerciseIds: [...currentIds, exId] };
+      saveProfile({ ...profile, customSchedule: newSchedule });
+    }
+  };
+
+  const handleMoveDay = (index: number, direction: 'up' | 'down') => {
+    if (!profile) return;
+    const newIndex = index + (direction === 'up' ? -1 : 1);
+    if (newIndex < 0 || newIndex >= DAYS_KEYS.length) return;
+
+    const day1 = DAYS_KEYS[index];
+    const day2 = DAYS_KEYS[newIndex];
+
+    const newSchedule = { ...profile.customSchedule };
+    const temp = newSchedule[day1];
+    newSchedule[day1] = newSchedule[day2];
+    newSchedule[day2] = temp;
+
     saveProfile({ ...profile, customSchedule: newSchedule });
   };
 
@@ -454,6 +359,22 @@ const App: React.FC = () => {
       <main className="max-w-md mx-auto p-4 md:p-6 space-y-6">
         {view === 'home' && (
           <div className="space-y-6 animate-in fade-in duration-300">
+            {!profile.hasPass && (
+              <div className={`rounded-2xl p-4 flex items-center justify-between shadow-lg border-2 ${trialStatus.isExpired ? 'bg-red-500/10 border-red-500/40 text-red-500' : 'bg-amber-500/10 border-amber-500/40 text-amber-500'}`}>
+                <div className="flex items-center gap-3">
+                  {trialStatus.isExpired ? <Lock size={20} /> : <Clock size={20} />}
+                  <span className="font-bold text-sm">
+                    {trialStatus.isExpired ? "Trial Expired" : `${trialStatus.remainingDays} Days Trial Remaining`}
+                  </span>
+                </div>
+                {!trialStatus.isExpired && (
+                  <button onClick={() => setView('checkout')} className="text-xs font-black uppercase tracking-widest bg-amber-500 text-slate-900 px-3 py-1.5 rounded-full shadow-md">
+                    Upgrade
+                  </button>
+                )}
+              </div>
+            )}
+
             <section className="bg-gradient-to-br from-indigo-700 via-indigo-600 to-violet-700 rounded-3xl p-7 text-white shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 opacity-10">
                 <Flame size={120} />
@@ -468,10 +389,10 @@ const App: React.FC = () => {
                   <p className="text-xl font-bold">{currentDayWorkout?.title}</p>
                 </div>
                 <button 
-                  onClick={() => { setSelectedDayId(null); setView('workout'); }}
-                  className="w-full bg-white text-indigo-700 py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 hover:bg-indigo-50"
+                  onClick={handleStartJourney}
+                  className={`w-full bg-white text-indigo-700 py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 hover:bg-indigo-50 ${trialStatus.isExpired && !profile.hasPass ? 'opacity-50' : ''}`}
                 >
-                  <Play fill="currentColor" size={20} />
+                  {trialStatus.isExpired && !profile.hasPass ? <Lock size={20} /> : <Play fill="currentColor" size={20} />}
                   {t.startJourney.toUpperCase()}
                 </button>
               </div>
@@ -485,43 +406,93 @@ const App: React.FC = () => {
                 <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">{t.weeklySchedule}</p>
                 <p className={`text-sm font-black ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>Full Week</p>
               </button>
-              <button onClick={() => setView('profile')} className={`${cardClasses} p-5 rounded-2xl border shadow-sm flex flex-col items-center text-center hover:bg-orange-500/5 transition-colors`}>
-                <div className="w-10 h-10 bg-orange-500/10 rounded-full flex items-center justify-center mb-3">
-                  <Target className="text-orange-500" size={20} />
+              <button onClick={() => setView('longevity')} className={`${cardClasses} p-5 rounded-2xl border shadow-sm flex flex-col items-center text-center hover:bg-rose-500/5 transition-colors`}>
+                <div className="w-10 h-10 bg-rose-500/10 rounded-full flex items-center justify-center mb-3">
+                  <HeartPulse className="text-rose-500" size={20} />
                 </div>
-                <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">{t.editNeeds}</p>
-                <p className={`text-sm font-black ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>Routine</p>
+                <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-1">{t.healthQuotient}</p>
+                <p className={`text-sm font-black ${theme === 'dark' ? 'text-slate-200' : 'text-slate-800'}`}>85/100</p>
               </button>
             </div>
           </div>
         )}
 
+        {view === 'longevity' && (
+          <LongevityView theme={theme} lang={lang} />
+        )}
+
+        {view === 'checkout' && (
+          <CheckoutView onPurchase={purchasePass} onBack={() => setView('home')} theme={theme} />
+        )}
+
         {view === 'schedule' && (
           <div className="space-y-6 animate-in slide-in-from-left-4 duration-400">
-            <button onClick={() => setView('home')} className={`flex items-center gap-2 font-bold text-sm ${cardClasses} px-4 py-2 rounded-full border shadow-sm`}>
-              <ChevronLeft size={18} /> Back
-            </button>
-            <h2 className="text-2xl font-black text-indigo-500 px-2">{t.weeklySchedule}</h2>
-            <div className="grid gap-3">
-              {schedule.map(day => (
-                <button 
+            <div className="flex justify-between items-center px-2">
+              <button onClick={() => { setView('home'); setIsEditingSchedule(false); }} className={`flex items-center gap-2 font-bold text-sm ${cardClasses} px-4 py-2 rounded-full border shadow-sm`}>
+                <ChevronLeft size={18} /> Back
+              </button>
+              <button 
+                onClick={() => setIsEditingSchedule(!isEditingSchedule)} 
+                className={`flex items-center gap-2 font-black text-xs uppercase tracking-widest px-6 py-2 rounded-full border shadow-md transition-all ${isEditingSchedule ? 'bg-green-500 text-white border-green-600' : 'bg-indigo-600 text-white border-indigo-700'}`}
+              >
+                {isEditingSchedule ? <><Save size={14} /> {t.plan.save}</> : <><Settings size={14} /> {t.plan.edit}</>}
+              </button>
+            </div>
+
+            <div className="px-2">
+              <h2 className="text-2xl font-black text-indigo-500">{t.plan.title}</h2>
+              <p className="text-xs font-bold opacity-50 uppercase tracking-widest">{t.plan.subtitle}</p>
+            </div>
+
+            <div className="grid gap-4">
+              {schedule.map((day, idx) => (
+                <div 
                   key={day.id}
-                  onClick={() => { setSelectedDayId(day.id); setView('workout'); }}
-                  className={`w-full flex items-center justify-between p-5 rounded-3xl border transition-all ${day.isRestDay ? 'opacity-50' : ''} ${cardClasses} hover:border-indigo-500`}
+                  className={`w-full rounded-3xl border transition-all ${day.isRestDay && !isEditingSchedule ? 'opacity-50' : ''} ${cardClasses} p-5 relative`}
                 >
-                  <div className="flex items-center gap-4 text-left">
-                    <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center font-black text-xs uppercase text-indigo-500">
-                      {day.dayName.slice(0, 3)}
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center font-black text-xs uppercase text-indigo-500 shrink-0">
+                        {day.dayName.slice(0, 3)}
+                      </div>
+                      <div>
+                        <h4 className="font-black tracking-tight text-lg">{day.title}</h4>
+                        <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
+                          {day.isRestDay ? t.rest : `${day.exercises.length} Exercises`}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-black tracking-tight">{day.title}</h4>
-                      <p className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
-                        {day.isRestDay ? t.rest : `${day.exercises.length} Exercises`}
-                      </p>
-                    </div>
+
+                    {isEditingSchedule ? (
+                      <div className="flex items-center gap-1">
+                        <button onClick={() => handleMoveDay(idx, 'up')} disabled={idx === 0} className="p-2 hover:bg-slate-500/10 rounded-full disabled:opacity-20"><ChevronUp size={20} /></button>
+                        <button onClick={() => handleMoveDay(idx, 'down')} disabled={idx === DAYS_KEYS.length - 1} className="p-2 hover:bg-slate-500/10 rounded-full disabled:opacity-20"><ChevronDown size={20} /></button>
+                      </div>
+                    ) : (
+                      !day.isRestDay && <button onClick={() => { setSelectedDayId(day.id); setView('workout'); }} className="p-2 hover:bg-indigo-500/10 rounded-full"><ChevronRight size={24} className="text-indigo-500" /></button>
+                    )}
                   </div>
-                  {!day.isRestDay && <ChevronRight size={20} className="text-slate-400" />}
-                </button>
+
+                  {isEditingSchedule && !day.isRestDay && (
+                    <div className="mt-4 space-y-2 border-t border-slate-700/30 pt-4">
+                      {day.exercises.map(ex => (
+                        <div key={ex.id} className="flex items-center justify-between bg-slate-500/5 p-3 rounded-2xl border border-slate-500/10">
+                          <div className="flex items-center gap-3">
+                            <Check size={14} className="text-indigo-500" />
+                            <span className="text-xs font-black">{ex.name}</span>
+                          </div>
+                          <button onClick={() => handleRemoveExercise(day.id, ex.id)} className="text-red-500 p-1 hover:bg-red-500/10 rounded-full"><Trash2 size={16} /></button>
+                        </div>
+                      ))}
+                      <button 
+                        onClick={() => handleAddRandomExercise(day.id)} 
+                        className="w-full mt-2 flex items-center justify-center gap-2 py-3 border-2 border-dashed border-indigo-500/30 rounded-2xl text-[10px] font-black uppercase tracking-widest text-indigo-500 hover:bg-indigo-500/5 transition-all"
+                      >
+                        <Plus size={14} /> {t.plan.addExercise}
+                      </button>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>
@@ -550,7 +521,7 @@ const App: React.FC = () => {
             </div>
 
             {activeWorkoutDay.exercises.map((ex) => (
-              <div key={ex.id} className={`${cardClasses} rounded-3xl border p-5 shadow-sm space-y-4 relative group`}>
+              <div key={ex.id} className={`${cardClasses} rounded-3xl border p-5 shadow-sm space-y-5 relative group`}>
                 <button onClick={() => handleRemoveExercise(activeWorkoutDay.id, ex.id)} className="absolute top-4 right-4 text-slate-400 hover:text-red-500 p-2 transition-colors z-10">
                   <Trash2 size={20} />
                 </button>
@@ -565,9 +536,30 @@ const App: React.FC = () => {
                     {ex.sets} × {ex.reps}
                   </div>
                 </div>
-                <div className="aspect-video bg-slate-900 rounded-2xl overflow-hidden relative border-4 border-indigo-500/10">
+
+                <div className="aspect-video bg-slate-900 rounded-2xl overflow-hidden relative border-4 border-indigo-500/10 shadow-lg">
                   <iframe className="w-full h-full opacity-90 hover:opacity-100 transition-opacity" src={ex.videoUrl} title={ex.name} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 to-transparent p-4 flex justify-between items-end pointer-events-none">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded w-fit">
+                        {ex.tags?.[0] || 'STRENGTH'}
+                      </span>
+                      <p className="text-white font-black text-sm truncate max-w-[150px]">{ex.name}</p>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-2xl p-3 flex items-center justify-between">
+                    <span className="text-[9px] font-black uppercase text-slate-400">{t.repsDuration}</span>
+                    <span className="text-xs font-black text-indigo-500">{ex.reps}</span>
+                  </div>
+                  <div className="bg-orange-500/5 border border-orange-500/10 rounded-2xl p-3 flex items-center justify-between">
+                    <span className="text-[9px] font-black uppercase text-slate-400">{t.avgKcal}</span>
+                    <span className="text-xs font-black text-orange-500">42 kcal</span>
+                  </div>
+                </div>
+
                 <div className={`${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'} rounded-2xl p-4 space-y-3`}>
                   <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest">{t.executionPriority}</h5>
                   <p className="text-sm font-medium opacity-80">{ex.description}</p>
@@ -579,6 +571,27 @@ const App: React.FC = () => {
                       <span>{tip}</span>
                     </div>
                   ))}
+                </div>
+
+                <div className="bg-indigo-600/5 border-l-4 border-indigo-600 p-4 rounded-r-2xl space-y-2">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Lightbulb size={16} className="text-indigo-500" />
+                    <h5 className="text-xs font-black uppercase tracking-wider text-indigo-600">{t.coachTips}</h5>
+                  </div>
+                  <ul className="space-y-1">
+                    <li className="text-xs font-medium opacity-70 flex gap-2">
+                      <span className="text-indigo-500">•</span>
+                      Maintain absolute core tension throughout the range of motion.
+                    </li>
+                    <li className="text-xs font-medium opacity-70 flex gap-2">
+                      <span className="text-indigo-500">•</span>
+                      Exhale slowly on the concentric (effort) phase.
+                    </li>
+                    <li className="text-xs font-medium opacity-70 flex gap-2">
+                      <span className="text-indigo-500">•</span>
+                      Pause for 1s at the peak contraction point to maximize muscle recruitment.
+                    </li>
+                  </ul>
                 </div>
               </div>
             ))}
@@ -637,6 +650,14 @@ const App: React.FC = () => {
                     <span className="text-slate-400 font-bold uppercase tracking-wider text-xs">{t.selectMembership}</span>
                     <div className="flex items-center gap-2 text-indigo-500 font-black"><ShieldCheck size={16} />{profile.membership}</div>
                   </div>
+                  {!profile.hasPass && (
+                    <div className="p-5 flex justify-between items-center">
+                      <span className="text-slate-400 font-bold uppercase tracking-wider text-xs">Trial</span>
+                      <span className={`font-black ${trialStatus.isExpired ? 'text-red-500' : 'text-amber-500'}`}>
+                        {trialStatus.isExpired ? 'Expired' : `${trialStatus.remainingDays} Days Left`}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <button onClick={handleReset} className="w-full bg-red-500/10 text-red-500 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all border border-red-500/20 flex items-center justify-center gap-2"><RotateCcw size={18} />{t.resetProfile}</button>
@@ -651,7 +672,7 @@ const App: React.FC = () => {
           <div className={`${theme === 'dark' ? 'bg-slate-800' : 'bg-white'} w-full max-w-md rounded-[40px] p-6 space-y-6 shadow-2xl animate-in slide-in-from-bottom duration-300 border-t border-indigo-500/30`}>
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-xl font-black">Add Exercise</h3>
+                <h3 className="text-xl font-black">{t.plan.addExercise}</h3>
                 <p className="text-xs opacity-50 font-bold">Selecting for {t[isAddingExercise.day]}</p>
               </div>
               <button onClick={() => setIsAddingExercise(null)} className="p-2 hover:bg-slate-500/10 rounded-full"><X size={24} /></button>
@@ -669,19 +690,173 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <nav className={`fixed bottom-0 left-0 right-0 ${theme === 'dark' ? 'bg-slate-800 border-slate-700' : 'bg-white border-t'} px-8 py-4 flex justify-between items-center shadow-lg max-w-md mx-auto z-30 rounded-t-[40px]`}>
+      <nav className={`fixed bottom-0 left-0 right-0 ${theme === 'dark' ? 'bg-slate-800 border-slate-700' : 'bg-white border-t'} px-6 py-4 flex justify-between items-center shadow-lg max-w-md mx-auto z-30 rounded-t-[40px]`}>
         {[
           { id: 'home', icon: Flame, label: 'Home' },
           { id: 'schedule', icon: LayoutList, label: 'Plan' },
+          { id: 'longevity', icon: HeartPulse, label: 'Vital' },
           { id: 'ai', icon: Activity, label: 'Coach' },
           { id: 'profile', icon: User, label: 'Me' }
         ].map(item => (
           <button key={item.id} onClick={() => setView(item.id as any)} className={`flex flex-col items-center gap-1 transition-all ${view === item.id ? 'text-indigo-500 scale-110' : 'opacity-30'}`}>
-            <div className={view === item.id ? 'bg-indigo-500/10 p-2 rounded-2xl' : ''}><item.icon size={24} /></div>
-            <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
+            <div className={view === item.id ? 'bg-indigo-500/10 p-2 rounded-2xl' : ''}><item.icon size={22} /></div>
+            <span className="text-[9px] font-black uppercase tracking-widest">{item.label}</span>
           </button>
         ))}
       </nav>
+    </div>
+  );
+};
+
+const LongevityView: React.FC<{ theme: Theme, lang: Language }> = ({ theme, lang }) => {
+  const t = translations[lang] as any;
+  const cardClasses = theme === 'dark' ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200';
+  
+  return (
+    <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-400 pb-10">
+      <div className="flex items-center gap-3 px-2">
+        <div className="w-12 h-12 bg-rose-500/10 rounded-2xl flex items-center justify-center text-rose-500 shadow-sm">
+          <HeartPulse size={28} />
+        </div>
+        <div>
+          <h2 className="text-2xl font-black leading-tight">{t.longevity}</h2>
+          <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t.insights}</p>
+        </div>
+      </div>
+
+      <section className="bg-gradient-to-br from-indigo-600 via-indigo-500 to-indigo-700 rounded-[40px] p-8 text-white shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-4 opacity-5 rotate-12"><Fingerprint size={180} /></div>
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <p className="text-indigo-100 text-[10px] font-black uppercase tracking-widest mb-2">{t.healthQuotient}</p>
+          <div className="relative w-32 h-32 flex items-center justify-center mb-4">
+            <svg className="absolute w-full h-full -rotate-90">
+              <circle cx="64" cy="64" r="58" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8" />
+              <circle 
+                cx="64" cy="64" r="58" fill="none" stroke="white" strokeWidth="8" 
+                strokeDasharray={`${(85 / 100) * 364} 364`} strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-4xl font-black">85</span>
+          </div>
+          <p className="text-sm font-medium opacity-90 max-w-[200px]">
+            Excellent metabolic and physical state. Consistency is paying off.
+          </p>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className={`${cardClasses} p-5 rounded-3xl border shadow-sm flex flex-col gap-3`}>
+          <div className="w-10 h-10 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500"><TrendingUp size={20} /></div>
+          <div>
+            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t.biologicalAge}</p>
+            <p className="text-xl font-black">28.5</p>
+          </div>
+        </div>
+        <div className={`${cardClasses} p-5 rounded-3xl border shadow-sm flex flex-col gap-3`}>
+          <div className="w-10 h-10 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500"><Target size={20} /></div>
+          <div>
+            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t.mobilityScore}</p>
+            <p className="text-xl font-black">92%</p>
+          </div>
+        </div>
+        <div className={`${cardClasses} p-5 rounded-3xl border shadow-sm flex flex-col gap-3`}>
+          <div className="w-10 h-10 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500"><Zap size={20} /></div>
+          <div>
+            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t.recoveryIndex}</p>
+            <p className="text-xl font-black">78/100</p>
+          </div>
+        </div>
+        <div className={`${cardClasses} p-5 rounded-3xl border shadow-sm flex flex-col gap-3`}>
+          <div className="w-10 h-10 bg-rose-500/10 rounded-2xl flex items-center justify-center text-rose-500"><Calendar size={20} /></div>
+          <div>
+            <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t.consistency}</p>
+            <p className="text-xl font-black">14 Days</p>
+          </div>
+        </div>
+      </div>
+
+      <div className={`${cardClasses} p-6 rounded-[35px] border shadow-sm space-y-4`}>
+        <div className="flex items-center gap-2">
+          <Lightbulb size={18} className="text-indigo-500" />
+          <h3 className="text-sm font-black uppercase tracking-widest">{t.recentInsights}</h3>
+        </div>
+        <div className="bg-green-500/10 p-4 rounded-2xl flex items-center gap-3">
+          <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white shadow-sm">
+            <Check size={18} />
+          </div>
+          <span className="text-sm font-black">{t.hipMobilityImproved}</span>
+        </div>
+      </div>
+
+      <div className={`${cardClasses} p-6 rounded-[35px] border shadow-sm space-y-4`}>
+        <div className="flex items-center gap-2">
+          <Activity size={18} className="text-indigo-500" />
+          <h3 className="text-sm font-black uppercase tracking-widest">{t.tips}</h3>
+        </div>
+        <div className="space-y-3">
+          {[
+            "Focus on eccentric phase to protect joints.",
+            "Hydration is at 70% target. Increase water intake.",
+            "Consistency in mobility training is key for longevity."
+          ].map((tip, i) => (
+            <div key={i} className="flex gap-3 text-sm font-medium opacity-70">
+              <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mt-1.5 shrink-0" />
+              <span>{tip}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CheckoutView: React.FC<{ onPurchase: () => void, onBack: () => void, theme: Theme }> = ({ onPurchase, onBack, theme }) => {
+  return (
+    <div className="space-y-8 animate-in zoom-in-95 duration-300 py-4">
+      <header className="flex items-center justify-between">
+        <button onClick={onBack} className="p-2 rounded-full hover:bg-indigo-500/10"><ChevronLeft size={24} /></button>
+        <h2 className="text-xl font-black uppercase tracking-widest">Premium Pass</h2>
+        <div className="w-10"></div>
+      </header>
+
+      <div className="bg-gradient-to-br from-indigo-600 to-violet-700 p-8 rounded-[40px] text-white shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-4 opacity-10 rotate-12"><Trophy size={160} /></div>
+        <span className="bg-white/20 text-[10px] font-black uppercase px-3 py-1 rounded-full mb-4 inline-block">Lifetime Membership</span>
+        <h3 className="text-4xl font-black mb-2">Unlock Your Best Self</h3>
+        <p className="text-indigo-100 font-medium mb-8">Get full access to all specialized routines and the MyFitRoute AI Coach.</p>
+        
+        <div className="space-y-4 mb-8">
+          {[
+            { icon: Dumbbell, text: "60+ Localized Exercises" },
+            { icon: Activity, text: "AI Movement Insight" },
+            { icon: ShieldCheck, text: "Longevity Focused Tracking" },
+            { icon: LayoutList, text: "Custom Multi-Group Schedules" }
+          ].map((feat, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <div className="bg-white/10 p-2 rounded-xl"><feat.icon size={18} /></div>
+              <span className="font-bold text-sm">{feat.text}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-end gap-2 mb-8">
+          <span className="text-4xl font-black">$29.99</span>
+          <span className="text-indigo-200 font-bold mb-1 opacity-60">one-time payment</span>
+        </div>
+
+        <button 
+          onClick={onPurchase}
+          className="w-full bg-white text-indigo-700 py-5 rounded-3xl font-black text-xl shadow-xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
+        >
+          <ShoppingCart size={24} />
+          PURCHASE PASS
+        </button>
+      </div>
+
+      <p className="text-center text-xs font-bold opacity-40 px-8">
+        Your purchase supports the development of science-based fitness tools for everyone. 
+        Secure encrypted payment.
+      </p>
     </div>
   );
 };
@@ -708,7 +883,7 @@ const ProfileEditor: React.FC<{ profile: UserProfile, onSave: (p: UserProfile) =
         <div className="space-y-2"><label className="text-xs font-black uppercase tracking-widest text-slate-400 px-1">Display Name</label>
         <input value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className={`w-full ${inputClasses} border-2 rounded-2xl p-4 focus:border-indigo-600 outline-none transition-all font-bold shadow-sm`} /></div>
         <div className="space-y-3">
-          <label className="text-xs font-black uppercase tracking-widest text-slate-400 px-1">Weekly Plan</label>
+          <label className="text-xs font-black uppercase tracking-widest text-slate-400 px-1">{t.plan.title}</label>
           <div className="space-y-2">
             {DAYS_KEYS.map(dayKey => (
               <div key={dayKey} className="flex gap-2 items-center">
@@ -721,7 +896,7 @@ const ProfileEditor: React.FC<{ profile: UserProfile, onSave: (p: UserProfile) =
           </div>
         </div>
       </div>
-      <button onClick={() => onSave(formData)} className="w-full bg-indigo-600 text-white py-5 rounded-[25px] font-black text-xl shadow-xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-3 active:scale-95"><Save size={24} /> SAVE</button>
+      <button onClick={() => onSave(formData)} className="w-full bg-indigo-600 text-white py-5 rounded-[25px] font-black text-xl shadow-xl hover:bg-indigo-700 transition-all flex items-center justify-center gap-3 active:scale-95"><Save size={24} /> {t.plan.save}</button>
     </div>
   );
 };
@@ -731,7 +906,7 @@ const Onboarding: React.FC<{ onComplete: (p: UserProfile) => void, lang: Languag
   const [formData, setFormData] = useState<Partial<UserProfile>>({
     name: '', weight: 70, height: 170, level: ExperienceLevel.BEGINNER, focus: WorkoutFocus.QUALITY, goal: FitnessGoal.STRENGTHEN,
     preference: WorkoutPreference.FULLBODY, membership: MembershipType.DIGITAL, language: lang, theme, customSchedule: PRESETS.LONGEVITY,
-    sessionDuration: 45, subscriptionActive: true, nextBillingDate: '2025-01-01'
+    sessionDuration: 45, subscriptionActive: true, nextBillingDate: '2025-01-01', hasPass: false, trialStartDate: new Date().toISOString()
   });
   const t = translations[lang] as any;
   const themeClasses = theme === 'dark' ? 'bg-slate-900 text-slate-50' : 'bg-slate-50 text-slate-900';
@@ -790,7 +965,7 @@ const Onboarding: React.FC<{ onComplete: (p: UserProfile) => void, lang: Languag
           <div className="space-y-8 text-center py-6">
              <div className="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-4"><ShieldCheck className="text-indigo-600" size={40} /></div>
              <p className="font-black text-2xl">{t.selectMembership}</p>
-             <button onClick={() => onComplete(formData as UserProfile)} className="w-full bg-indigo-600 text-white py-5 rounded-[25px] font-black text-xl shadow-xl mt-10 active:scale-95 transition-transform">FINALIZE</button>
+             <button onClick={() => onComplete({ ...formData, trialStartDate: new Date().toISOString() } as UserProfile)} className="w-full bg-indigo-600 text-white py-5 rounded-[25px] font-black text-xl shadow-xl mt-10 active:scale-95 transition-transform">FINALIZE</button>
           </div>
         )}
       </div>

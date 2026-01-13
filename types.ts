@@ -83,6 +83,8 @@ export interface UserProfile {
   sessionDuration: number;
   subscriptionActive: boolean;
   nextBillingDate: string;
+  hasPass: boolean;
+  trialStartDate: string;
 }
 
 export interface AppState {

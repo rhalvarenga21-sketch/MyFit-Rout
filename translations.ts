@@ -65,7 +65,28 @@ export const translations = {
     themeMode: "Modo de Tema",
     light: "Claro",
     dark: "Escuro",
-    glutes: "Glúteos"
+    glutes: "Glúteos",
+    healthQuotient: "Quociente de Saúde",
+    biologicalAge: "Idade Biológica",
+    mobilityScore: "Mobilidade",
+    recoveryIndex: "Índice de Recuperação",
+    longevityScore: "Pontuação de Longevidade",
+    vitals: "Sinais Vitais",
+    insights: "Percepções de Saúde",
+    consistency: "Consistência",
+    recentInsights: "Percepções Recentes",
+    hipMobilityImproved: "Mobilidade de Quadril Melhorada",
+    repsDuration: "Reps/Duração",
+    avgKcal: "Kcal Méd.",
+    coachTips: "Dicas do Coach",
+    plan: { 
+      title: "Plano de Treino", 
+      subtitle: "Personalize suas rotinas semanais", 
+      edit: "Editar", 
+      save: "Salvar", 
+      addExercise: "Add Exercício", 
+      catalog: "Catálogo" 
+    }
   },
   [Language.EN]: {
     welcome: "Welcome to MyFitRoute",
@@ -130,7 +151,28 @@ export const translations = {
     themeMode: "Theme Mode",
     light: "Light",
     dark: "Dark",
-    glutes: "Glutes"
+    glutes: "Glutes",
+    healthQuotient: "Health Quotient",
+    biologicalAge: "Biological Age",
+    mobilityScore: "Mobility",
+    recoveryIndex: "Recovery Index",
+    longevityScore: "Longevity Score",
+    vitals: "Vitals",
+    insights: "Health Insights",
+    consistency: "Consistency",
+    recentInsights: "Recent Insights",
+    hipMobilityImproved: "Hip Mobility Improved",
+    repsDuration: "Reps/Duration",
+    avgKcal: "Avg Kcal",
+    coachTips: "Coach Tips",
+    plan: { 
+      title: "Training Plan", 
+      subtitle: "Customize your weekly routines", 
+      edit: "Edit", 
+      save: "Save", 
+      addExercise: "Add Exercise", 
+      catalog: "Catalog" 
+    }
   },
   [Language.ES]: {
     welcome: "Bienvenido a MyFitRoute",
@@ -178,7 +220,7 @@ export const translations = {
     tips: "Consejos de Longevidad",
     mon: "Lunes", tue: "Martes", wed: "Miércoles", thu: "Jueves", fri: "Viernes", sat: "Sábado", sun: "Domingo",
     flexibilityMsg: "La vida pasa. Ajusta tu plan sin culpa.",
-    restDay: "Recuperación Activa",
+    restDay: "Recuperación Ativa",
     chest: "Pecho",
     back: "Espalda",
     legs: "Piernas",
@@ -195,6 +237,27 @@ export const translations = {
     themeMode: "Modo de Tema",
     light: "Claro",
     dark: "Oscuro",
-    glutes: "Glúteos"
+    glutes: "Glúteos",
+    healthQuotient: "Cociente de Salud",
+    biologicalAge: "Edad Biológica",
+    mobilityScore: "Movilidad",
+    recoveryIndex: "Índice de Recuperación",
+    longevityScore: "Puntaje de Longevidad",
+    vitals: "Vitales",
+    insights: "Perspectivas de Salud",
+    consistency: "Consistencia",
+    recentInsights: "Perspectivas Recientes",
+    hipMobilityImproved: "Mobilidad de Cadera Mejorada",
+    repsDuration: "Reps/Duración",
+    avgKcal: "Kcal Prom.",
+    coachTips: "Consejos del Coach",
+    plan: { 
+      title: "Plan de Entrenamiento", 
+      subtitle: "Personaliza tus rutinas semanais", 
+      edit: "Editar", 
+      save: "Guardar", 
+      addExercise: "Añadir Ejercicio", 
+      catalog: "Catálogo" 
+    }
   }
 };
