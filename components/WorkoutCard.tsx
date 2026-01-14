@@ -16,16 +16,19 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, lang, onAssig
   const t = translations[lang] as any;
   const isPreset = 'tags' in workout;
 
+  const title = isPreset ? (workout as PresetWorkout).title[lang] : (workout as CustomWorkout).title;
+  const description = isPreset ? (workout as PresetWorkout).description[lang] : (workout as CustomWorkout).description;
+
   return (
     <div className="bg-slate-800 p-5 rounded-[30px] border border-slate-700/50 flex flex-col gap-4 group transition-all hover:border-indigo-500/50 shadow-xl">
       <div className="flex justify-between items-start">
         <div className="space-y-1 flex-1">
-          <h4 className="font-black text-lg leading-tight group-hover:text-indigo-400 transition-colors">
-            {workout.title}
+          <h4 className="font-black text-lg leading-tight group-hover:text-indigo-400 transition-colors uppercase italic tracking-tighter">
+            {title}
           </h4>
           <div className="flex items-center gap-3 text-[10px] font-black opacity-40 uppercase tracking-widest">
-            <span className="flex items-center gap-1"><Clock size={12}/> {isPreset ? workout.duration : '??'} MIN</span>
-            {isPreset && <span className="flex items-center gap-1"><Layers size={12}/> {t.categories[workout.primaryCategory]}</span>}
+            <span className="flex items-center gap-1"><Clock size={12}/> {isPreset ? (workout as PresetWorkout).duration : '??'} MIN</span>
+            {isPreset && <span className="flex items-center gap-1"><Layers size={12}/> {t.categories[(workout as PresetWorkout).primaryCategory]}</span>}
           </div>
         </div>
         <button 
@@ -37,14 +40,13 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout, lang, onAssig
       </div>
 
       <p className="text-xs opacity-50 line-clamp-2 italic leading-relaxed">
-        {workout.description}
+        {description}
       </p>
 
       <div className="flex flex-wrap gap-1.5 mt-auto pt-2 border-t border-slate-700/30">
-        {isPreset && workout.tags.map(tag => (
+        {isPreset && (workout as PresetWorkout).tags.map(tag => (
           <TagChip key={tag} label={tag} lang={lang} />
         ))}
-        {/* Fix: Use WorkoutCategory.CUSTOM enum member instead of string literal "CUSTOM" to resolve type mismatch on line 47 */}
         {!isPreset && <TagChip label={WorkoutCategory.CUSTOM} lang={lang} type="category" />}
       </div>
 

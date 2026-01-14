@@ -29,10 +29,13 @@ export const WorkoutCatalog: React.FC<WorkoutCatalogProps> = ({ lang, profile, o
   ];
 
   const filtered = allWorkouts.filter(w => {
-    const matchesSearch = w.title.toLowerCase().includes(search.toLowerCase());
+    // FIX: Extract title string based on whether it's a preset or custom workout
     const isPreset = 'tags' in w;
-    const matchesTag = !tagFilter || (isPreset && w.tags.includes(tagFilter));
-    const matchesCat = !catFilter || (isPreset && w.primaryCategory === catFilter) || (!isPreset && catFilter === WorkoutCategory.CUSTOM);
+    const titleStr = isPreset ? (w as PresetWorkout).title[lang] : (w as CustomWorkout).title;
+    const matchesSearch = titleStr.toLowerCase().includes(search.toLowerCase());
+    
+    const matchesTag = !tagFilter || (isPreset && (w as PresetWorkout).tags.includes(tagFilter));
+    const matchesCat = !catFilter || (isPreset && (w as PresetWorkout).primaryCategory === catFilter) || (!isPreset && catFilter === WorkoutCategory.CUSTOM);
     return matchesSearch && matchesTag && matchesCat;
   });
 
@@ -94,7 +97,10 @@ export const WorkoutCatalog: React.FC<WorkoutCatalogProps> = ({ lang, profile, o
             <div className="flex justify-between items-center">
               <div className="space-y-1">
                 <h3 className="text-xl font-black uppercase">{t.catalog.selectDay}</h3>
-                <p className="text-[10px] font-black uppercase opacity-40 text-indigo-400">{assigningWorkout.title}</p>
+                {/* FIX: Extract title string based on whether it's a preset or custom workout for ReactNode rendering */}
+                <p className="text-[10px] font-black uppercase opacity-40 text-indigo-400">
+                  {'tags' in assigningWorkout ? (assigningWorkout as PresetWorkout).title[lang] : (assigningWorkout as CustomWorkout).title}
+                </p>
               </div>
               <button onClick={() => setAssigningWorkout(null)} className="p-2 bg-slate-700/50 rounded-full text-slate-400"><X size={20}/></button>
             </div>

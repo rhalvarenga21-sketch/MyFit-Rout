@@ -6,17 +6,17 @@ import {
   Zap, Play, ShieldCheck, ChevronLeft, Send, X,
   LayoutList, Check, HeartPulse, BarChart3, Droplets, Utensils,
   Scale, Ruler, Users, TrendingUp, MoreVertical, Plus,
-  Target, Timer, BookOpen, Layers, AlertCircle, Search
+  Target, Timer, BookOpen, Layers, AlertCircle, Search, Save, Edit3
 } from 'lucide-react';
 import { 
-  Language, UserProfile, DayPlan, UserRole, PresetWorkout, Gender, ActivityLevel, FitnessGoal, ExperienceLevel, CustomWorkout, Exercise
+  Language, UserProfile, DayPlan, UserRole, PresetWorkout, Gender, ActivityLevel, FitnessGoal, ExperienceLevel, CustomWorkout, Exercise, WorkoutCategory, SplitStyle
 } from './types';
 import { translations } from './translations';
 import { EXERCISE_DATABASE, PRESET_WORKOUTS } from './presets';
 import { EXERCISE_LIBRARY } from './data/exercises';
 import { getAIFeedback } from './services/gemini';
 import { WorkoutSummary } from './components/WorkoutSummary';
-import { calculateDailyCalorieTarget, calculateWaterGoal } from './utils/metrics';
+import { calculateDailyCalorieTarget, calculateWaterGoal, calculateBMR, calculateTDEE } from './utils/metrics';
 import { applyTrainingDaysSelection } from './utils/schedule';
 import { TrainingDaysSelector } from './components/TrainingDaysSelector';
 import { WorkoutLibrary } from './components/WorkoutLibrary';
@@ -39,6 +39,7 @@ const App: React.FC = () => {
   const [selectedWorkout, setSelectedWorkout] = useState<PresetWorkout | CustomWorkout | null>(null);
   const [editingDay, setEditingDay] = useState<string | null>(null);
   const [showBuilder, setShowBuilder] = useState(false);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiResp, setAiResp] = useState('');
 
@@ -57,15 +58,12 @@ const App: React.FC = () => {
 
   const resolveWorkout = (dayPlan?: DayPlan): PresetWorkout | CustomWorkout | null => {
     if (!dayPlan || dayPlan.type === 'REST') return null;
-    
     if (dayPlan.workoutSource === 'CUSTOM' && dayPlan.customWorkoutId) {
       return profile?.customWorkouts.find(cw => cw.id === dayPlan.customWorkoutId) || null;
     }
-    
     if (dayPlan.presetWorkoutId) {
       return PRESET_WORKOUTS.find(w => w.id === dayPlan.presetWorkoutId) || null;
     }
-
     return null;
   };
 
@@ -77,10 +75,12 @@ const App: React.FC = () => {
   };
 
   const metrics = useMemo(() => {
-    if (!profile) return { target: 0, labelKey: 'health', water: 0 };
+    if (!profile) return { target: 0, bmr: 0, tdee: 0, labelKey: 'health', water: 0 };
     const calTarget = calculateDailyCalorieTarget(profile);
     return {
       target: calTarget.target,
+      bmr: Math.round(calculateBMR(profile)),
+      tdee: calculateTDEE(profile),
       labelKey: calTarget.labelKey,
       water: calculateWaterGoal(profile.weight)
     };
@@ -91,8 +91,13 @@ const App: React.FC = () => {
   const streak = profile.completedDays.length;
 
   const handleDayToggle = (days: string[]) => {
-    const newSchedule = applyTrainingDaysSelection(profile, days);
+    const newSchedule = applyTrainingDaysSelection(profile, days, profile.splitStyle);
     saveProfile({ ...profile, trainingDays: days, customSchedule: newSchedule });
+  };
+
+  const handleSplitChange = (split: SplitStyle) => {
+    const newSchedule = applyTrainingDaysSelection(profile, profile.trainingDays, split);
+    saveProfile({ ...profile, splitStyle: split, customSchedule: newSchedule });
   };
 
   const handleSaveCustomWorkout = (w: CustomWorkout) => {
@@ -120,13 +125,13 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-50 font-sans pb-24 selection:bg-indigo-500/30">
       <header className="px-6 py-5 bg-slate-800 border-b border-slate-700/50 flex justify-between items-center sticky top-0 z-40">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" onClick={() => setView('home')}>
           <Dumbbell className="text-indigo-500" />
-          <h1 className="font-black text-lg tracking-tighter italic">MY FIT ROUT</h1>
+          <h1 className="font-black text-lg tracking-tighter italic cursor-pointer">MY FIT ROUT</h1>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => setView('b2b')} className="p-2 bg-slate-700 rounded-lg text-slate-400 hover:text-indigo-400"><BarChart3 size={18}/></button>
-          <button onClick={cycleLang} className="bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-lg text-xs font-black uppercase">{lang}</button>
+          <button onClick={() => setView('b2b')} className="p-2 bg-slate-700 rounded-lg text-slate-400 hover:text-indigo-400 transition-colors"><BarChart3 size={18}/></button>
+          <button onClick={cycleLang} className="bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-lg text-xs font-black uppercase transition-all">{lang}</button>
         </div>
       </header>
 
@@ -153,10 +158,13 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <MetricBox icon={Droplets} label={t.profile.water} value={`${metrics.water}ml`} color="text-blue-400" />
-              <div className="relative group">
+              <div className="relative group cursor-help">
                 <MetricBox icon={Utensils} label={t.metrics[metrics.labelKey] || "Target"} value={`${metrics.target}kcal`} color="text-orange-400" />
-                <div className="absolute top-full left-0 right-0 pt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                   <div className="bg-slate-800 p-2 rounded-xl text-[8px] font-black text-indigo-300 border border-slate-700 shadow-xl">{t.plan.hint}</div>
+                <div className="absolute top-full left-0 right-0 pt-2 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                   <div className="bg-slate-800 p-3 rounded-xl text-[10px] font-black text-indigo-300 border border-slate-700 shadow-2xl space-y-1">
+                      <p>{t.plan.hint}</p>
+                      <p className="opacity-50">BMR: {metrics.bmr} | TDEE: {metrics.tdee}</p>
+                   </div>
                 </div>
               </div>
             </div>
@@ -165,17 +173,15 @@ const App: React.FC = () => {
                <h3 className="font-black text-sm uppercase tracking-widest mb-4 flex items-center gap-2 text-slate-400"><Clock size={16}/> {lang === 'PT' ? 'HOJE' : 'TODAY'}</h3>
                {profile.customSchedule[getTodayKey()]?.type === 'WORKOUT' ? (
                  <button onClick={() => {
-                    const dayKey = getTodayKey();
-                    const dayPlan = profile.customSchedule[dayKey];
-                    const workout = resolveWorkout(dayPlan);
+                    const workout = resolveWorkout(profile.customSchedule[getTodayKey()]);
                     if (workout) {
                       setSelectedWorkout(workout);
                       setView('workout_summary');
-                    } else {
-                      alert(lang === 'PT' ? "Treino não encontrado para hoje." : "Workout not found for today.");
                     }
                  }} className="w-full bg-indigo-600 hover:bg-indigo-500 p-5 rounded-2xl flex justify-between items-center shadow-lg transition-colors group">
-                    <span className="font-black">Start Routine</span>
+                    <span className="font-black uppercase tracking-tight">
+                      {resolveWorkout(profile.customSchedule[getTodayKey()])?.title[lang] || "Start Routine"}
+                    </span>
                     <Play size={20} fill="white" className="group-hover:scale-125 transition-transform" />
                  </button>
                ) : (
@@ -187,13 +193,30 @@ const App: React.FC = () => {
 
         {view === 'planning' && (
           <div className="space-y-6 animate-in slide-in-from-bottom-6 pb-20">
-            <h2 className="text-2xl font-black">{t.plan.title}</h2>
+            <h2 className="text-2xl font-black uppercase italic tracking-tighter">{t.plan.title}</h2>
             
             <TrainingDaysSelector 
               lang={lang} 
               selectedDays={profile.trainingDays || []} 
               onChange={handleDayToggle} 
             />
+
+            {profile.trainingDays.length >= 4 && (
+              <div className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 space-y-4">
+                <h3 className="text-[10px] font-black uppercase opacity-40">{t.plan.splitStyle}</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.values(SplitStyle).map(s => (
+                    <button
+                      key={s}
+                      onClick={() => handleSplitChange(s)}
+                      className={`p-3 rounded-xl text-[9px] font-black uppercase border-2 transition-all ${profile.splitStyle === s ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400' : 'border-slate-700 opacity-60'}`}
+                    >
+                      {t.splits[s]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="space-y-3">
               {DAYS.map(day => (
@@ -204,7 +227,7 @@ const App: React.FC = () => {
                          <p className="font-black text-sm">
                            {profile.customSchedule[day]?.type === 'REST' 
                              ? t.plan.rest 
-                             : resolveWorkout(profile.customSchedule[day])?.title || (lang === 'PT' ? "Treino não definido" : "Undefined Workout")
+                             : resolveWorkout(profile.customSchedule[day])?.title[lang] || (lang === 'PT' ? "Treino não definido" : "Undefined Workout")
                            }
                          </p>
                       </div>
@@ -237,18 +260,7 @@ const App: React.FC = () => {
                             saveProfile({ ...profile, customSchedule: newSched });
                             setEditingDay(null);
                          }} className="w-full bg-slate-700/30 p-4 rounded-2xl text-left font-black border-2 border-transparent hover:border-indigo-500 transition-all">
-                            {p.title}
-                         </button>
-                       ))}
-
-                       <h4 className="text-[10px] font-black uppercase opacity-40 px-2 mt-4">Custom</h4>
-                       {profile.customWorkouts.map(w => (
-                         <button key={w.id} onClick={() => {
-                            const newSched = { ...profile.customSchedule, [editingDay as string]: { type: 'WORKOUT', workoutSource: 'CUSTOM', customWorkoutId: w.id } as DayPlan };
-                            saveProfile({ ...profile, customSchedule: newSched });
-                            setEditingDay(null);
-                         }} className="w-full bg-indigo-500/10 p-4 rounded-2xl text-left font-black border-2 border-transparent hover:border-indigo-500 transition-all">
-                            {w.title}
+                            {p.title[lang]}
                          </button>
                        ))}
                     </div>
@@ -270,154 +282,69 @@ const App: React.FC = () => {
           />
         )}
 
-        {view === 'library' && (
-          <WorkoutLibrary 
-            lang={lang} 
-            onAddExercise={() => {
-              setShowBuilder(true);
-            }} 
-          />
-        )}
-
-        {view === 'workout_summary' && selectedWorkout && (
-          <div className="space-y-4">
-            <button onClick={() => setView('catalog')} className="p-3 bg-slate-800 rounded-2xl border border-slate-700 flex items-center gap-2 font-black text-xs opacity-60"><ChevronLeft size={16}/> BACK</button>
-            {'mainBlockIds' in selectedWorkout ? (
-              <WorkoutSummary 
-                workout={selectedWorkout as PresetWorkout} 
-                lang={lang} 
-                onStart={() => setView('workout_active')} 
-              />
-            ) : (
-              <div className="p-10 bg-slate-800 rounded-[40px] text-center space-y-4">
-                 <Layers size={48} className="mx-auto text-indigo-400" />
-                 <h2 className="text-2xl font-black">{selectedWorkout.title}</h2>
-                 <p className="opacity-50 text-sm">Custom workout ready for action.</p>
-                 <button onClick={() => setView('workout_active')} className="w-full bg-indigo-600 py-4 rounded-2xl font-black shadow-xl">START CUSTOM WORKOUT</button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {view === 'workout_active' && selectedWorkout && (
-          <div className="space-y-8 animate-in slide-in-from-right-6 pb-24">
-             <header className="flex justify-between items-center">
-                <h3 className="font-black text-xl italic text-indigo-400 truncate max-w-[70%]">{selectedWorkout.title}</h3>
-                <Timer className="text-indigo-500 animate-pulse" />
-             </header>
-             <div className="space-y-8">
-                {('mainBlockIds' in selectedWorkout ? selectedWorkout.mainBlockIds : selectedWorkout.items.map(i => i.exerciseId)).map(id => {
-                  const ex = EXERCISE_DATABASE.find(e => e.id === id) || EXERCISE_LIBRARY.find(e => e.id === id);
-                  if (!ex) return (
-                    <div key={id} className="bg-slate-800 p-8 rounded-[45px] border border-rose-500/30 flex items-center gap-4">
-                      <AlertCircle className="text-rose-500" />
-                      <p className="text-xs font-black opacity-60">EXERCISE DATA MISSING (ID: {id})</p>
-                    </div>
-                  );
-                  return (
-                    <div key={id} className="bg-slate-800 p-8 rounded-[45px] border border-slate-700/50 space-y-6 shadow-xl">
-                       <div className="flex justify-between items-start">
-                          <div className="space-y-1">
-                            <h4 className="text-2xl font-black leading-tight">{typeof ex.name === 'string' ? ex.name : ex.name[lang]}</h4>
-                            <div className="flex gap-2">
-                               <span className="text-[10px] font-black uppercase bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-full">{ex.muscleGroup}</span>
-                               <span className="text-[10px] font-black uppercase bg-slate-700 text-slate-400 px-3 py-1 rounded-full">{ex.equipment}</span>
-                            </div>
-                          </div>
-                          <div className="bg-indigo-600 px-4 py-2 rounded-2xl font-black text-lg shadow-lg">
-                            {('items' in selectedWorkout) 
-                              ? selectedWorkout.items.find(i => i.exerciseId === id)?.sets + " x " + selectedWorkout.items.find(i => i.exerciseId === id)?.reps 
-                              : ex.sets + " x " + ex.reps
-                            }
-                          </div>
-                       </div>
-                       <div className="aspect-video bg-black rounded-3xl overflow-hidden border border-slate-700 shadow-inner group relative">
-                          <iframe className="w-full h-full opacity-80" src={`https://www.youtube.com/embed/${ex.videoUrl}`} title="Exercise Video" />
-                       </div>
-                       <div className="space-y-4">
-                          <div className="p-5 bg-indigo-500/5 rounded-3xl border border-indigo-500/10 space-y-3">
-                            <p className="text-xs font-black uppercase tracking-widest text-indigo-400 flex items-center gap-2"><ShieldCheck size={16}/> {t.safetyNotes}</p>
-                            <p className="text-sm font-medium opacity-80 leading-relaxed italic">{ex.safetyNotes || "Focus on control and breathing."}</p>
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
-                             {ex.executionTips.map((tip, idx) => (
-                               <div key={idx} className="bg-slate-700/30 p-3 rounded-2xl text-[10px] font-black flex items-center gap-2"><Check size={12} className="text-indigo-400"/> {tip}</div>
-                             ))}
-                          </div>
-                       </div>
-                    </div>
-                  );
-                })}
-             </div>
-             <button onClick={() => {
-                const today = new Date().toISOString().split('T')[0];
-                if (profile && !profile.completedDays.includes(today)) {
-                  saveProfile({ ...profile, completedDays: [...profile.completedDays, today] });
-                }
-                setView('home');
-             }} className="fixed bottom-28 left-5 right-5 max-w-md mx-auto bg-green-500 hover:bg-green-400 py-6 rounded-3xl font-black text-2xl shadow-[0_10px_40px_-10px_rgba(34,197,94,0.5)] active:scale-95 transition-all">
-                FINISH SESSION
-             </button>
-          </div>
-        )}
-
-        {view === 'vital' && (
-          <div className="space-y-6 animate-in fade-in">
-             <h2 className="text-2xl font-black">{t.aiAssistant}</h2>
-             <section className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 flex flex-col h-[65vh] shadow-xl">
-                <div className="flex items-center gap-3 mb-6">
-                   <div className="w-14 h-14 bg-indigo-500 rounded-3xl flex items-center justify-center shadow-lg rotate-3"><ShieldCheck className="text-white" size={32} /></div>
-                   <div>
-                      <p className="font-black text-lg">Vital AI Coach</p>
-                      <p className="text-[10px] font-black uppercase opacity-40 tracking-widest flex items-center gap-1"><Activity size={10}/> Technical Analysis Active</p>
-                   </div>
-                </div>
-                <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 custom-scroll text-sm font-medium">
-                   <div className="bg-indigo-500/5 p-5 rounded-3xl border-l-4 border-indigo-500 text-indigo-100/80 leading-relaxed">
-                      {lang === 'PT' ? `Olá ${profile.name}. Como posso te ajudar?` : `Hello ${profile.name}. How can I help?`}
-                   </div>
-                   {aiResp && <div className="bg-slate-700 p-5 rounded-[30px] rounded-tl-none shadow-lg whitespace-pre-wrap leading-relaxed border border-slate-600/30">{aiResp}</div>}
-                   {aiLoading && <div className="animate-pulse text-indigo-400 font-black text-[10px] uppercase flex items-center gap-2 px-2"><Activity size={12}/> Analyzing bio-data...</div>}
-                </div>
-                <div className="flex gap-2">
-                   <input 
-                    placeholder={t.askAi}
-                    className="flex-1 bg-slate-900 border border-slate-700 p-5 rounded-2xl outline-none focus:border-indigo-500 font-bold text-sm"
-                    onKeyDown={async (e) => {
-                      if (e.key === 'Enter') {
-                        setAiLoading(true);
-                        const val = (e.target as HTMLInputElement).value;
-                        (e.target as HTMLInputElement).value = '';
-                        const res = await getAIFeedback(val, profile, lang);
-                        setAiResp(res);
-                        setAiLoading(false);
-                      }
-                    }}
-                   />
-                   <button className="bg-indigo-600 p-5 rounded-2xl shadow-lg active:scale-90 transition-all hover:bg-indigo-500"><Send size={20}/></button>
-                </div>
-             </section>
-          </div>
-        )}
-
         {view === 'me' && (
           <div className="space-y-6 animate-in slide-in-from-right-6">
-            <h2 className="text-2xl font-black">{t.profile.title}</h2>
-            <div className="bg-slate-800 p-10 rounded-[45px] text-center border border-slate-700/50 shadow-2xl relative overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
-               <div className="w-24 h-24 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-slate-700 shadow-inner"><User size={48} className="text-indigo-500"/></div>
-               <h3 className="text-3xl font-black mb-1">{profile.name}</h3>
-               <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400 bg-indigo-500/10 inline-block px-3 py-1 rounded-full">{profile.level} ATHLETE • {profile.goal}</p>
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-black uppercase italic tracking-tighter">{t.profile.title}</h2>
+              <button 
+                onClick={() => setIsEditingProfile(!isEditingProfile)}
+                className={`p-3 rounded-2xl flex items-center gap-2 font-black text-xs uppercase transition-all ${isEditingProfile ? 'bg-rose-500/10 text-rose-500' : 'bg-indigo-500/10 text-indigo-400'}`}
+              >
+                {isEditingProfile ? <X size={16}/> : <Edit3 size={16}/>}
+                {isEditingProfile ? 'Cancel' : t.profile.edit}
+              </button>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-               <MetricCard icon={Scale} label={t.profile.weight} value={`${profile.weight}kg`} />
-               <MetricCard icon={Ruler} label={t.profile.height} value={`${profile.height}cm`} />
-               <MetricCard icon={Calendar} label={t.profile.age} value={`${profile.age}y`} />
-               <MetricCard icon={Activity} label={t.profile.bmr} value={`${Math.round(metrics.target)}kcal`} />
-               <MetricCard icon={Target} label={t.profile.targetKcal} value={`${metrics.target}kcal`} />
-               <MetricCard icon={Droplets} label={t.profile.water} value={`${metrics.water}ml`} />
-            </div>
-            <button onClick={() => { localStorage.clear(); window.location.reload(); }} className="w-full bg-rose-500/10 text-rose-500 py-5 rounded-3xl font-black text-xs uppercase border border-rose-500/20 hover:bg-rose-500/20 transition-all">Clear Profile & Reset</button>
+
+            {isEditingProfile ? (
+              <div className="bg-slate-800 p-8 rounded-[40px] border border-indigo-500/30 space-y-8 animate-in zoom-in-95 duration-200">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">{t.profile.goal}</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {Object.values(FitnessGoal).map(g => (
+                      <button 
+                        key={g} 
+                        onClick={() => saveProfile({...profile, goal: g})}
+                        className={`p-4 rounded-2xl text-[10px] font-black uppercase border-2 transition-all ${profile.goal === g ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400' : 'border-slate-700 opacity-60'}`}
+                      >
+                        {t.profile.goals[g]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                   <TrainingDaysSelector 
+                    lang={lang} 
+                    selectedDays={profile.trainingDays} 
+                    onChange={handleDayToggle} 
+                   />
+                </div>
+
+                <button 
+                  onClick={() => setIsEditingProfile(false)}
+                  className="w-full bg-indigo-600 py-6 rounded-3xl font-black uppercase tracking-widest shadow-xl flex items-center justify-center gap-2"
+                >
+                  <Save size={20}/> {t.profile.save}
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="bg-slate-800 p-10 rounded-[45px] text-center border border-slate-700/50 shadow-2xl relative overflow-hidden">
+                   <div className="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
+                   <div className="w-24 h-24 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-slate-700 shadow-inner"><User size={48} className="text-indigo-500"/></div>
+                   <h3 className="text-3xl font-black mb-1">{profile.name}</h3>
+                   <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400 bg-indigo-500/10 inline-block px-3 py-1 rounded-full">{t.profile.levels[profile.level]} • {t.profile.goals[profile.goal]}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                   <MetricCard icon={Scale} label={t.profile.weight} value={`${profile.weight}kg`} />
+                   <MetricCard icon={Ruler} label={t.profile.height} value={`${profile.height}cm`} />
+                   <MetricCard icon={Calendar} label={t.profile.age} value={`${profile.age}y`} />
+                   <MetricCard icon={Activity} label={t.profile.bmr} value={`${metrics.bmr}kcal`} hint={t.metrics.bmrHint} />
+                   <MetricCard icon={Target} label={t.profile.targetKcal} value={`${metrics.target}kcal`} hint={t.metrics.tdeeHint} />
+                   <MetricCard icon={Droplets} label={t.profile.water} value={`${metrics.water}ml`} />
+                </div>
+              </>
+            )}
           </div>
         )}
       </main>
@@ -431,14 +358,6 @@ const App: React.FC = () => {
           <NavBtn icon={HeartPulse} label="Vital" active={view === 'vital'} onClick={() => setView('vital')} />
           <NavBtn icon={User} label="Me" active={view === 'me'} onClick={() => setView('me')} />
         </nav>
-      )}
-
-      {showBuilder && (
-        <WorkoutBuilder 
-          lang={lang} 
-          onSave={handleSaveCustomWorkout} 
-          onClose={() => setShowBuilder(false)} 
-        />
       )}
     </div>
   );
@@ -459,17 +378,36 @@ const MetricBox = ({ icon: Icon, label, value, color }: any) => (
   </div>
 );
 
-const MetricCard = ({ icon: Icon, label, value }: any) => (
-  <div className="bg-slate-700/30 p-5 rounded-3xl border border-slate-700/30 flex flex-col items-center text-center group hover:bg-slate-700/50 transition-all">
+const MetricCard = ({ icon: Icon, label, value, hint }: any) => (
+  <div className="bg-slate-700/30 p-5 rounded-3xl border border-slate-700/30 flex flex-col items-center text-center group hover:bg-slate-700/50 transition-all relative overflow-hidden">
     <Icon className="text-indigo-400 mb-2 group-hover:rotate-12 transition-transform" size={20}/>
     <span className="text-[9px] font-black uppercase opacity-40 tracking-widest mb-1">{label}</span>
     <span className="text-sm font-black">{value}</span>
+    {hint && <span className="absolute bottom-1 right-2 text-[6px] font-black opacity-10 uppercase">{hint}</span>}
   </div>
 );
 
 const Onboarding: React.FC<any> = ({ lang, setLang, onComplete }) => {
   const [step, setStep] = useState(0);
-  const [fd, setFd] = useState<any>({ name: '', age: 30, weight: 70, height: 170, gender: Gender.MALE, activityLevel: ActivityLevel.MODERATE, goal: FitnessGoal.HEALTH, level: ExperienceLevel.BEGINNER });
+  const [fd, setFd] = useState<any>({ 
+    name: '', 
+    age: 30, 
+    weight: 70, 
+    height: 170, 
+    gender: Gender.MALE, 
+    activityLevel: ActivityLevel.MODERATE, 
+    goal: FitnessGoal.HEALTH, 
+    level: ExperienceLevel.BEGINNER,
+    trainingDays: ['mon', 'wed', 'fri'],
+    splitStyle: SplitStyle.FULL_BODY_MIX
+  });
+
+  const handleDayToggle = (day: string) => {
+    const next = fd.trainingDays.includes(day) 
+      ? fd.trainingDays.filter((d: string) => d !== day)
+      : [...fd.trainingDays, day];
+    setFd({ ...fd, trainingDays: next });
+  };
 
   if (step === 0) return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-10 text-center relative overflow-hidden">
@@ -490,8 +428,8 @@ const Onboarding: React.FC<any> = ({ lang, setLang, onComplete }) => {
     <div className="min-h-screen bg-slate-900 p-10 flex flex-col items-center justify-center">
        <div className="flex-1 space-y-12 max-w-md mx-auto w-full flex flex-col justify-center">
           <div className="space-y-4">
-            <div className="h-2.5 bg-slate-800 rounded-full overflow-hidden shadow-inner"><div className="h-full bg-indigo-500 transition-all duration-500" style={{ width: `${(step/4)*100}%` }} /></div>
-            <p className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400">Step {step} of 4</p>
+            <div className="h-2.5 bg-slate-800 rounded-full overflow-hidden shadow-inner"><div className="h-full bg-indigo-500 transition-all duration-500" style={{ width: `${(step/5)*100}%` }} /></div>
+            <p className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400">Step {step} of 5</p>
           </div>
 
           {step === 1 && (
@@ -530,12 +468,12 @@ const Onboarding: React.FC<any> = ({ lang, setLang, onComplete }) => {
           )}
           {step === 3 && (
             <div className="space-y-8 animate-in slide-in-from-right text-white">
-               <h2 className="text-4xl font-black">Activity Level</h2>
-               <div className="space-y-3 max-h-[45vh] overflow-y-auto pr-2 custom-scroll">
-                  {[ActivityLevel.SEDENTARY, ActivityLevel.LIGHT, ActivityLevel.MODERATE, ActivityLevel.HEAVY, ActivityLevel.ATHLETE].map(l => (
-                    <button key={l} onClick={() => setFd({...fd, activityLevel: l})} className={`w-full p-6 rounded-3xl border-2 text-left font-black flex justify-between items-center transition-all ${fd.activityLevel === l ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400 scale-[1.02]' : 'border-slate-700 text-slate-500 hover:border-slate-600'}`}>
-                       <span>{l}</span>
-                       {fd.activityLevel === l && <Check size={20} className="bg-indigo-500 text-white rounded-full p-1"/>}
+               <h2 className="text-4xl font-black">Main Goal</h2>
+               <div className="space-y-3">
+                  {[FitnessGoal.HEALTH, FitnessGoal.GAIN, FitnessGoal.LOSE, FitnessGoal.STRENGTHEN].map(g => (
+                    <button key={g} onClick={() => setFd({...fd, goal: g})} className={`w-full p-6 rounded-3xl border-2 text-left font-black flex justify-between items-center transition-all ${fd.goal === g ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400 scale-[1.02]' : 'border-slate-700 text-slate-500 hover:border-slate-600'}`}>
+                       <span>{translations[lang].profile.goals[g]}</span>
+                       {fd.goal === g && <Check size={20} className="bg-indigo-500 text-white rounded-full p-1"/>}
                     </button>
                   ))}
                </div>
@@ -543,12 +481,50 @@ const Onboarding: React.FC<any> = ({ lang, setLang, onComplete }) => {
           )}
           {step === 4 && (
             <div className="space-y-8 animate-in slide-in-from-right text-white">
-               <h2 className="text-4xl font-black">Main Goal</h2>
+               <h2 className="text-4xl font-black">Training Days</h2>
+               <div className="bg-slate-800 p-8 rounded-[40px] border border-slate-700 shadow-xl space-y-6">
+                 <div className="flex justify-between gap-2">
+                    {DAYS.map(day => (
+                      <button
+                        key={day}
+                        onClick={() => handleDayToggle(day)}
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm transition-all ${
+                          fd.trainingDays.includes(day)
+                            ? 'bg-indigo-600 text-white shadow-lg scale-110 shadow-indigo-500/20'
+                            : 'bg-slate-700 text-slate-500'
+                        }`}
+                      >
+                        {day.charAt(0).toUpperCase()}
+                      </button>
+                    ))}
+                 </div>
+                 {fd.trainingDays.length >= 4 && (
+                   <div className="pt-6 border-t border-slate-700/50 space-y-4">
+                     <p className="text-[10px] font-black uppercase opacity-40 text-center tracking-widest">{translations[lang].plan.splitStyle}</p>
+                     <div className="grid grid-cols-2 gap-2">
+                        {Object.values(SplitStyle).map(s => (
+                          <button
+                            key={s}
+                            onClick={() => setFd({ ...fd, splitStyle: s })}
+                            className={`p-3 rounded-xl text-[9px] font-black uppercase border-2 transition-all ${fd.splitStyle === s ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400' : 'border-slate-700 opacity-60'}`}
+                          >
+                            {translations[lang].splits[s]}
+                          </button>
+                        ))}
+                     </div>
+                   </div>
+                 )}
+               </div>
+            </div>
+          )}
+          {step === 5 && (
+            <div className="space-y-8 animate-in slide-in-from-right text-white">
+               <h2 className="text-4xl font-black">Experience</h2>
                <div className="space-y-3">
-                  {[FitnessGoal.HEALTH, FitnessGoal.GAIN, FitnessGoal.LOSE, FitnessGoal.STRENGTHEN].map(g => (
-                    <button key={g} onClick={() => setFd({...fd, goal: g})} className={`w-full p-6 rounded-3xl border-2 text-left font-black flex justify-between items-center transition-all ${fd.goal === g ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400 scale-[1.02]' : 'border-slate-700 text-slate-500 hover:border-slate-600'}`}>
-                       <span>{g}</span>
-                       {fd.goal === g && <Check size={20} className="bg-indigo-500 text-white rounded-full p-1"/>}
+                  {Object.values(ExperienceLevel).map(l => (
+                    <button key={l} onClick={() => setFd({...fd, level: l})} className={`w-full p-6 rounded-3xl border-2 text-left font-black flex justify-between items-center transition-all ${fd.level === l ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400 scale-[1.02]' : 'border-slate-700 text-slate-500 hover:border-slate-600'}`}>
+                       <span>{translations[lang].profile.levels[l]}</span>
+                       {fd.level === l && <Check size={20} className="bg-indigo-500 text-white rounded-full p-1"/>}
                     </button>
                   ))}
                </div>
@@ -558,14 +534,23 @@ const Onboarding: React.FC<any> = ({ lang, setLang, onComplete }) => {
        <div className="flex gap-4 max-w-md mx-auto w-full mt-10">
           {step > 1 && <button onClick={() => setStep(step - 1)} className="p-6 border-2 border-slate-700 rounded-[30px] text-white hover:bg-white/5 transition-all"><ChevronLeft/></button>}
           <button onClick={() => {
-            if (step < 4) setStep(step + 1);
+            if (step < 5) setStep(step + 1);
             else {
-              const profileBase = { ...fd, language: lang, role: UserRole.MEMBER, trialStartDate: new Date().toISOString(), completedDays: [], feedbackHistory: [], customWorkouts: [], trainingDays: ['mon', 'wed', 'fri'], customSchedule: {} };
-              const initialSchedule = applyTrainingDaysSelection(profileBase as any, ['mon', 'wed', 'fri']);
+              const profileBase = { 
+                ...fd, 
+                language: lang, 
+                role: UserRole.MEMBER, 
+                trialStartDate: new Date().toISOString(), 
+                completedDays: [], 
+                feedbackHistory: [], 
+                customWorkouts: [], 
+                customSchedule: {} 
+              };
+              const initialSchedule = applyTrainingDaysSelection(profileBase as any, fd.trainingDays, fd.splitStyle);
               onComplete({ ...profileBase, customSchedule: initialSchedule });
             }
           }} className="flex-1 bg-indigo-600 text-white py-6 rounded-[30px] font-black text-2xl shadow-xl active:scale-95 transition-all">
-            {step < 4 ? "PRÓXIMO" : "FINALIZAR"}
+            {step < 5 ? "PRÓXIMO" : "FINALIZAR"}
           </button>
        </div>
     </div>

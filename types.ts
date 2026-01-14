@@ -62,6 +62,12 @@ export enum BodyAreaTag {
   CARDIO = 'CARDIO'
 }
 
+export enum SplitStyle {
+  ALTERNATING = 'ALTERNATING', // Upper/Lower
+  FULL_BODY_MIX = 'FULL_BODY_MIX',
+  STRENGTH_PUSH_PULL = 'STRENGTH_PUSH_PULL'
+}
+
 export interface Exercise {
   id: string;
   name: Record<Language, string>;
@@ -69,7 +75,7 @@ export interface Exercise {
   secondaryMuscles?: string[];
   sets: number;
   reps: string;
-  description: string;
+  description?: string;
   executionTips: string[];
   commonMistakes: string[];
   safetyNotes: string;
@@ -88,19 +94,18 @@ export interface WorkoutItem {
 export interface CustomWorkout {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   items: WorkoutItem[];
   createdAt: string;
 }
 
 export interface PresetWorkout {
   id: string;
-  title: string;
-  category: string; // Keep for legacy display
+  title: Record<Language, string>;
   primaryCategory: WorkoutCategory;
   tags: BodyAreaTag[];
   duration: 45 | 60 | 75 | 90;
-  description: string;
+  description: Record<Language, string>;
   warmupIds: string[];
   mainBlockIds: string[];
   accessoryIds: string[];
@@ -128,6 +133,7 @@ export interface UserProfile {
   theme?: Theme;
   customSchedule: Record<string, DayPlan>;
   trainingDays: string[];
+  splitStyle: SplitStyle;
   customWorkouts: CustomWorkout[];
   completedDays: string[]; 
   hasPass: boolean;

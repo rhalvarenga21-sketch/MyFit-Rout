@@ -27,7 +27,6 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, o
           return (
             <div key={id} className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/30 flex justify-between items-center">
               <div>
-                {/* Access exercise name by current language since it is now a Record object */}
                 <p className="font-bold text-sm">{ex.name[lang]}</p>
                 <p className="text-[10px] opacity-40 uppercase font-black">{ex.muscleGroup} • {ex.sets}x{ex.reps}</p>
               </div>
@@ -44,12 +43,12 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, o
   return (
     <div className="space-y-8 animate-in slide-in-from-right duration-300">
       <div className="space-y-2">
-        <h2 className="text-3xl font-black">{workout.title}</h2>
+        <h2 className="text-3xl font-black uppercase tracking-tighter italic">{workout.title[lang]}</h2>
         <div className="flex gap-4">
-          <span className="flex items-center gap-1 text-xs font-black text-indigo-400"><Clock size={14}/> {workout.duration} min</span>
-          <span className="flex items-center gap-1 text-xs font-black text-green-400"><ShieldCheck size={14}/> {workout.category}</span>
+          <span className="flex items-center gap-1 text-xs font-black text-indigo-400 uppercase tracking-widest"><Clock size={14}/> {workout.duration} min</span>
+          <span className="flex items-center gap-1 text-xs font-black text-green-400 uppercase tracking-widest"><ShieldCheck size={14}/> {t.categories[workout.primaryCategory]}</span>
         </div>
-        <p className="text-sm opacity-60 italic">{workout.description}</p>
+        <p className="text-sm opacity-60 italic leading-relaxed">{workout.description[lang]}</p>
       </div>
 
       <div className="space-y-6">
@@ -61,7 +60,7 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, o
 
       <button 
         onClick={onStart}
-        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-5 rounded-[25px] font-black text-xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3"
+        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-6 rounded-[25px] font-black text-xl shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3 uppercase tracking-widest"
       >
         <Play fill="currentColor" size={24}/> START WORKOUT
       </button>

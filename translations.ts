@@ -24,22 +24,22 @@ export const translations = {
       add: "Adicionar Exercício",
       save: "Salvar Plano",
       trainingDays: "Dias de Treino",
-      hint: "Cálculo baseado no seu perfil e objetivo."
+      splitStyle: "Estilo de Divisão",
+      hint: "Cálculo baseado no seu TDEE e objetivo (Mifflin-St Jeor)."
+    },
+    splits: {
+      ALTERNATING: "Alternado (Superior/Inferior)",
+      FULL_BODY_MIX: "Misto (Corpo Inteiro)",
+      STRENGTH_PUSH_PULL: "Força (Empurra/Puxa)"
     },
     metrics: {
-      lose: "Meta de Déficit Calórico",
-      gain: "Meta de Superávit Calórico",
-      health: "Meta de Manutenção",
-      strengthen: "Meta de Performance",
-      label: "Kcal Diárias Recomendadas"
-    },
-    library: {
-      title: "Biblioteca",
-      search: "Buscar exercícios...",
-      filter: "Filtros",
-      add: "Adicionar",
-      muscle: "Músculo",
-      equipment: "Equipamento"
+      lose: "Déficit Calórico (Queima)",
+      gain: "Superávit Calórico (Massa)",
+      health: "Manutenção de Saúde",
+      strengthen: "Performance & Força",
+      label: "Kcal Recomendadas",
+      bmrHint: "Taxa Metabólica Basal",
+      tdeeHint: "Gasto Calórico Diário Total"
     },
     catalog: {
       title: "Catálogo",
@@ -47,7 +47,7 @@ export const translations = {
       selectDay: "Selecionar Dia",
       assignSuccess: "Treino agendado para",
       all: "Todos",
-      filterByArea: "Área Muscular",
+      filterByArea: "Filtro por Área",
       searchWorkouts: "Buscar treinos...",
       duration: "Duração",
       startNow: "Iniciar"
@@ -72,35 +72,36 @@ export const translations = {
       CORE: "Core",
       CARDIO: "Cardio"
     },
-    builder: {
-      title: "Criador de Treino",
-      save: "Salvar Treino",
-      empty: "Seu treino está vazio.",
-      addFromLibrary: "Adicionar da Biblioteca"
-    },
     profile: {
       title: "Meu Perfil",
-      metrics: "Métricas",
+      edit: "Editar Perfil",
+      save: "Salvar Alterações",
+      metrics: "Métricas Atuais",
       age: "Idade",
       gender: "Gênero",
       weight: "Peso",
       height: "Altura",
       activity: "Atividade",
+      level: "Nível",
+      goal: "Objetivo",
       water: "Meta de Água",
-      bmr: "Basal",
+      bmr: "Metabolismo",
       tdee: "Gasto Total",
-      targetKcal: "Meta de Ganho",
+      targetKcal: "Meta Diária",
       daysActive: "Dias Ativos",
       streak: "Sequência",
-      male: "Masc", female: "Fem",
-      sedentary: "Sedentário", light: "Leve", moderate: "Moderado", heavy: "Intenso", athlete: "Atleta"
-    },
-    b2b: {
-      dashboard: "Painel B2B",
-      activeUsers: "Usuários Ativos",
-      engagement: "Engajamento",
-      retention: "Retenção",
-      programs: "Programas Adotados"
+      male: "Masculino", female: "Feminino",
+      goals: {
+        LOSE: "Emagrecimento",
+        GAIN: "Hipertrofia",
+        HEALTH: "Longevidade",
+        STRENGTHEN: "Força"
+      },
+      levels: {
+        BEGINNER: "Iniciante",
+        INTERMEDIATE: "Intermediário",
+        ADVANCED: "Avançado"
+      }
     },
     mon: "Segunda", tue: "Terça", wed: "Quarta", thu: "Quinta", fri: "Sexta", sat: "Sábado", sun: "Domingo"
   },
@@ -126,22 +127,22 @@ export const translations = {
       add: "Add Exercise",
       save: "Save Plan",
       trainingDays: "Training Days",
-      hint: "Calculation based on profile and goal."
+      splitStyle: "Split Style",
+      hint: "Calculation based on TDEE and goal (Mifflin-St Jeor)."
+    },
+    splits: {
+      ALTERNATING: "Alternating (Upper/Lower)",
+      FULL_BODY_MIX: "Mixed (Full Body)",
+      STRENGTH_PUSH_PULL: "Strength (Push/Pull)"
     },
     metrics: {
-      lose: "Calorie Deficit Target",
-      gain: "Calorie Surplus Target",
-      health: "Maintenance Target",
-      strengthen: "Performance Target",
-      label: "Recommended Daily Kcal"
-    },
-    library: {
-      title: "Library",
-      search: "Search exercises...",
-      filter: "Filters",
-      add: "Add",
-      muscle: "Muscle",
-      equipment: "Equipment"
+      lose: "Calorie Deficit (Fat Loss)",
+      gain: "Calorie Surplus (Mass)",
+      health: "Maintenance",
+      strengthen: "Strength & Performance",
+      label: "Recommended Kcal",
+      bmrHint: "Basal Metabolic Rate",
+      tdeeHint: "Total Daily Energy Expenditure"
     },
     catalog: {
       title: "Catalog",
@@ -149,7 +150,7 @@ export const translations = {
       selectDay: "Select Day",
       assignSuccess: "Workout assigned to",
       all: "All",
-      filterByArea: "Muscle Area",
+      filterByArea: "Focus Area",
       searchWorkouts: "Search workouts...",
       duration: "Duration",
       startNow: "Start"
@@ -174,35 +175,36 @@ export const translations = {
       CORE: "Core",
       CARDIO: "Cardio"
     },
-    builder: {
-      title: "Workout Builder",
-      save: "Save Workout",
-      empty: "Your workout is empty.",
-      addFromLibrary: "Add From Library"
-    },
     profile: {
       title: "My Profile",
-      metrics: "Metrics",
+      edit: "Edit Profile",
+      save: "Save Changes",
+      metrics: "Current Metrics",
       age: "Age",
       gender: "Gender",
       weight: "Weight",
       height: "Height",
       activity: "Activity",
+      level: "Level",
+      goal: "Goal",
       water: "Water Goal",
       bmr: "BMR",
       tdee: "TDEE",
-      targetKcal: "Gain Goal",
+      targetKcal: "Daily Goal",
       daysActive: "Active Days",
       streak: "Streak",
       male: "Male", female: "Female",
-      sedentary: "Sedentary", light: "Light", moderate: "Moderate", heavy: "Heavy", athlete: "Athlete"
-    },
-    b2b: {
-      dashboard: "B2B Dashboard",
-      activeUsers: "Active Users",
-      engagement: "Engagement",
-      retention: "Retention",
-      programs: "Program Adoption"
+      goals: {
+        LOSE: "Fat Loss",
+        GAIN: "Muscle Gain",
+        HEALTH: "Health & Longevity",
+        STRENGTHEN: "Strength Focus"
+      },
+      levels: {
+        BEGINNER: "Beginner",
+        INTERMEDIATE: "Intermediate",
+        ADVANCED: "Advanced"
+      }
     },
     mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday"
   },
@@ -228,22 +230,22 @@ export const translations = {
       add: "Añadir Ejercicio",
       save: "Guardar Plan",
       trainingDays: "Días de Entreno",
-      hint: "Cálculo basado en tu perfil y objetivo."
+      splitStyle: "Estilo de División",
+      hint: "Cálculo basado en TDEE y meta (Mifflin-St Jeor)."
+    },
+    splits: {
+      ALTERNATING: "Alternado (Superior/Inferior)",
+      FULL_BODY_MIX: "Mixto (Cuerpo Completo)",
+      STRENGTH_PUSH_PULL: "Fuerza (Empuja/Tira)"
     },
     metrics: {
-      lose: "Meta de Déficit Calórico",
-      gain: "Meta de Superávit Calórico",
-      health: "Meta de Mantenimiento",
-      strengthen: "Meta de Rendimiento",
-      label: "Kcal Diarias Recomendadas"
-    },
-    library: {
-      title: "Biblioteca",
-      search: "Buscar ejercicios...",
-      filter: "Filtros",
-      add: "Añadir",
-      muscle: "Músculo",
-      equipment: "Equipo"
+      lose: "Déficit Calórico (Quema)",
+      gain: "Superávit Calórico (Masa)",
+      health: "Mantenimiento",
+      strengthen: "Performance & Fuerza",
+      label: "Kcal Recomendadas",
+      bmrHint: "Tasa Metabólica Basal",
+      tdeeHint: "Gasto Calórico Diario Total"
     },
     catalog: {
       title: "Catálogo",
@@ -276,35 +278,36 @@ export const translations = {
       CORE: "Core",
       CARDIO: "Cardio"
     },
-    builder: {
-      title: "Creador de Entrenamiento",
-      save: "Guardar Entrenamiento",
-      empty: "Tu entrenamiento está vacío.",
-      addFromLibrary: "Añadir de la Biblioteca"
-    },
     profile: {
       title: "Mi Perfil",
+      edit: "Editar Perfil",
+      save: "Guardar Cambios",
       metrics: "Métricas",
       age: "Edad",
       gender: "Género",
       weight: "Peso",
       height: "Altura",
-      activity: "Actividad",
+      activity: "Atividad",
+      level: "Nivel",
+      goal: "Objetivo",
       water: "Meta de Agua",
       bmr: "Basal",
       tdee: "Gasto Total",
-      targetKcal: "Meta de Ganancia",
+      targetKcal: "Meta Diaria",
       daysActive: "Días Activos",
       streak: "Racha",
       male: "Masc", female: "Fem",
-      sedentary: "Sedentario", light: "Ligero", moderate: "Moderado", heavy: "Intenso", athlete: "Atleta"
-    },
-    b2b: {
-      dashboard: "Panel B2B",
-      activeUsers: "Usuarios Activos",
-      engagement: "Compromiso",
-      retention: "Retención",
-      programs: "Programas Adoptados"
+      goals: {
+        LOSE: "Pérdida de Grasa",
+        GAIN: "Ganancia Muscular",
+        HEALTH: "Salud & Longevidad",
+        STRENGTHEN: "Enfoque en Fuerza"
+      },
+      levels: {
+        BEGINNER: "Principiante",
+        INTERMEDIATE: "Intermedio",
+        ADVANCED: "Avanzado"
+      }
     },
     mon: "Lunes", tue: "Martes", wed: "Miércoles", thu: "Jueves", fri: "Viernes", sat: "Sábado", sun: "Domingo"
   }
