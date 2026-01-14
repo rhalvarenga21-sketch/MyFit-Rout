@@ -13,7 +13,7 @@ export const translations = {
     aiAssistant: "Vital AI Coach",
     askAi: "Dúvidas técnicas?",
     smartStart: {
-      assigned: "Definimos um treino recomendado para hoje!",
+      assigned: "Treino recomendado pronto!",
       isRest: "Hoje é seu dia de descanso. Deseja treinar mesmo assim?",
       keepRest: "Manter Descanso",
       startAnyway: "Treino Rápido (30-45min)"
@@ -24,7 +24,8 @@ export const translations = {
       edit: "Editar Dia",
       trainingDays: "Dias de Treino",
       splitStyle: "Estilo de Divisão",
-      hint: "Calorias baseadas no Mifflin-St Jeor + Nível de Atividade."
+      hint: "Calorias baseadas no Mifflin-St Jeor + Nível de Atividade.",
+      modify: "Acessórios"
     },
     splits: {
       ALTERNATING: "Superior / Inferior",
@@ -36,14 +37,22 @@ export const translations = {
       gain: "Superávit Calórico",
       health: "Manutenção",
       strengthen: "Performance",
-      label: "Meta Diária"
+      label: "Meta Diária",
+      tdeeHint: "Gasto calórico total diário (TDEE)."
     },
     catalog: {
-      title: "Biblioteca de Treinos",
+      title: "Biblioteca",
       assign: "Agendar",
+      selectDay: "Escolher Dia",
       all: "Todos",
       filterByArea: "Foco Muscular",
-      searchWorkouts: "Buscar..."
+      searchWorkouts: "Buscar treino...",
+      availableCount: "Treinos Disponíveis"
+    },
+    library: {
+      title: "Exercícios",
+      search: "Buscar exercício...",
+      add: "Adicionar ao Treino"
     },
     profile: {
       title: "Meu Perfil",
@@ -52,8 +61,8 @@ export const translations = {
       weight: "Peso (kg)",
       height: "Altura (cm)",
       age: "Idade",
-      bmr: "Basal",
-      tdee: "Gasto Total",
+      bmr: "Metabolismo Basal",
+      tdee: "Gasto Energético",
       goals: {
         LOSE: "Emagrecimento",
         GAIN: "Hipertrofia",
@@ -66,7 +75,13 @@ export const translations = {
         ADVANCED: "Avançado"
       }
     },
-    mon: "Segunda", tue: "Terça", wed: "Quarta", thu: "Quinta", fri: "Sexta", sat: "Sábado", sun: "Domingo"
+    mon: "Segunda", tue: "Terça", wed: "Quarta", thu: "Quinta", fri: "Sexta", sat: "Sábado", sun: "Domingo",
+    tags: {
+      BACK: "Costas", CHEST: "Peito", SHOULDERS: "Ombros", BICEPS: "Bíceps", TRICEPS: "Tríceps", LEGS: "Pernas", GLUTES: "Glúteos", CALVES: "Panturrilhas", CORE: "Core", CARDIO: "Cardio"
+    },
+    categories: {
+      FULL_BODY: "Corpo Inteiro", UPPER: "Superior", LOWER: "Inferior", RECOVERY: "Recuperação", CARDIO: "Cardio", CUSTOM: "Personalizado"
+    }
   },
   [Language.EN]: {
     welcome: "Welcome to My Fit Rout",
@@ -79,7 +94,7 @@ export const translations = {
     aiAssistant: "Vital AI Coach",
     askAi: "Technical questions?",
     smartStart: {
-      assigned: "We set a recommended workout for today!",
+      assigned: "Recommended workout ready!",
       isRest: "Today is your rest day. Want to train anyway?",
       keepRest: "Keep Resting",
       startAnyway: "Quick Workout (30-45min)"
@@ -90,7 +105,8 @@ export const translations = {
       edit: "Edit Day",
       trainingDays: "Training Days",
       splitStyle: "Split Style",
-      hint: "Calories based on Mifflin-St Jeor + Activity multiplier."
+      hint: "Calories based on Mifflin-St Jeor + Activity multiplier.",
+      modify: "Accessories"
     },
     splits: {
       ALTERNATING: "Upper / Lower",
@@ -102,14 +118,22 @@ export const translations = {
       gain: "Calorie Surplus",
       health: "Maintenance",
       strengthen: "Performance",
-      label: "Daily Target"
+      label: "Daily Target",
+      tdeeHint: "Total Daily Energy Expenditure (TDEE)."
     },
     catalog: {
-      title: "Workout Library",
+      title: "Library",
       assign: "Assign",
+      selectDay: "Select Day",
       all: "All",
       filterByArea: "Muscle Focus",
-      searchWorkouts: "Search..."
+      searchWorkouts: "Search...",
+      availableCount: "Workouts Available"
+    },
+    library: {
+      title: "Exercises",
+      search: "Search exercise...",
+      add: "Add to Workout"
     },
     profile: {
       title: "My Profile",
@@ -132,7 +156,13 @@ export const translations = {
         ADVANCED: "Advanced"
       }
     },
-    mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday"
+    mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday",
+    tags: {
+      BACK: "Back", CHEST: "Chest", SHOULDERS: "Shoulders", BICEPS: "Biceps", TRICEPS: "Triceps", LEGS: "Legs", GLUTES: "Glutes", CALVES: "Calves", CORE: "Core", CARDIO: "Cardio"
+    },
+    categories: {
+      FULL_BODY: "Full Body", UPPER: "Upper", LOWER: "Lower", RECOVERY: "Recovery", CARDIO: "Cardio", CUSTOM: "Custom"
+    }
   },
   [Language.ES]: {
     welcome: "Bienvenido a My Fit Rout",
@@ -145,7 +175,7 @@ export const translations = {
     aiAssistant: "Vital AI Coach",
     askAi: "¿Dudas técnicas?",
     smartStart: {
-      assigned: "¡Definimos un entrenamiento recomendado para hoy!",
+      assigned: "¡Entrenamiento listo!",
       isRest: "Hoy es tu día de descanso. ¿Quieres entrenar de todos modos?",
       keepRest: "Seguir descansando",
       startAnyway: "Entreno Rápido (30-45min)"
@@ -156,7 +186,8 @@ export const translations = {
       edit: "Editar Día",
       trainingDays: "Días de Entreno",
       splitStyle: "Estilo de División",
-      hint: "Calorías basadas en Mifflin-St Jeor + Multiplicador de actividad."
+      hint: "Calorías basadas en Mifflin-St Jeor + Multiplicador de actividad.",
+      modify: "Accesorios"
     },
     splits: {
       ALTERNATING: "Superior / Inferior",
@@ -168,14 +199,22 @@ export const translations = {
       gain: "Superávit Calórico",
       health: "Mantenimiento",
       strengthen: "Rendimiento",
-      label: "Meta Diaria"
+      label: "Meta Diaria",
+      tdeeHint: "Gasto calórico total diario (TDEE)."
     },
     catalog: {
-      title: "Biblioteca de Entrenos",
+      title: "Biblioteca",
       assign: "Asignar",
+      selectDay: "Seleccionar Día",
       all: "Todos",
       filterByArea: "Enfoque Muscular",
-      searchWorkouts: "Buscar..."
+      searchWorkouts: "Buscar...",
+      availableCount: "Rutinas Disponibles"
+    },
+    library: {
+      title: "Ejercicios",
+      search: "Buscar...",
+      add: "Agregar"
     },
     profile: {
       title: "Mi Perfil",
@@ -198,6 +237,12 @@ export const translations = {
         ADVANCED: "Avanzado"
       }
     },
-    mon: "Lunes", tue: "Martes", wed: "Miércoles", thu: "Jueves", fri: "Viernes", sat: "Sábado", sun: "Domingo"
+    mon: "Lunes", tue: "Martes", wed: "Miércoles", thu: "Jueves", fri: "Viernes", sat: "Sábado", sun: "Domingo",
+    tags: {
+      BACK: "Espalda", CHEST: "Pecho", SHOULDERS: "Hombros", BICEPS: "Bíceps", TRICEPS: "Tríceps", LEGS: "Piernas", GLUTES: "Glúteos", CALVES: "Pantorrillas", CORE: "Core", CARDIO: "Cardio"
+    },
+    categories: {
+      FULL_BODY: "Cuerpo Completo", UPPER: "Superior", LOWER: "Inferior", RECOVERY: "Recuperación", CARDIO: "Cardio", CUSTOM: "Personalizado"
+    }
   }
 };

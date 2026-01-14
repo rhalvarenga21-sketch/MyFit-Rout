@@ -2,7 +2,7 @@
 import React from 'react';
 import { Play, Clock, ShieldCheck, Activity } from 'lucide-react';
 import { Exercise, PresetWorkout, Language } from '../types';
-import { EXERCISE_DATABASE } from '../presets';
+import { EXERCISE_LIBRARY } from '../data/exercises';
 import { translations } from '../translations';
 
 interface WorkoutSummaryProps {
@@ -14,10 +14,10 @@ interface WorkoutSummaryProps {
 export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, onStart }) => {
   const t = translations[lang] as any;
   
-  const getExercise = (id: string) => EXERCISE_DATABASE.find(e => e.id === id);
+  const getExercise = (id: string) => EXERCISE_LIBRARY.find(e => e.id === id);
 
   const renderSection = (title: string, ids: string[]) => {
-    if (ids.length === 0) return null;
+    if (!ids || ids.length === 0) return null;
     return (
       <div className="space-y-3">
         <h4 className="text-xs font-black uppercase tracking-widest text-indigo-400 opacity-60">{title}</h4>
@@ -41,14 +41,13 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, o
   };
 
   return (
-    <div className="space-y-8 animate-in slide-in-from-right duration-300">
+    <div className="space-y-8 animate-in slide-in-from-right duration-300 pb-20">
       <div className="space-y-2">
-        <h2 className="text-3xl font-black uppercase tracking-tighter italic">{workout.title[lang]}</h2>
+        <h2 className="text-3xl font-black uppercase tracking-tighter italic text-white">{workout.title[lang]}</h2>
         <div className="flex gap-4">
           <span className="flex items-center gap-1 text-xs font-black text-indigo-400 uppercase tracking-widest"><Clock size={14}/> {workout.duration} min</span>
-          <span className="flex items-center gap-1 text-xs font-black text-green-400 uppercase tracking-widest"><ShieldCheck size={14}/> {t.categories[workout.primaryCategory]}</span>
         </div>
-        <p className="text-sm opacity-60 italic leading-relaxed">{workout.description[lang]}</p>
+        <p className="text-sm opacity-60 italic leading-relaxed text-slate-300">{workout.description[lang]}</p>
       </div>
 
       <div className="space-y-6">
@@ -62,7 +61,7 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, o
         onClick={onStart}
         className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-6 rounded-[25px] font-black text-xl shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-3 uppercase tracking-widest"
       >
-        <Play fill="currentColor" size={24}/> START WORKOUT
+        <Play fill="currentColor" size={24}/> COMEÇAR TREINO
       </button>
     </div>
   );

@@ -2,120 +2,58 @@
 import { Language, ExperienceLevel, Exercise } from '../types';
 
 export const EXERCISE_LIBRARY: Exercise[] = [
-  // CHEST
-  {
-    id: "chest-1",
-    name: { [Language.PT]: "Supino Reto", [Language.EN]: "Bench Press", [Language.ES]: "Press de Banca" },
-    muscleGroup: "Chest",
-    secondaryMuscles: ["Triceps", "Shoulders"],
-    sets: 3, reps: "10-12",
-    executionTips: ["Keep shoulder blades retracted", "Drive heels into ground"],
-    commonMistakes: ["Bouncing the bar off chest"],
-    safetyNotes: "Always use a spotter or safety bars for heavy loads.",
-    videoUrl: "rT7Dg6D6G3E",
-    equipment: "Barbell",
-    difficulty: ExperienceLevel.INTERMEDIATE
-  },
-  {
-    id: "chest-2",
-    name: { [Language.PT]: "Supino Inclinado com Halteres", [Language.EN]: "Incline Dumbbell Press", [Language.ES]: "Press Inclinado con Mancuernas" },
-    muscleGroup: "Chest",
-    sets: 3, reps: "10-12",
-    executionTips: ["45-degree bench angle", "Control the descent"],
-    commonMistakes: ["Elbows flared too wide"],
-    safetyNotes: "Maintain a stable base with feet flat.",
-    videoUrl: "0G2V5S_6I0E",
-    equipment: "Dumbbell",
-    difficulty: ExperienceLevel.BEGINNER
-  },
-  // BACK
-  {
-    id: "back-1",
-    name: { [Language.PT]: "Remada Curvada", [Language.EN]: "Bent Over Row", [Language.ES]: "Remo con Barra" },
-    muscleGroup: "Back",
-    secondaryMuscles: ["Biceps"],
-    sets: 3, reps: "10-12",
-    executionTips: ["Hinge at hips", "Pull bar to lower stomach"],
-    commonMistakes: ["Rounding the lower back"],
-    safetyNotes: "Brace core tight to protect spine.",
-    videoUrl: "9efgcaj7-p0",
-    equipment: "Barbell",
-    difficulty: ExperienceLevel.INTERMEDIATE
-  },
-  {
-    id: "back-2",
-    name: { [Language.PT]: "Puxada Aberta", [Language.EN]: "Lat Pulldown", [Language.ES]: "Jalón al Pecho" },
-    muscleGroup: "Back",
-    secondaryMuscles: ["Biceps"],
-    sets: 3, reps: "12",
-    executionTips: ["Pull bar to upper chest", "Squeeze shoulder blades"],
-    commonMistakes: ["Using momentum to pull"],
-    safetyNotes: "Sit tall, don't lean back excessively.",
-    videoUrl: "0Gf5-30u9vU",
-    equipment: "Machine",
-    difficulty: ExperienceLevel.BEGINNER
-  },
-  // LEGS
-  {
-    id: "leg-1",
-    name: { [Language.PT]: "Agachamento Livre", [Language.EN]: "Barbell Squat", [Language.ES]: "Sentadilla con Barra" },
-    muscleGroup: "Legs",
-    sets: 3, reps: "8-10",
-    executionTips: ["Drive through heels", "Keep chest proud"],
-    commonMistakes: ["Knees caving inward"],
-    safetyNotes: "Go only as deep as you can maintain a flat back.",
-    videoUrl: "m0GcZ24pK6k",
-    equipment: "Barbell",
-    difficulty: ExperienceLevel.INTERMEDIATE
-  },
-  {
-    id: "leg-2",
-    name: { [Language.PT]: "Leg Press 45", [Language.EN]: "Leg Press 45", [Language.ES]: "Prensa 45" },
-    muscleGroup: "Legs",
-    sets: 3, reps: "12-15",
-    executionTips: ["Feet shoulder width", "Don't lock knees at top"],
-    commonMistakes: ["Lifting lower back off the pad"],
-    safetyNotes: "Keep feet flat on the platform.",
-    videoUrl: "IZxyjW7MPJQ",
-    equipment: "Machine",
-    difficulty: ExperienceLevel.BEGINNER
-  },
-  // SHOULDERS
-  {
-    id: "sh-1",
-    name: { [Language.PT]: "Press Militar", [Language.EN]: "Military Press", [Language.ES]: "Press Militar" },
-    muscleGroup: "Shoulders",
-    sets: 3, reps: "10",
-    executionTips: ["Full extension at top", "Brace core"],
-    commonMistakes: ["Arching the back excessively"],
-    safetyNotes: "Avoid if you have current rotator cuff issues.",
-    videoUrl: "2yjwHeErbqw",
-    equipment: "Barbell",
-    difficulty: ExperienceLevel.INTERMEDIATE
-  },
-  {
-    id: "sh-2",
-    name: { [Language.PT]: "Elevação Lateral", [Language.EN]: "Lateral Raise", [Language.ES]: "Elevación Lateral" },
-    muscleGroup: "Shoulders",
-    sets: 3, reps: "12-15",
-    executionTips: ["Lead with elbows", "Pinkies up slightly"],
-    commonMistakes: ["Swinging the body"],
-    safetyNotes: "Stop at shoulder height.",
-    videoUrl: "3VcKaXpzqRo",
-    equipment: "Dumbbell",
-    difficulty: ExperienceLevel.BEGINNER
-  },
-  // CORE
-  {
-    id: "core-1",
-    name: { [Language.PT]: "Plancha Abdominal", [Language.EN]: "Plank", [Language.ES]: "Plancha" },
-    muscleGroup: "Core",
-    sets: 3, reps: "45s-60s",
-    executionTips: ["Straight line head to heels", "Squeeze glutes"],
-    commonMistakes: ["Hips sagging or too high"],
-    safetyNotes: "Keep neck neutral.",
-    videoUrl: "TvxNkmjdhMM",
-    equipment: "Bodyweight",
-    difficulty: ExperienceLevel.BEGINNER
-  }
+  // --- PEITO (CHEST) ---
+  { id: "ch-1", name: { [Language.PT]: "Supino Reto com Barra", [Language.EN]: "Barbell Bench Press", [Language.ES]: "Press de Banca con Barra" }, muscleGroup: "Chest", sets: 3, reps: "8-12", executionTips: ["Escápulas retraídas", "Pés firmes"], commonMistakes: ["Bater a barra no peito"], safetyNotes: "Use travas", videoUrl: "rT7Dg6D6G3E", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "ch-2", name: { [Language.PT]: "Supino Inclinado com Halteres", [Language.EN]: "Incline Dumbbell Press", [Language.ES]: "Press Inclinado con Mancuernas" }, muscleGroup: "Chest", sets: 3, reps: "10-12", executionTips: ["Banco 30-45 graus"], commonMistakes: ["Cotovelos muito abertos"], safetyNotes: "Mantenha o controle", videoUrl: "0G2V5S_6I0E", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ch-3", name: { [Language.PT]: "Crucifixo Reto com Halteres", [Language.EN]: "Dumbbell Flyes", [Language.ES]: "Aperturas con Mancuernas" }, muscleGroup: "Chest", sets: 3, reps: "12-15", executionTips: ["Braços levemente flexionados"], commonMistakes: ["Bater os halteres"], safetyNotes: "Não exagere na carga", videoUrl: "eozdVDA78K0", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ch-4", name: { [Language.PT]: "Crossover Polia Alta", [Language.EN]: "Cable Crossover", [Language.ES]: "Cruce de Poleas" }, muscleGroup: "Chest", sets: 3, reps: "15", executionTips: ["Puxe para baixo e para frente"], commonMistakes: ["Tronco muito inclinado"], safetyNotes: "Mantenha a base estável", videoUrl: "taI4XduLp9o", equipment: "Cables", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "ch-5", name: { [Language.PT]: "Flexão de Braços", [Language.EN]: "Push Ups", [Language.ES]: "Flexiones" }, muscleGroup: "Chest", sets: 3, reps: "Falha", executionTips: ["Mãos largura dos ombros"], commonMistakes: ["Quadril caído"], safetyNotes: "Mantenha o core firme", videoUrl: "IODxDxX7oi4", equipment: "Bodyweight", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ch-6", name: { [Language.PT]: "Supino Máquina", [Language.EN]: "Machine Chest Press", [Language.ES]: "Press de Pecho en Máquina" }, muscleGroup: "Chest", sets: 3, reps: "12", executionTips: ["Ajuste o banco"], commonMistakes: ["Descolar as costas"], safetyNotes: "Seguro para iniciantes", videoUrl: "xU9Hh_5M6hM", equipment: "Machine", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ch-7", name: { [Language.PT]: "Dips (Paralelas)", [Language.EN]: "Chest Dips", [Language.ES]: "Fondos de Pecho" }, muscleGroup: "Chest", sets: 3, reps: "10", executionTips: ["Incline o tronco para frente"], commonMistakes: ["Ombros subindo"], safetyNotes: "Cuidado com o manguito", videoUrl: "2z8JmcrW-As", equipment: "Bodyweight", difficulty: ExperienceLevel.ADVANCED },
+
+  // --- COSTAS (BACK) ---
+  { id: "bk-1", name: { [Language.PT]: "Remada Curvada com Barra", [Language.EN]: "Barbell Row", [Language.ES]: "Remo con Barra" }, muscleGroup: "Back", sets: 3, reps: "10", executionTips: ["Tronco paralelo ao chão"], commonMistakes: ["Arredondar a lombar"], safetyNotes: "Core contraído", videoUrl: "9efgcaj7-p0", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "bk-2", name: { [Language.PT]: "Puxada Aberta no Pulley", [Language.EN]: "Lat Pulldown", [Language.ES]: "Jalón al Pecho" }, muscleGroup: "Back", sets: 3, reps: "12", executionTips: ["Puxe para o peito"], commonMistakes: ["Balançar o corpo"], safetyNotes: "Não puxe atrás da nuca", videoUrl: "0Gf5-30u9vU", equipment: "Machine", difficulty: ExperienceLevel.BEGINNER },
+  { id: "bk-3", name: { [Language.PT]: "Remada Unilateral (Serrote)", [Language.EN]: "One Arm Row", [Language.ES]: "Remo a uma mano" }, muscleGroup: "Back", sets: 3, reps: "12", executionTips: ["Puxe para o quadril"], commonMistakes: ["Rodar o tronco"], safetyNotes: "Mão de apoio firme", videoUrl: "dFzJXyDJL7c", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "bk-4", name: { [Language.PT]: "Barra Fixa", [Language.EN]: "Pull Ups", [Language.ES]: "Dominadas" }, muscleGroup: "Back", sets: 3, reps: "Falha", executionTips: ["Peito para a barra"], commonMistakes: ["Balançar"], safetyNotes: "Use assistência se necessário", videoUrl: "eGo4IYlbE5g", equipment: "Bodyweight", difficulty: ExperienceLevel.ADVANCED },
+  { id: "bk-5", name: { [Language.PT]: "Remada Cavalinho", [Language.EN]: "T-Bar Row", [Language.ES]: "Remo en T" }, muscleGroup: "Back", sets: 3, reps: "10", executionTips: ["Cotovelos próximos"], commonMistakes: ["Usar as pernas"], safetyNotes: "Mantenha a coluna reta", videoUrl: "j3Igk5nyZE4", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "bk-6", name: { [Language.PT]: "Pulldown com Corda", [Language.EN]: "Rope Pulldown", [Language.ES]: "Pulldown con Cuerda" }, muscleGroup: "Back", sets: 3, reps: "15", executionTips: ["Braços quase esticados"], commonMistakes: ["Dobrar muito o cotovelo"], safetyNotes: "Foque no latíssimo", videoUrl: "G_p_Bf7N_38", equipment: "Cables", difficulty: ExperienceLevel.BEGINNER },
+  { id: "bk-7", name: { [Language.PT]: "Levantamento Terra", [Language.EN]: "Deadlift", [Language.ES]: "Peso Muerto" }, muscleGroup: "Back", sets: 3, reps: "6-8", executionTips: ["Barra rente à canela"], commonMistakes: ["Lombar curvada"], safetyNotes: "Exercício de alta exigência", videoUrl: "ytGaGIn3SjE", equipment: "Barbell", difficulty: ExperienceLevel.ADVANCED },
+
+  // --- OMBROS (SHOULDERS) ---
+  { id: "sh-1", name: { [Language.PT]: "Desenvolvimento com Halteres", [Language.EN]: "Dumbbell Shoulder Press", [Language.ES]: "Press de Hombros" }, muscleGroup: "Shoulders", sets: 3, reps: "10-12", executionTips: ["Cotovelos levemente à frente"], commonMistakes: ["Arquear as costas"], safetyNotes: "Mantenha o punho reto", videoUrl: "2yjwHeErbqw", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "sh-2", name: { [Language.PT]: "Elevação Lateral", [Language.EN]: "Lateral Raise", [Language.ES]: "Elevación Lateral" }, muscleGroup: "Shoulders", sets: 3, reps: "15", executionTips: ["Suba até a linha do ombro"], commonMistakes: ["Usar impulso"], safetyNotes: "Carga leve é melhor", videoUrl: "3VcKaXpzqRo", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "sh-3", name: { [Language.PT]: "Face Pull", [Language.EN]: "Face Pull", [Language.ES]: "Face Pull" }, muscleGroup: "Shoulders", sets: 3, reps: "15", executionTips: ["Puxe para a testa"], commonMistakes: ["Puxar baixo demais"], safetyNotes: "Ótimo para postura", videoUrl: "rep-qV5IBVi", equipment: "Cables", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "sh-4", name: { [Language.PT]: "Elevação Frontal", [Language.EN]: "Front Raise", [Language.ES]: "Elevación Frontal" }, muscleGroup: "Shoulders", sets: 3, reps: "12", executionTips: ["Sem balanço"], commonMistakes: ["Balançar o corpo"], safetyNotes: "Foque no deltoide anterior", videoUrl: "hRJ6EB_U_Hk", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "sh-5", name: { [Language.PT]: "Crucifixo Inverso", [Language.EN]: "Reverse Fly", [Language.ES]: "Aperturas Inversas" }, muscleGroup: "Shoulders", sets: 3, reps: "15", executionTips: ["Foque no deltoide posterior"], commonMistakes: ["Usar o trapézio"], safetyNotes: "Controle a volta", videoUrl: "6yMdHi2M2F8", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "sh-6", name: { [Language.PT]: "Encolhimento com Barra", [Language.EN]: "Barbell Shrugs", [Language.ES]: "Encogimientos" }, muscleGroup: "Shoulders", sets: 3, reps: "12", executionTips: ["Suba os ombros"], commonMistakes: ["Girar os ombros"], safetyNotes: "Mantenha o pescoço neutro", videoUrl: "cJRVVxmytaM", equipment: "Barbell", difficulty: ExperienceLevel.BEGINNER },
+
+  // --- PERNAS (LEGS) ---
+  { id: "lg-1", name: { [Language.PT]: "Agachamento Livre", [Language.EN]: "Barbell Squat", [Language.ES]: "Sentadilla" }, muscleGroup: "Legs", sets: 3, reps: "8-12", executionTips: ["Peso nos calcanhares"], commonMistakes: ["Joelhos para dentro"], safetyNotes: "Coluna reta", videoUrl: "m0GcZ24pK6k", equipment: "Barbell", difficulty: ExperienceLevel.ADVANCED },
+  { id: "lg-2", name: { [Language.PT]: "Leg Press 45", [Language.EN]: "Leg Press 45", [Language.ES]: "Prensa 45" }, muscleGroup: "Legs", sets: 3, reps: "12-15", executionTips: ["Pés largura dos ombros"], commonMistakes: ["Retirar o quadril"], safetyNotes: "Não trave os joelhos", videoUrl: "IZxyjW7MPJQ", equipment: "Machine", difficulty: ExperienceLevel.BEGINNER },
+  { id: "lg-3", name: { [Language.PT]: "Cadeira Extensora", [Language.EN]: "Leg Extension", [Language.ES]: "Extensión" }, muscleGroup: "Legs", sets: 3, reps: "15", executionTips: ["Pico de contração"], commonMistakes: ["Usar impulso"], safetyNotes: "Ajuste o banco", videoUrl: "YyvSfVLYd80", equipment: "Machine", difficulty: ExperienceLevel.BEGINNER },
+  { id: "lg-4", name: { [Language.PT]: "Mesa Flexora", [Language.EN]: "Leg Curl", [Language.ES]: "Femoral" }, muscleGroup: "Legs", sets: 3, reps: "12-15", executionTips: ["Quadril no banco"], commonMistakes: ["Levantar o bumbum"], safetyNotes: "Controle a descida", videoUrl: "1Tq3QdAU06U", equipment: "Machine", difficulty: ExperienceLevel.BEGINNER },
+  { id: "lg-5", name: { [Language.PT]: "Stiff com Barra", [Language.EN]: "Stiff Leg Deadlift", [Language.ES]: "Peso Muerto Rumano" }, muscleGroup: "Legs", sets: 3, reps: "10-12", executionTips: ["Hinge de quadril"], commonMistakes: ["Dobrar demais o joelho"], safetyNotes: "Coluna neutra essencial", videoUrl: "jEY8xR6Go1Q", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "lg-6", name: { [Language.PT]: "Afundo", [Language.EN]: "Lunges", [Language.ES]: "Zancadas" }, muscleGroup: "Legs", sets: 3, reps: "12 cada", executionTips: ["Passo longo"], commonMistakes: ["Joelho bater no chão"], safetyNotes: "Mantenha o equilíbrio", videoUrl: "QOVaHwm-Q6U", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "lg-7", name: { [Language.PT]: "Cadeira Abdutora", [Language.EN]: "Abductor Machine", [Language.ES]: "Abductores" }, muscleGroup: "Legs", sets: 3, reps: "15", executionTips: ["Costas no encosto"], commonMistakes: ["Movimento curto"], safetyNotes: "Foque no glúteo médio", videoUrl: "280X7f4E-xM", equipment: "Machine", difficulty: ExperienceLevel.BEGINNER },
+  { id: "lg-8", name: { [Language.PT]: "Elevação Pélvica", [Language.EN]: "Hip Thrust", [Language.ES]: "Empuje de Cadera" }, muscleGroup: "Legs", sets: 3, reps: "10-12", executionTips: ["Squeeze no glúteo"], commonMistakes: ["Arquear a lombar"], safetyNotes: "Use almofada na barra", videoUrl: "SEdqd1n0ad0", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "lg-9", name: { [Language.PT]: "Panturrilha em Pé", [Language.EN]: "Standing Calf Raise", [Language.ES]: "Gemelo de Pie" }, muscleGroup: "Legs", sets: 4, reps: "15-20", executionTips: ["Amplitude total"], commonMistakes: ["Saltitar"], safetyNotes: "Use um degrau", videoUrl: "gwLzBJYoWl4", equipment: "Bodyweight", difficulty: ExperienceLevel.BEGINNER },
+  { id: "lg-10", name: { [Language.PT]: "Agachamento Sumô", [Language.EN]: "Sumo Squat", [Language.ES]: "Sentadilla Sumo" }, muscleGroup: "Legs", sets: 3, reps: "12", executionTips: ["Pés para fora"], commonMistakes: ["Joelhos fechando"], safetyNotes: "Foque no adutor", videoUrl: "9ZuAtZat-t8", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+
+  // --- BRAÇOS (ARMS) ---
+  { id: "ar-1", name: { [Language.PT]: "Rosca Direta Barra W", [Language.EN]: "Barbell Bicep Curl", [Language.ES]: "Curl de Bíceps" }, muscleGroup: "Biceps", sets: 3, reps: "10-12", executionTips: ["Cotovelos fixos"], commonMistakes: ["Balançar o corpo"], safetyNotes: "Punho firme", videoUrl: "9L7LpG8_0tU", equipment: "Barbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ar-2", name: { [Language.PT]: "Rosca Martelo", [Language.EN]: "Hammer Curl", [Language.ES]: "Curl Martillo" }, muscleGroup: "Biceps", sets: 3, reps: "12", executionTips: ["Pegada neutra"], commonMistakes: ["Usar o ombro"], safetyNotes: "Bom para o antebraço", videoUrl: "TwD-YGVP4Bk", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ar-3", name: { [Language.PT]: "Rosca Concentrada", [Language.EN]: "Concentration Curl", [Language.ES]: "Curl Concentrado" }, muscleGroup: "Biceps", sets: 3, reps: "12", executionTips: ["Apoie o braço na coxa"], commonMistakes: ["Movimento incompleto"], safetyNotes: "Trabalho isolado", videoUrl: "JvjKuAnKn7I", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ar-4", name: { [Language.PT]: "Rosca Scott", [Language.EN]: "Preacher Curl", [Language.ES]: "Curl Scott" }, muscleGroup: "Biceps", sets: 3, reps: "10", executionTips: ["Não estique totalmente"], commonMistakes: ["Descolar as axilas"], safetyNotes: "Cuidado com o tendão", videoUrl: "fIWP-FRFNU0", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "ar-5", name: { [Language.PT]: "Tríceps Pulley", [Language.EN]: "Triceps Pushdown", [Language.ES]: "Tríceps Polea" }, muscleGroup: "Triceps", sets: 3, reps: "12-15", executionTips: ["Abra a corda no final"], commonMistakes: ["Cotovelos abrindo"], safetyNotes: "Postura ereta", videoUrl: "-pSpn8GfIeU", equipment: "Cables", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ar-6", name: { [Language.PT]: "Tríceps Testa", [Language.EN]: "Skull Crushers", [Language.ES]: "Press Francés" }, muscleGroup: "Triceps", sets: 3, reps: "10-12", executionTips: ["Em direção à testa"], commonMistakes: ["Cotovelos para fora"], safetyNotes: "Cuidado com o rosto", videoUrl: "Xv9-k-kXmB0", equipment: "Barbell", difficulty: ExperienceLevel.INTERMEDIATE },
+  { id: "ar-7", name: { [Language.PT]: "Tríceps Coice", [Language.EN]: "Tricep Kickback", [Language.ES]: "Patada de Tríceps" }, muscleGroup: "Triceps", sets: 3, reps: "12", executionTips: ["Cotovelo alto"], commonMistakes: ["Balançar o braço"], safetyNotes: "Controle o peso", videoUrl: "6SS6K3lAwZ8", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+  { id: "ar-8", name: { [Language.PT]: "Tríceps Francês", [Language.EN]: "French Press", [Language.ES]: "Press Francés Halter" }, muscleGroup: "Triceps", sets: 3, reps: "12", executionTips: ["Atrás da cabeça"], commonMistakes: ["Arquear a lombar"], safetyNotes: "Mantenha o core firme", videoUrl: "X099V95V5W0", equipment: "Dumbbell", difficulty: ExperienceLevel.BEGINNER },
+
+  // --- CORE ---
+  { id: "cr-1", name: { [Language.PT]: "Prancha Abdominal", [Language.EN]: "Plank", [Language.ES]: "Plancha" }, muscleGroup: "Core", sets: 3, reps: "60s", executionTips: ["Corpo reto"], commonMistakes: ["Quadril alto"], safetyNotes: "Não prenda a respiração", videoUrl: "TvxNkmjdhMM", equipment: "Bodyweight", difficulty: ExperienceLevel.BEGINNER },
+  { id: "cr-2", name: { [Language.PT]: "Abdominal Infra", [Language.EN]: "Leg Raises", [Language.ES]: "Elevación de Piernas" }, muscleGroup: "Core", sets: 3, reps: "15", executionTips: ["Lombar no chão"], commonMistakes: ["Arquear as costas"], safetyNotes: "Desça devagar", videoUrl: "JB2oyawG9KI", equipment: "Bodyweight", difficulty: ExperienceLevel.BEGINNER },
+  { id: "cr-3", name: { [Language.PT]: "Abdominal Supra", [Language.EN]: "Crunch", [Language.ES]: "Crunch" }, muscleGroup: "Core", sets: 3, reps: "20", executionTips: ["Tire as escápulas"], commonMistakes: ["Puxar o pescoço"], safetyNotes: "Olhe para o teto", videoUrl: "Xyd_fa5zoRK", equipment: "Bodyweight", difficulty: ExperienceLevel.BEGINNER },
+  { id: "cr-4", name: { [Language.PT]: "Roda Abdominal", [Language.EN]: "Ab Wheel", [Language.ES]: "Rueda Abdominal" }, muscleGroup: "Core", sets: 3, reps: "10", executionTips: ["Estenda com controle"], commonMistakes: ["Despencar"], safetyNotes: "Exige muito da lombar", videoUrl: "rqi7vQiYpYI", equipment: "Other", difficulty: ExperienceLevel.ADVANCED },
+  { id: "cr-5", name: { [Language.PT]: "Perdigueiro", [Language.EN]: "Bird Dog", [Language.ES]: "Bird Dog" }, muscleGroup: "Core", sets: 3, reps: "10 cada", executionTips: ["Braço e perna opostos"], commonMistakes: ["Rodar o quadril"], safetyNotes: "Estabilidade é a chave", videoUrl: "wiFNA3sqjCA", equipment: "Bodyweight", difficulty: ExperienceLevel.BEGINNER }
 ];

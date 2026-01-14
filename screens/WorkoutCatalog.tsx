@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Search, Filter, X, Calendar } from 'lucide-react';
 import { PresetWorkout, CustomWorkout, Language, BodyAreaTag, WorkoutCategory, UserProfile } from '../types';
-import { PRESET_WORKOUTS } from '../presets';
+import { PRESET_WORKOUTS } from '../data/workouts';
 import { WorkoutCard } from '../components/WorkoutCard';
 import { translations } from '../translations';
 
@@ -29,7 +29,6 @@ export const WorkoutCatalog: React.FC<WorkoutCatalogProps> = ({ lang, profile, o
   ];
 
   const filtered = allWorkouts.filter(w => {
-    // FIX: Extract title string based on whether it's a preset or custom workout
     const isPreset = 'tags' in w;
     const titleStr = isPreset ? (w as PresetWorkout).title[lang] : (w as CustomWorkout).title;
     const matchesSearch = titleStr.toLowerCase().includes(search.toLowerCase());
@@ -43,8 +42,8 @@ export const WorkoutCatalog: React.FC<WorkoutCatalogProps> = ({ lang, profile, o
     <div className="space-y-6 pb-24 animate-in fade-in duration-300">
       <div className="flex justify-between items-end px-1">
         <div>
-          <h2 className="text-3xl font-black italic tracking-tighter">{t.catalog.title}</h2>
-          <p className="text-[10px] font-black uppercase opacity-40 tracking-widest">{filtered.length} Workouts Available</p>
+          <h2 className="text-3xl font-black italic tracking-tighter uppercase">{t.catalog.title}</h2>
+          <p className="text-[10px] font-black uppercase opacity-40 tracking-widest">{filtered.length} {t.catalog.availableCount}</p>
         </div>
       </div>
 
@@ -97,7 +96,6 @@ export const WorkoutCatalog: React.FC<WorkoutCatalogProps> = ({ lang, profile, o
             <div className="flex justify-between items-center">
               <div className="space-y-1">
                 <h3 className="text-xl font-black uppercase">{t.catalog.selectDay}</h3>
-                {/* FIX: Extract title string based on whether it's a preset or custom workout for ReactNode rendering */}
                 <p className="text-[10px] font-black uppercase opacity-40 text-indigo-400">
                   {'tags' in assigningWorkout ? (assigningWorkout as PresetWorkout).title[lang] : (assigningWorkout as CustomWorkout).title}
                 </p>
