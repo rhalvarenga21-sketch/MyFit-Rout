@@ -27,7 +27,8 @@ export const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({ workout, lang, o
           return (
             <div key={id} className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/30 flex justify-between items-center">
               <div>
-                <p className="font-bold text-sm">{ex.name}</p>
+                {/* Access exercise name by current language since it is now a Record object */}
+                <p className="font-bold text-sm">{ex.name[lang]}</p>
                 <p className="text-[10px] opacity-40 uppercase font-black">{ex.muscleGroup} • {ex.sets}x{ex.reps}</p>
               </div>
               <div className="w-8 h-8 bg-indigo-500/10 rounded-full flex items-center justify-center text-indigo-400">

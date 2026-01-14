@@ -40,9 +40,31 @@ export enum FitnessGoal {
   HEALTH = 'HEALTH'
 }
 
+export enum WorkoutCategory {
+  FULL_BODY = 'FULL_BODY',
+  UPPER = 'UPPER',
+  LOWER = 'LOWER',
+  RECOVERY = 'RECOVERY',
+  CARDIO = 'CARDIO',
+  CUSTOM = 'CUSTOM'
+}
+
+export enum BodyAreaTag {
+  BACK = 'BACK',
+  CHEST = 'CHEST',
+  SHOULDERS = 'SHOULDERS',
+  BICEPS = 'BICEPS',
+  TRICEPS = 'TRICEPS',
+  LEGS = 'LEGS',
+  GLUTES = 'GLUTES',
+  CALVES = 'CALVES',
+  CORE = 'CORE',
+  CARDIO = 'CARDIO'
+}
+
 export interface Exercise {
   id: string;
-  name: string;
+  name: Record<Language, string>;
   muscleGroup: string;
   secondaryMuscles?: string[];
   sets: number;
@@ -56,10 +78,27 @@ export interface Exercise {
   difficulty: ExperienceLevel;
 }
 
+export interface WorkoutItem {
+  exerciseId: string;
+  sets: number;
+  reps: string;
+  rest: string;
+}
+
+export interface CustomWorkout {
+  id: string;
+  title: string;
+  description: string;
+  items: WorkoutItem[];
+  createdAt: string;
+}
+
 export interface PresetWorkout {
   id: string;
   title: string;
-  category: string;
+  category: string; // Keep for legacy display
+  primaryCategory: WorkoutCategory;
+  tags: BodyAreaTag[];
   duration: 45 | 60 | 75 | 90;
   description: string;
   warmupIds: string[];
@@ -88,6 +127,8 @@ export interface UserProfile {
   language: Language;
   theme?: Theme;
   customSchedule: Record<string, DayPlan>;
+  trainingDays: string[];
+  customWorkouts: CustomWorkout[];
   completedDays: string[]; 
   hasPass: boolean;
   trialStartDate: string;
@@ -96,6 +137,8 @@ export interface UserProfile {
 
 export interface DayPlan {
   type: 'WORKOUT' | 'REST';
+  workoutSource?: 'PRESET' | 'CUSTOM';
   presetWorkoutId?: string;
-  customExerciseIds?: string[]; // Allows modifying the preset or building from scratch
+  customWorkoutId?: string;
+  customExerciseIds?: string[];
 }
