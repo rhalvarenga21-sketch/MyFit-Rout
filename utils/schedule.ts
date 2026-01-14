@@ -1,85 +1,68 @@
 
-import { UserProfile, DayPlan, FitnessGoal, ExperienceLevel, WorkoutCategory, SplitStyle, PresetWorkout } from '../types';
-import { PRESET_WORKOUTS } from '../presets';
+import { UserProfile, DayPlan, FitnessGoal, SplitStyle, WorkoutCategory, ExperienceLevel } from '../types';
+import { PRESET_WORKOUTS } from '../presets/workouts';
 
-const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-
-export const applyTrainingDaysSelection = (
-  profile: UserProfile, 
-  selectedDays: string[],
-  splitStyle: SplitStyle = SplitStyle.FULL_BODY_MIX
-): Record<string, DayPlan> => {
-  const newSchedule: Record<string, DayPlan> = {};
+/**
+ * Maps goals to specific preset sequences to ensure user gets the right training stimulus.
+ */
+export const recommendPresetForGoal = (profile: UserProfile, dayIndex: number): string => {
+  const { goal, level, splitStyle } = profile;
   
-  // Volume rules
-  const dayCount = selectedDays.length;
+  // High-level pools
+  const fbHealth = "p-fb-health";
+  const upperPush = "p-upper-push";
+  const lowerQuads = "p-lower-quads";
+  const upperPull = "p-upper-pull";
+  const lowerPost = "p-lower-post";
+  const cardio = "p-cardio-zone2";
 
-  // Filter pools
-  const fbPool = PRESET_WORKOUTS.filter(p => p.primaryCategory === WorkoutCategory.FULL_BODY);
-  const upperPool = PRESET_WORKOUTS.filter(p => p.primaryCategory === WorkoutCategory.UPPER);
-  const lowerPool = PRESET_WORKOUTS.filter(p => p.primaryCategory === WorkoutCategory.LOWER);
-  const cardioPool = PRESET_WORKOUTS.filter(p => p.primaryCategory === WorkoutCategory.CARDIO);
+  // 1. Goal: HEALTH (Longevity/Mobility)
+  if (goal === FitnessGoal.HEALTH) {
+    const healthPool = [fbHealth, "p-fb-health", "p-cardio-zone2"]; 
+    return healthPool[dayIndex % healthPool.length];
+  }
 
-  let upperIndex = 0;
-  let lowerIndex = 0;
-  let fbIndex = 0;
-  let cardioCount = 0;
+  // 2. Goal: LOSE (Fat Loss/Conditioning)
+  if (goal === FitnessGoal.LOSE) {
+    // Force a cardio session every 3rd workout day
+    if (dayIndex % 3 === 2) return cardio;
+    return [fbHealth, upperPush, lowerQuads][dayIndex % 3];
+  }
 
-  let lastCategory: WorkoutCategory | null = null;
+  // 3. Goal: STRENGTHEN or GAIN (Hypertrophy/Performance)
+  if (splitStyle === SplitStyle.BRAZIL_4) {
+    const brCycle = [upperPush, lowerQuads, upperPull, lowerPost];
+    return brCycle[dayIndex % brCycle.length];
+  }
 
-  DAYS.forEach((day) => {
-    if (!selectedDays.includes(day)) {
-      newSchedule[day] = { type: 'REST' };
-      return;
-    }
+  if (splitStyle === SplitStyle.ALTERNATING) {
+    return (dayIndex % 2 === 0) ? upperPush : lowerQuads;
+  }
 
-    let selectedPreset: PresetWorkout | null = null;
+  // Default Fallback: Full Body Mix
+  return [fbHealth, upperPush, lowerQuads][dayIndex % 3];
+};
 
-    // 2 Days - Strictly Full Body
-    if (dayCount <= 2) {
-      selectedPreset = fbPool[fbIndex % fbPool.length];
-      fbIndex++;
-    } 
-    // 3 Days - Mixed or FB
-    else if (dayCount === 3) {
-      if (profile.goal === FitnessGoal.LOSE && cardioCount === 0) {
-        selectedPreset = cardioPool[0] || fbPool[0];
-        cardioCount++;
-      } else if (lastCategory === WorkoutCategory.FULL_BODY) {
-        selectedPreset = upperPool[upperIndex % upperPool.length] || lowerPool[lowerIndex % lowerPool.length];
-        upperIndex++;
-      } else {
-        selectedPreset = fbPool[fbIndex % fbPool.length];
-        fbIndex++;
-      }
-    } 
-    // 4+ Days - Split Rotation
-    else {
-      if (splitStyle === SplitStyle.ALTERNATING) {
-        if (lastCategory === WorkoutCategory.UPPER) {
-          selectedPreset = lowerPool[lowerIndex % lowerPool.length];
-          lowerIndex++;
-        } else {
-          selectedPreset = upperPool[upperIndex % upperPool.length];
-          upperIndex++;
-        }
-      } else {
-        selectedPreset = fbPool[fbIndex % fbPool.length];
-        fbIndex++;
-      }
-    }
+/**
+ * Builds a complete weekly schedule based on selected training days.
+ */
+export const buildScheduleFromDays = (profile: UserProfile, selectedDays: string[]): Record<string, DayPlan> => {
+  const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const schedule: Record<string, DayPlan> = {};
+  let workoutCounter = 0;
 
-    if (selectedPreset) {
-      newSchedule[day] = {
+  days.forEach((day) => {
+    if (selectedDays.includes(day)) {
+      schedule[day] = {
         type: 'WORKOUT',
         workoutSource: 'PRESET',
-        presetWorkoutId: selectedPreset.id
+        presetWorkoutId: recommendPresetForGoal(profile, workoutCounter)
       };
-      lastCategory = selectedPreset.primaryCategory;
+      workoutCounter++;
     } else {
-      newSchedule[day] = { type: 'REST' };
+      schedule[day] = { type: 'REST' };
     }
   });
 
-  return newSchedule;
+  return schedule;
 };

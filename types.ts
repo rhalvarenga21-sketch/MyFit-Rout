@@ -11,8 +11,6 @@ export enum Language {
   ES = 'ES'
 }
 
-export type Theme = 'light' | 'dark';
-
 export enum UserRole {
   MEMBER = 'MEMBER',
   TRAINER = 'TRAINER',
@@ -64,8 +62,8 @@ export enum BodyAreaTag {
 
 export enum SplitStyle {
   ALTERNATING = 'ALTERNATING', // Upper/Lower
-  FULL_BODY_MIX = 'FULL_BODY_MIX',
-  STRENGTH_PUSH_PULL = 'STRENGTH_PUSH_PULL'
+  BRAZIL_4 = 'BRAZIL_4',        // 4-part split
+  FULL_BODY_MIX = 'FULL_BODY_MIX'
 }
 
 export interface Exercise {
@@ -112,13 +110,6 @@ export interface PresetWorkout {
   cooldownIds: string[];
 }
 
-export interface PostWorkoutFeedback {
-  difficulty: number;
-  pain: boolean;
-  energyLevel: number;
-  date: string;
-}
-
 export interface UserProfile {
   name: string;
   role: UserRole;
@@ -130,7 +121,6 @@ export interface UserProfile {
   level: ExperienceLevel;
   goal: FitnessGoal;
   language: Language;
-  theme?: Theme;
   customSchedule: Record<string, DayPlan>;
   trainingDays: string[];
   splitStyle: SplitStyle;
@@ -138,7 +128,6 @@ export interface UserProfile {
   completedDays: string[]; 
   hasPass: boolean;
   trialStartDate: string;
-  feedbackHistory: PostWorkoutFeedback[];
 }
 
 export interface DayPlan {
@@ -146,5 +135,4 @@ export interface DayPlan {
   workoutSource?: 'PRESET' | 'CUSTOM';
   presetWorkoutId?: string;
   customWorkoutId?: string;
-  customExerciseIds?: string[];
 }

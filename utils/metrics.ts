@@ -3,7 +3,6 @@ import { UserProfile, Gender, ActivityLevel, FitnessGoal } from '../types';
 
 export const calculateBMR = (profile: UserProfile): number => {
   const { weight, height, age, gender } = profile;
-  // Mifflin-St Jeor
   if (gender === Gender.MALE) {
     return 10 * weight + 6.25 * height - 5 * age + 5;
   }
@@ -19,39 +18,36 @@ export const calculateTDEE = (profile: UserProfile): number => {
     [ActivityLevel.HEAVY]: 1.725,
     [ActivityLevel.ATHLETE]: 1.9,
   };
-  return Math.round(bmr * multipliers[profile.activityLevel]);
+  return Math.round(bmr * (multipliers[profile.activityLevel] || 1.2));
 };
 
-// Added water goal calculation based on weight (35ml per kg)
 export const calculateWaterGoal = (weight: number): number => {
   return Math.round(weight * 35);
 };
 
-export const calculateDailyCalorieTarget = (profile: UserProfile): { target: number; labelKey: string } => {
+export const calculateDailyCalorieTarget = (profile: UserProfile): { target: number; labelKey: keyof typeof FitnessGoal } => {
   const tdee = calculateTDEE(profile);
   let target = tdee;
-  let labelKey = 'health';
+  let labelKey: keyof typeof FitnessGoal = 'HEALTH';
 
   switch (profile.goal) {
     case FitnessGoal.LOSE:
-      target = tdee * 0.85; // 15% deficit
+      target = tdee * 0.85; 
       const minKcal = profile.gender === Gender.MALE ? 1500 : 1200;
       target = Math.max(target, minKcal);
-      labelKey = 'lose';
+      labelKey = 'LOSE';
       break;
     case FitnessGoal.GAIN:
-      target = tdee * 1.10; // 10% surplus
-      labelKey = 'gain';
+      target = tdee * 1.10;
+      labelKey = 'GAIN';
       break;
     case FitnessGoal.STRENGTHEN:
-      target = tdee * 1.05; // Performance slight surplus
-      labelKey = 'strengthen';
+      target = tdee * 1.05;
+      labelKey = 'STRENGTHEN';
       break;
-    case FitnessGoal.HEALTH:
     default:
       target = tdee;
-      labelKey = 'health';
-      break;
+      labelKey = 'HEALTH';
   }
 
   return { target: Math.round(target), labelKey };
