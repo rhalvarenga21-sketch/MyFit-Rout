@@ -19,17 +19,18 @@ export enum UserRole {
   GYM_OWNER = 'GYM_OWNER'
 }
 
-export enum WorkoutFocus {
-  PERFORMANCE = 'PERFORMANCE',
-  QUALITY = 'QUALITY',
-  STRENGTH = 'STRENGTH',
-  HYPERTROPHY = 'HYPERTROPHY',
-  LONGEVITY = 'LONGEVITY',
-  BALANCE = 'BALANCE',
-  WEIGHT_LOSS = 'WEIGHT_LOSS',
-  BODYWEIGHT = 'BODYWEIGHT',
-  MOBILITY = 'MOBILITY',
-  RECOVERY = 'RECOVERY'
+export enum Gender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER'
+}
+
+export enum ActivityLevel {
+  SEDENTARY = 'SEDENTARY',
+  LIGHT = 'LIGHT',
+  MODERATE = 'MODERATE',
+  HEAVY = 'HEAVY',
+  ATHLETE = 'ATHLETE'
 }
 
 export enum FitnessGoal {
@@ -52,7 +53,7 @@ export interface Exercise {
   safetyNotes: string;
   videoUrl: string;
   equipment: string;
-  tags?: string[];
+  difficulty: ExperienceLevel;
 }
 
 export interface PresetWorkout {
@@ -68,40 +69,33 @@ export interface PresetWorkout {
 }
 
 export interface PostWorkoutFeedback {
-  difficulty: number; // 1-10
+  difficulty: number;
   pain: boolean;
-  energyLevel: number; // 1-5
+  energyLevel: number;
   date: string;
 }
 
 export interface UserProfile {
   name: string;
   role: UserRole;
+  age: number;
+  gender: Gender;
   weight: number;
   height: number;
+  activityLevel: ActivityLevel;
   level: ExperienceLevel;
-  focus: WorkoutFocus;
   goal: FitnessGoal;
   language: Language;
   theme?: Theme;
   customSchedule: Record<string, DayPlan>;
+  completedDays: string[]; 
   hasPass: boolean;
   trialStartDate: string;
   feedbackHistory: PostWorkoutFeedback[];
-  assignedPresetId?: string;
 }
 
 export interface DayPlan {
-  type: string;
-  customExerciseIds?: string[];
+  type: 'WORKOUT' | 'REST';
   presetWorkoutId?: string;
-}
-
-export interface WorkoutDay {
-  id: string;
-  dayName: string;
-  title: string;
-  exercises: Exercise[];
-  isRestDay: boolean;
-  duration?: number;
+  customExerciseIds?: string[]; // Allows modifying the preset or building from scratch
 }

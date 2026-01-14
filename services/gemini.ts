@@ -1,8 +1,7 @@
 
-import { GoogleGenAI, Type } from "@google/genai";
-import { ExperienceLevel, Language, UserProfile } from "../types";
+import { GoogleGenAI } from "@google/genai";
+import { Language, UserProfile } from "../types";
 
-// Initialize GoogleGenAI correctly using the named parameter and process.env.API_KEY directly.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getAIFeedback = async (
@@ -11,26 +10,27 @@ export const getAIFeedback = async (
   language: Language
 ) => {
   try {
-    // Use ai.models.generateContent to query the model directly as per the latest guidelines.
-    // Selecting gemini-3-pro-preview for complex reasoning tasks like personalized coaching.
     const response = await ai.models.generateContent({
       model: 'gemini-3-pro-preview',
       contents: query,
       config: {
-        // Fix: Changed non-existent 'membership' property to 'role' to resolve TypeScript error on line 22.
-        systemInstruction: `You are the "MyFitRoute Coach", an elite virtual personal trainer. 
-        Your mission is to help gym members achieve long-term health, joint safety, and perfect movement execution.
-        User Details: Name: ${profile.name}, Goal: ${profile.goal}, Level: ${profile.level}, Focus: ${profile.focus}, Role: ${profile.role}.
-        If they are a TRAINER or GYM_OWNER, acknowledge their expertise and professional context. If they are a MEMBER, prioritize safety cues and technique.
-        Tone: Professional, supportive, scientific, and health-focused.
-        Structure responses into: "Movement Insight", "Pro-Tip for Execution", and "Longevity Strategy".
-        Respond in ${language}.`,
+        systemInstruction: `You are the "MyFitRoute Vital Coach", a high-performance specialist in longevity and biomechanics.
+        User Profile Context:
+        Name: ${profile.name}, Age: ${profile.age}, Weight: ${profile.weight}kg, Gender: ${profile.gender}, Goal: ${profile.goal}.
+        Key Metrics: Sugested water ${Math.round(profile.weight * 35)}ml, Maintenance kcal approx ${Math.round(profile.weight * 33)}kcal.
+        
+        Focus on:
+        1. "Quality First": Prioritize technique over load.
+        2. "Longevity": Suggest movements that protect joints.
+        3. "Scientific basis": Explain the 'why' briefly.
+        
+        Tone: Professional, calm, encouraging. Avoid excessive hype.
+        Language: Respond strictly in ${language === Language.PT ? 'Portuguese' : language === Language.ES ? 'Spanish' : 'English'}.`,
       },
     });
-    // The .text property (not a method) extracts the generated text.
-    return response.text || "Desculpe, não consegui processar seu pedido agora.";
+    return response.text || "I'm sorry, I couldn't process your request right now.";
   } catch (error) {
     console.error("Gemini Error:", error);
-    return "Erro ao conectar com o MyFitRoute Coach.";
+    return "Connection error with Vital Coach.";
   }
 };
