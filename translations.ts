@@ -3,7 +3,7 @@ import { Language } from './types';
 
 export const translations = {
   [Language.PT]: {
-    welcome: "Bem-vindo ao My Fit Rout",
+    welcome: "Bem-vindo ao MyFitRout",
     onboardingTitle: "Sua Longevidade, Nossa Prioridade",
     safetyNotes: "Notas de Segurança",
     commonMistakes: "Erros Comuns",
@@ -12,6 +12,59 @@ export const translations = {
     cooldown: "Resfriamento",
     aiAssistant: "Vital AI Coach",
     askAi: "Dúvidas técnicas?",
+    login: {
+      title: "MyFitRout AI",
+      subtitle: "Westwood Pro Powered Performance",
+      email: "E-mail",
+      password: "Senha",
+      signIn: "Entrar",
+      signUp: "Criar Conta",
+      noAccount: "Não tem uma conta?",
+      haveAccount: "Já tem uma conta?",
+      forgotPass: "Esqueceu a senha?",
+      recovery: "Recuperar Senha",
+      recoverySubtitle: "Enviaremos um link de acesso para seu e-mail",
+      sendLink: "Enviar Link de Recuperação",
+      backToLogin: "Voltar para o login",
+      syncing: "Sincronizando com a nuvem...",
+      successReset: "Link enviado! Verifique sua caixa de entrada."
+    },
+    onboarding: {
+      step1: "Como podemos te chamar?",
+      step2: "Suas métricas físicas",
+      step3: "Seu nível atual",
+      step4: "Qual sua meta principal?",
+      step5: "Sua agenda semanal",
+      next: "PRÓXIMO",
+      finish: "FINALIZAR",
+      gender: "Gênero",
+      activity: "Nível de Atividade",
+      experience: "Experiência",
+      male: "Masculino",
+      female: "Feminino",
+      other: "Outro",
+      activityLevels: {
+        SEDENTARY: "Sedentário",
+        LIGHT: "Levemente Ativo",
+        MODERATE: "Moderadamente Ativo",
+        HEAVY: "Muito Ativo",
+        ATHLETE: "Atleta"
+      }
+    },
+    membership: {
+      title: "Plano de Membro",
+      status: "Status",
+      active: "Ativo",
+      inactive: "Inativo",
+      buyPass: "Adquirir Passe",
+      cancel: "Cancelar Assinatura",
+      monthly: "Mensal",
+      quarterly: "Trimestral",
+      annual: "Anual",
+      benefits: "Acesso total, IA ilimitada e Cronograma Personalizado.",
+      checkout: "Finalizar Compra",
+      testCard: "Cartão de Teste (Simulação)"
+    },
     smartStart: {
       assigned: "Treino recomendado pronto!",
       isRest: "Hoje é seu dia de descanso. Deseja treinar mesmo assim?",
@@ -19,7 +72,7 @@ export const translations = {
       startAnyway: "Treino Rápido (30-45min)"
     },
     plan: { 
-      title: "Planejamento", 
+      title: "Planejamento Semanal", 
       rest: "Dia de Descanso", 
       edit: "Editar Dia",
       trainingDays: "Dias de Treino",
@@ -84,7 +137,7 @@ export const translations = {
     }
   },
   [Language.EN]: {
-    welcome: "Welcome to My Fit Rout",
+    welcome: "Welcome to MyFitRout",
     onboardingTitle: "Your Longevity, Our Priority",
     safetyNotes: "Safety Notes",
     commonMistakes: "Common Mistakes",
@@ -93,6 +146,59 @@ export const translations = {
     cooldown: "Cool-down",
     aiAssistant: "Vital AI Coach",
     askAi: "Technical questions?",
+    login: {
+      title: "MyFitRout AI",
+      subtitle: "Westwood Pro Powered Performance",
+      email: "Email",
+      password: "Password",
+      signIn: "Sign In",
+      signUp: "Sign Up",
+      noAccount: "Don't have an account?",
+      haveAccount: "Already have an account?",
+      forgotPass: "Forgot password?",
+      recovery: "Recover Password",
+      recoverySubtitle: "We will send an access link to your email",
+      sendLink: "Send Recovery Link",
+      backToLogin: "Back to login",
+      syncing: "Syncing with cloud...",
+      successReset: "Link sent! Check your inbox."
+    },
+    onboarding: {
+      step1: "How should we call you?",
+      step2: "Your physical metrics",
+      step3: "Your current level",
+      step4: "What's your main goal?",
+      step5: "Your weekly schedule",
+      next: "NEXT",
+      finish: "FINISH",
+      gender: "Gender",
+      activity: "Activity Level",
+      experience: "Experience",
+      male: "Male",
+      female: "Female",
+      other: "Other",
+      activityLevels: {
+        SEDENTARY: "Sedentary",
+        LIGHT: "Lightly Active",
+        MODERATE: "Moderately Active",
+        HEAVY: "Very Active",
+        ATHLETE: "Athlete"
+      }
+    },
+    membership: {
+      title: "Membership Plan",
+      status: "Status",
+      active: "Active",
+      inactive: "Inactive",
+      buyPass: "Get Pass",
+      cancel: "Cancel Subscription",
+      monthly: "Monthly",
+      quarterly: "Quarterly",
+      annual: "Annual",
+      benefits: "Full access, unlimited AI, and Custom Schedule.",
+      checkout: "Complete Purchase",
+      testCard: "Test Card (Simulation)"
+    },
     smartStart: {
       assigned: "Recommended workout ready!",
       isRest: "Today is your rest day. Want to train anyway?",
@@ -100,7 +206,7 @@ export const translations = {
       startAnyway: "Quick Workout (30-45min)"
     },
     plan: { 
-      title: "Planning", 
+      title: "Weekly Schedule", 
       rest: "Rest Day", 
       edit: "Edit Day",
       trainingDays: "Training Days",
@@ -165,7 +271,7 @@ export const translations = {
     }
   },
   [Language.ES]: {
-    welcome: "Bienvenido a My Fit Rout",
+    welcome: "Bienvenido a MyFitRout",
     onboardingTitle: "Tu Longevidad, Nuestra Prioridad",
     safetyNotes: "Notas de Seguridad",
     commonMistakes: "Errores Comunes",
@@ -174,6 +280,59 @@ export const translations = {
     cooldown: "Enfriamiento",
     aiAssistant: "Vital AI Coach",
     askAi: "¿Dudas técnicas?",
+    login: {
+      title: "MyFitRout AI",
+      subtitle: "Westwood Pro Powered Performance",
+      email: "Correo",
+      password: "Senha",
+      signIn: "Entrar",
+      signUp: "Crear Conta",
+      noAccount: "¿No tienes cuenta?",
+      haveAccount: "¿Ya tienes cuenta?",
+      forgotPass: "¿Olvidaste tu contraseña?",
+      recovery: "Recuperar Contraseña",
+      recoverySubtitle: "Enviaremos un enlace de acceso a tu correo",
+      sendLink: "Enviar Enlace de Recuperación",
+      backToLogin: "Volver al login",
+      syncing: "Sincronizando con la nube...",
+      successReset: "¡Enlace enviado! Revisa tu bandeja de entrada."
+    },
+    onboarding: {
+      step1: "¿Cómo podemos llamarte?",
+      step2: "Tus métricas físicas",
+      step3: "Tu nivel actual",
+      step4: "¿Cuál es tu meta principal?",
+      step5: "Tu agenda semanal",
+      next: "SIGUIENTE",
+      finish: "FINALIZAR",
+      gender: "Género",
+      activity: "Nivel de Actividad",
+      experience: "Experiencia",
+      male: "Masculino",
+      female: "Femenino",
+      other: "Otro",
+      activityLevels: {
+        SEDENTARY: "Sedentario",
+        LIGHT: "Ligeramente Activo",
+        MODERATE: "Moderadamente Activo",
+        HEAVY: "Muy Activo",
+        ATHLETE: "Atleta"
+      }
+    },
+    membership: {
+      title: "Plan de Miembro",
+      status: "Estado",
+      active: "Activo",
+      inactive: "Inactivo",
+      buyPass: "Adquirir Pase",
+      cancel: "Cancelar Suscripción",
+      monthly: "Mensual",
+      quarterly: "Trimestral",
+      annual: "Anual",
+      benefits: "Acceso total, IA ilimitada y Cronograma Personalizado.",
+      checkout: "Finalizar Compra",
+      testCard: "Tarjeta de Prueba (Simulación)"
+    },
     smartStart: {
       assigned: "¡Entrenamiento listo!",
       isRest: "Hoy es tu día de descanso. ¿Quieres entrenar de todos modos?",
@@ -181,7 +340,7 @@ export const translations = {
       startAnyway: "Entreno Rápido (30-45min)"
     },
     plan: { 
-      title: "Planificación", 
+      title: "Cronograma Semanal", 
       rest: "Día de Descanso", 
       edit: "Editar Día",
       trainingDays: "Días de Entreno",

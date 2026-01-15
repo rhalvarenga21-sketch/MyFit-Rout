@@ -61,9 +61,16 @@ export enum BodyAreaTag {
 }
 
 export enum SplitStyle {
-  ALTERNATING = 'ALTERNATING', // Upper/Lower
-  BRAZIL_4 = 'BRAZIL_4',        // 4-part split
+  ALTERNATING = 'ALTERNATING',
+  BRAZIL_4 = 'BRAZIL_4',
   FULL_BODY_MIX = 'FULL_BODY_MIX'
+}
+
+export enum SubscriptionPlan {
+  MONTHLY = 'MONTHLY',
+  QUARTERLY = 'QUARTERLY',
+  ANNUAL = 'ANNUAL',
+  NONE = 'NONE'
 }
 
 export interface Exercise {
@@ -111,6 +118,8 @@ export interface PresetWorkout {
 }
 
 export interface UserProfile {
+  id: string;
+  email: string;
   name: string;
   role: UserRole;
   age: number;
@@ -126,6 +135,8 @@ export interface UserProfile {
   splitStyle: SplitStyle;
   customWorkouts: CustomWorkout[];
   completedDays: string[]; 
+  subscription: SubscriptionPlan;
+  subscriptionActive: boolean;
   hasPass: boolean;
   trialStartDate: string;
 }

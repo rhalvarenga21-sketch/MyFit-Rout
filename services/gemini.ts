@@ -14,7 +14,7 @@ export const getAIFeedback = async (
       model: 'gemini-3-pro-preview',
       contents: query,
       config: {
-        systemInstruction: `You are the "MyFitRoute Vital Coach", a high-performance specialist in longevity and biomechanics.
+        systemInstruction: `You are the "MyFitRout Vital Coach", a high-performance specialist in longevity and biomechanics.
         User Profile Context:
         Name: ${profile.name}, Age: ${profile.age}, Weight: ${profile.weight}kg, Gender: ${profile.gender}, Goal: ${profile.goal}.
         Key Metrics: Sugested water ${Math.round(profile.weight * 35)}ml, Maintenance kcal approx ${Math.round(profile.weight * 33)}kcal.
