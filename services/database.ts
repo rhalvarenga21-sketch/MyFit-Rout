@@ -154,39 +154,73 @@ export const startWorkoutSession = async (session: WorkoutSession): Promise<stri
   }
 };
 
-export const completeWorkoutSession = async (
-  sessionId: string,
-  completedAt: string,
-  stats: {
-    durationMinutes: number;
-    totalWeightLifted: number;
-    totalSets: number;
-    totalReps: number;
-  }
-): Promise<boolean> => {
+export const completeWorkoutSession = async (sessionData: any): Promise<boolean> => {
   try {
-    console.log('✅ Completing workout session:', sessionId);
+    console.log('✅ Saving completed workout session:', sessionData.workoutName);
 
-    const { error } = await supabase
+    // Insert main workout session
+    const { data: sessionRecord, error: sessionError } = await supabase
       .from('workout_sessions')
-      .update({
-        completed_at: completedAt,
-        duration_minutes: stats.durationMinutes,
-        total_weight_lifted: stats.totalWeightLifted,
-        total_sets: stats.totalSets,
-        total_reps: stats.totalReps,
+      .insert({
+        user_id: sessionData.userId,
+        workout_name: sessionData.workoutName,
+        workout_type: sessionData.workoutType,
+        preset_workout_id: sessionData.presetWorkoutId,
+        started_at: sessionData.startedAt,
+        completed_at: sessionData.completedAt,
+        duration_minutes: sessionData.durationMinutes,
+        total_weight_lifted: sessionData.totalWeightLifted,
+        total_sets: sessionData.totalSets,
+        total_reps: sessionData.totalReps,
       })
-      .eq('id', sessionId);
+      .select()
+      .single();
 
-    if (error) {
-      console.error('❌ Error completing workout session:', error);
+    if (sessionError) {
+      console.error('❌ Error saving workout session:', sessionError);
       return false;
     }
 
-    console.log('✅ Workout session completed');
+    // Insert all exercise sets
+    if (sessionData.exercises && sessionData.exercises.length > 0) {
+      const exerciseSets: any[] = [];
+
+      sessionData.exercises.forEach((exercise: any) => {
+        exercise.sets.forEach((set: any) => {
+          if (set.completed) {
+            exerciseSets.push({
+              session_id: sessionRecord.id,
+              exercise_id: exercise.exerciseId,
+              exercise_name: exercise.exerciseName,
+              muscle_group: 'General', // TODO: Get from exercise library
+              set_number: set.setNumber,
+              reps_completed: set.reps,
+              weight_used: set.weight,
+              rest_seconds: 60,
+            });
+          }
+        });
+      });
+
+      if (exerciseSets.length > 0) {
+        const { error: setsError } = await supabase
+          .from('exercises_completed')
+          .insert(exerciseSets);
+
+        if (setsError) {
+          console.error('❌ Error saving exercise sets:', setsError);
+          // Don't return false as the workout session was saved
+        }
+      }
+    }
+
+    // Update workout streak
+    await updateWorkoutStreak(sessionData.userId);
+
+    console.log('✅ Workout session and exercises saved successfully');
     return true;
   } catch (err) {
-    console.error('❌ Unexpected error completing workout:', err);
+    console.error('❌ Unexpected error saving workout:', err);
     return false;
   }
 };
