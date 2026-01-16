@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   Dumbbell, User, Flame, Trophy, Clock,
-  Play, ShieldCheck, ChevronLeft, Send, X, Share2,
+  Play, ShieldCheck, ChevronLeft, Send, X, Share2, Settings as SettingsIcon,
   LayoutList, Check, HeartPulse, Droplets, Utensils,
   Scale, Target, Timer, BookOpen, Layers, AlertCircle, Save, Edit3, Calendar, Lock, LogOut, CreditCard, Sparkles, CloudSync, RefreshCw, Mail, Key, UserCircle, TrendingUp
 } from 'lucide-react';
@@ -26,6 +26,7 @@ import { NutritionTracker } from './components/NutritionTracker';
 import { SocialLeaderboard } from './components/SocialLeaderboard';
 import { ExerciseVideoPlayer } from './components/ExerciseVideoPlayer';
 import { PaymentModal } from './components/PaymentModal';
+import { Settings } from './components/Settings';
 import { mockAuth } from './services/auth';
 import { syncProfileToCloud, fetchProfileFromCloud, completeWorkoutSession } from './services/database';
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
   const [assigningToDay, setAssigningToDay] = useState<string | null>(null);
   const [completeSessionData, setCompleteSessionData] = useState<any>(null);
   const [pendingPlan, setPendingPlan] = useState<{ name: string, price: string, type: SubscriptionPlan } | null>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [isSyncing, setIsSyncing] = useState(false);
 
   const t = translations[lang] as any;
@@ -275,6 +277,9 @@ const App: React.FC = () => {
             <div className="flex justify-between items-center px-1">
               <h2 className="text-2xl font-black uppercase italic tracking-tighter">{t.profile.title}</h2>
               <div className="flex gap-2">
+                <button onClick={() => setView('settings')} className="p-3 bg-slate-800 rounded-2xl border border-slate-700 text-slate-400 hover:text-white transition-colors">
+                  <SettingsIcon size={16} />
+                </button>
                 <button onClick={() => {
                   if (navigator.share) {
                     navigator.share({
@@ -372,6 +377,16 @@ const App: React.FC = () => {
               </div>
             )}
           </div>
+        )}
+
+        {view === 'settings' && (
+          <Settings
+            lang={lang}
+            setLang={setLang}
+            theme={theme}
+            setTheme={setTheme}
+            onBack={() => setView('me')}
+          />
         )}
 
         {view === 'progress' && (
