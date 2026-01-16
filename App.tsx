@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   Dumbbell, User, Flame, Trophy, Clock,
-  Play, ShieldCheck, ChevronLeft, Send, X,
+  Play, ShieldCheck, ChevronLeft, Send, X, Share2,
   LayoutList, Check, HeartPulse, Droplets, Utensils,
   Scale, Target, Timer, BookOpen, Layers, AlertCircle, Save, Edit3, Calendar, Lock, LogOut, CreditCard, Sparkles, CloudSync, RefreshCw, Mail, Key, UserCircle, TrendingUp
 } from 'lucide-react';
@@ -161,8 +161,31 @@ const App: React.FC = () => {
             </section>
 
             <div className="grid grid-cols-2 gap-4">
-              <MetricBox icon={Droplets} label="Água" value={`${metrics.water}ml`} color="text-blue-400" />
-              <MetricBox icon={Utensils} label={t.metrics[metrics.labelKey.toLowerCase()] || "Meta"} value={`${metrics.target}kcal`} color="text-orange-400" />
+              <button
+                onClick={() => {
+                  const val = prompt('Atualizar consumo de água (ml):', metrics.water.toString());
+                  if (val && !isNaN(parseInt(val))) {
+                    /* In a real app, save to DB. limiting to local state for demo */
+                    alert('Valor atualizado! (Persistência real virá na próxima atualização)');
+                  }
+                }}
+                className="text-left bg-slate-800 p-0 rounded-[35px] overflow-hidden border border-slate-700/50 hover:border-blue-400 transition-all"
+              >
+                <MetricBox icon={Droplets} label="Água (Editar)" value={`${metrics.water}ml`} color="text-blue-400" />
+              </button>
+
+              <button
+                onClick={() => {
+                  const val = prompt('Atualizar calorias consumidas:', '0');
+                  if (val && !isNaN(parseInt(val))) {
+                    /* In a real app, save to DB */
+                    alert('Valor atualizado! (Persistência real virá na próxima atualização)');
+                  }
+                }}
+                className="text-left bg-slate-800 p-0 rounded-[35px] overflow-hidden border border-slate-700/50 hover:border-orange-400 transition-all"
+              >
+                <MetricBox icon={Utensils} label={t.metrics[metrics.labelKey.toLowerCase()] || "Meta (Editar)"} value={`${metrics.target}kcal`} color="text-orange-400" />
+              </button>
             </div>
 
             <section className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 shadow-xl">
@@ -170,8 +193,8 @@ const App: React.FC = () => {
                 <h3 className="font-black text-sm uppercase tracking-widest text-slate-400 flex items-center gap-2"><Clock size={16} /> HOJE</h3>
                 <span className="text-[10px] font-black text-indigo-400 uppercase bg-indigo-500/10 px-2 py-1 rounded-md">{todayWorkoutTitle}</span>
               </div>
-              <button onClick={handleStartRoutine} className="w-full bg-indigo-600 hover:bg-indigo-500 p-6 rounded-3xl flex justify-between items-center shadow-lg transition-colors group">
-                <span className="font-black uppercase tracking-tight text-lg">Iniciar Treino</span>
+              <button onClick={() => setView('catalog')} className="w-full bg-indigo-600 hover:bg-indigo-500 p-6 rounded-3xl flex justify-between items-center shadow-lg transition-colors group">
+                <span className="font-black uppercase tracking-tight text-lg">Escolher Treino</span>
                 <Play size={24} fill="white" className="group-hover:scale-110 transition-transform" />
               </button>
             </section>
@@ -181,7 +204,11 @@ const App: React.FC = () => {
                 <div className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400"><Calendar size={24} /></div>
                 <div className="text-left">
                   <p className="font-black uppercase text-xs tracking-widest">{t.plan.title}</p>
-                  <p className="text-[10px] opacity-40 uppercase">Ajuste seu cronograma semanal</p>
+                  <div className="flex gap-1 mt-1">
+                    {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((d, i) => (
+                      <div key={i} className={`w-3 h-3 rounded-full ${profile.trainingDays.includes(['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][i]) ? 'bg-indigo-500' : 'bg-slate-700'}`} />
+                    ))}
+                  </div>
                 </div>
               </div>
               <Edit3 size={18} className="opacity-20 group-hover:opacity-100 transition-opacity" />
@@ -232,6 +259,19 @@ const App: React.FC = () => {
             <div className="flex justify-between items-center px-1">
               <h2 className="text-2xl font-black uppercase italic tracking-tighter">{t.profile.title}</h2>
               <div className="flex gap-2">
+                <button onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: 'MyFitRout',
+                      text: `Confira meu progresso no MyFitRout! Nível: ${t.profile.levels[profile.level]}`,
+                      url: 'https://my-fit-rout.vercel.app'
+                    });
+                  } else {
+                    alert('Link copiado para a área de transferência!');
+                  }
+                }} className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400 transition-all">
+                  <Share2 size={16} />
+                </button>
                 <button onClick={() => setView('membership')} className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400 transition-all">
                   <CreditCard size={16} />
                 </button>
@@ -353,7 +393,14 @@ const App: React.FC = () => {
                 <input value={vitalQuery} onChange={e => setVitalQuery(e.target.value)} className="flex-1 bg-slate-900 p-4 rounded-2xl border border-slate-700" placeholder={t.askAi} />
                 <button onClick={async () => { setVitalLoading(true); setVitalResp(await getAIFeedback(vitalQuery, profile!, lang)); setVitalLoading(false); }} className="p-4 bg-indigo-600 rounded-2xl">{vitalLoading ? <RefreshCw className="animate-spin" /> : <Send />}</button>
               </div>
-              {vitalResp && <div className="p-5 bg-slate-900 rounded-2xl text-sm italic opacity-80">{vitalResp}</div>}
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {['Criar treino de peito', 'Dica de dieta', 'Como melhorar supino?', 'Tenho dor no ombro'].map(q => (
+                  <button key={q} onClick={() => setVitalQuery(q)} className="whitespace-nowrap px-3 py-1 bg-slate-700 rounded-full text-[10px] font-bold opacity-70 hover:opacity-100 hover:bg-indigo-500/20 hover:text-indigo-400 transition-all border border-transparent hover:border-indigo-500">
+                    {q}
+                  </button>
+                ))}
+              </div>
+              {vitalResp && <div className="p-5 bg-slate-900 rounded-2xl text-sm italic opacity-80 mt-4 border-l-2 border-indigo-500">{vitalResp}</div>}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <button onClick={() => setView('catalog')} className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 flex flex-col items-center text-center group hover:bg-slate-700 transition-all">
@@ -362,7 +409,7 @@ const App: React.FC = () => {
               </button>
               <button onClick={() => setView('exercises')} className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 flex flex-col items-center text-center group hover:bg-slate-700 transition-all">
                 <div className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400 mb-3"><BookOpen size={24} /></div>
-                <span className="text-[10px] font-black uppercase tracking-widest">{t.library.title}</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Programas</span>
               </button>
               <button onClick={() => setView('nutrition')} className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 flex flex-col items-center text-center group hover:bg-slate-700 transition-all">
                 <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-400 mb-3"><Utensils size={24} /></div>

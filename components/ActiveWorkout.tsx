@@ -105,8 +105,8 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
 
             // Check if more sets remain for this exercise
             if (currentSetIndex < (currentExercise.sets || 3) - 1) {
-                // Start rest timer (default 60 seconds)
-                setRestTimeLeft(60);
+                // Start rest timer (default 90 seconds)
+                setRestTimeLeft(90);
                 setIsResting(true);
                 setCurrentSetIndex(currentSetIndex + 1);
             } else {
@@ -114,7 +114,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                 if (currentExerciseIndex < allExercises.length - 1) {
                     setCurrentExerciseIndex(currentExerciseIndex + 1);
                     setCurrentSetIndex(0);
-                    setRestTimeLeft(60);
+                    setRestTimeLeft(90);
                     setIsResting(true);
                 } else {
                     // Workout complete!
@@ -296,7 +296,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                             <div className="flex items-center gap-3">
                                 <button
                                     onClick={() => setCurrentWeight(Math.max(0, currentWeight - 2.5))}
-                                    className="p-4 bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
+                                    className="h-14 w-14 flex items-center justify-center bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
                                 >
                                     <Minus size={20} />
                                 </button>
@@ -304,11 +304,11 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                                     type="number"
                                     value={currentWeight}
                                     onChange={(e) => setCurrentWeight(parseFloat(e.target.value) || 0)}
-                                    className="flex-1 bg-slate-900 border-2 border-slate-700 p-6 rounded-3xl text-center text-2xl font-black outline-none focus:border-indigo-500"
+                                    className="flex-1 bg-slate-900 border-2 border-slate-700 h-14 rounded-2xl text-center text-2xl font-black outline-none focus:border-indigo-500"
                                 />
                                 <button
                                     onClick={() => setCurrentWeight(currentWeight + 2.5)}
-                                    className="p-4 bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
+                                    className="h-14 w-14 flex items-center justify-center bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
                                 >
                                     <Plus size={20} />
                                 </button>
@@ -323,7 +323,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                             <div className="flex items-center gap-3">
                                 <button
                                     onClick={() => setCurrentReps(Math.max(1, currentReps - 1))}
-                                    className="p-4 bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
+                                    className="h-14 w-14 flex items-center justify-center bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
                                 >
                                     <Minus size={20} />
                                 </button>
@@ -331,11 +331,11 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                                     type="number"
                                     value={currentReps}
                                     onChange={(e) => setCurrentReps(parseInt(e.target.value) || 0)}
-                                    className="flex-1 bg-slate-900 border-2 border-slate-700 p-6 rounded-3xl text-center text-2xl font-black outline-none focus:border-indigo-500"
+                                    className="flex-1 bg-slate-900 border-2 border-slate-700 h-14 rounded-2xl text-center text-2xl font-black outline-none focus:border-indigo-500"
                                 />
                                 <button
                                     onClick={() => setCurrentReps(currentReps + 1)}
-                                    className="p-4 bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
+                                    className="h-14 w-14 flex items-center justify-center bg-slate-900 rounded-2xl border border-slate-700 active:scale-95 transition-all"
                                 >
                                     <Plus size={20} />
                                 </button>
@@ -345,10 +345,22 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                         {/* Complete Set Button */}
                         <button
                             onClick={logSet}
-                            className="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 p-6 rounded-3xl font-black uppercase text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3"
+                            className={`w-full h-16 rounded-3xl font-black uppercase text-lg shadow-xl active:scale-95 transition-all flex items-center justify-center gap-3 ${currentSetIndex === (currentExercise.sets || 3) - 1
+                                ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white'
+                                : 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white'
+                                }`}
                         >
-                            <Check size={24} />
-                            Concluir Série
+                            {currentSetIndex === (currentExercise.sets || 3) - 1 ? (
+                                <>
+                                    <Check size={28} />
+                                    {currentExerciseIndex < allExercises.length - 1 ? 'Próximo Exercício' : 'Finalizar Treino'}
+                                </>
+                            ) : (
+                                <>
+                                    <Check size={24} />
+                                    Concluir Série {currentSetIndex + 1}
+                                </>
+                            )}
                         </button>
 
                         <button
