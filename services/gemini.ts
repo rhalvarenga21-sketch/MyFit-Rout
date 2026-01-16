@@ -15,7 +15,7 @@ export const getAIFeedback = async (
 ) => {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-1.5-flash',
       contents: query,
       config: {
         systemInstruction: `You are the "MyFitRout Vital Coach", a high-performance specialist in longevity and biomechanics.
@@ -65,7 +65,7 @@ Suggest the BEST workout focus for today (e.g., "Upper Body Strength", "Full Bod
 Keep it to 2-3 sentences max. Be specific and actionable.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         systemInstruction: `You are a fitness AI coach. Respond in ${language === Language.PT ? 'Portuguese' : language === Language.ES ? 'Spanish' : 'English'}.`,
@@ -94,7 +94,7 @@ Focus on: 1) Most common mistakes, 2) Safety, 3) Efficiency.
 Keep it ultra-concise (max 3 bullet points).`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         systemInstruction: `You are a biomechanics expert. Respond in ${language === Language.PT ? 'Portuguese' : language === Language.ES ? 'Spanish' : 'English'}.`,
@@ -124,7 +124,7 @@ Give personalized recovery advice (sleep, nutrition, stretching, rest days).
 Keep it to 3-4 actionable tips.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         systemInstruction: `You are a recovery and longevity specialist. Respond in ${language === Language.PT ? 'Portuguese' : language === Language.ES ? 'Spanish' : 'English'}.`,
@@ -158,7 +158,7 @@ Context: ${goalContext}
 Provide 3 quick nutrition tips or meal ideas for this context.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         systemInstruction: `You are a sports nutritionist. Respond in ${language === Language.PT ? 'Portuguese' : language === Language.ES ? 'Spanish' : 'English'}.`,
@@ -195,7 +195,7 @@ export const analyzeProgress = async (
 Provide encouraging insights and 1-2 actionable next steps to improve.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         systemInstruction: `You are a motivational fitness analyst. Respond in ${language === Language.PT ? 'Portuguese' : language === Language.ES ? 'Spanish' : 'English'}.`,
