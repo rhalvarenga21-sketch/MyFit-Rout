@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, Check, ChevronLeft, Timer, Weight, Repeat, Plus, Minus } from 'lucide-react';
+import { Play, Pause, Check, ChevronLeft, Timer, Weight, Repeat, Plus, Minus, Video } from 'lucide-react';
+import { ExerciseVideoPlayer } from './ExerciseVideoPlayer';
 import { PresetWorkout, Language } from '../types';
 import { EXERCISE_LIBRARY } from '../data/exercises';
 
@@ -32,7 +33,9 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
     const [currentSetIndex, setCurrentSetIndex] = useState(0);
     const [isResting, setIsResting] = useState(false);
     const [restTimeLeft, setRestTimeLeft] = useState(0);
+
     const [startTime] = useState(new Date());
+    const [showVideo, setShowVideo] = useState(false);
 
     // Build complete exercise list from PresetWorkout structure
     const allExerciseIds = [
@@ -261,6 +264,24 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                             <p className="text-[9px] font-black uppercase opacity-40 mb-1">Meta</p>
                             <p className="font-black">{currentExercise.reps || '10-12'} repetições</p>
                         </div>
+
+                        {/* Video Toggle */}
+                        <button
+                            onClick={() => setShowVideo(!showVideo)}
+                            className="w-full mt-4 p-4 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center gap-2 font-black uppercase text-xs hover:bg-slate-900/80 transition-colors"
+                        >
+                            <Video size={16} className="text-indigo-400" />
+                            {showVideo ? 'Ocultar Vídeo' : 'Ver Demonstração'}
+                        </button>
+
+                        {showVideo && (
+                            <div className="mt-4 animate-in slide-in-from-top-4 fade-in duration-300">
+                                <ExerciseVideoPlayer
+                                    videoUrl={exerciseDetails?.videoUrl}
+                                    exerciseName={exerciseDetails?.name[lang] || ''}
+                                />
+                            </div>
+                        )}
                     </div>
 
                     {/* Log Set Form */}

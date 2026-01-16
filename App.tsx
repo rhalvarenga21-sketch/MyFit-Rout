@@ -22,6 +22,9 @@ import { buildScheduleFromDays } from './utils/schedule';
 import { safeStartTodayRoutine } from './utils/safeStart';
 import { WorkoutCatalog } from './screens/WorkoutCatalog';
 import { WorkoutLibrary } from './components/WorkoutLibrary';
+import { NutritionTracker } from './components/NutritionTracker';
+import { SocialLeaderboard } from './components/SocialLeaderboard';
+import { ExerciseVideoPlayer } from './components/ExerciseVideoPlayer';
 import { mockAuth } from './services/auth';
 import { syncProfileToCloud, fetchProfileFromCloud, completeWorkoutSession } from './services/database';
 
@@ -35,7 +38,7 @@ const App: React.FC = () => {
 
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [lang, setLang] = useState<Language>(Language.PT);
-  const [view, setView] = useState<'home' | 'catalog' | 'vital' | 'me' | 'workout_summary' | 'workout_active' | 'workout_completed' | 'exercises' | 'schedule_manager' | 'membership' | 'progress'>('home');
+  const [view, setView] = useState<'home' | 'catalog' | 'vital' | 'me' | 'workout_summary' | 'workout_active' | 'workout_completed' | 'exercises' | 'schedule_manager' | 'membership' | 'progress' | 'nutrition' | 'social'>('home');
   const [selectedWorkout, setSelectedWorkout] = useState<PresetWorkout | CustomWorkout | null>(null);
   const [completedSession, setCompletedSession] = useState<any>(null);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -361,7 +364,33 @@ const App: React.FC = () => {
                 <div className="p-3 bg-indigo-500/10 rounded-2xl text-indigo-400 mb-3"><BookOpen size={24} /></div>
                 <span className="text-[10px] font-black uppercase tracking-widest">{t.library.title}</span>
               </button>
+              <button onClick={() => setView('nutrition')} className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 flex flex-col items-center text-center group hover:bg-slate-700 transition-all">
+                <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-400 mb-3"><Utensils size={24} /></div>
+                <span className="text-[10px] font-black uppercase tracking-widest">Nutrição</span>
+              </button>
+              <button onClick={() => setView('social')} className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 flex flex-col items-center text-center group hover:bg-slate-700 transition-all">
+                <div className="p-3 bg-fuchsia-500/10 rounded-2xl text-fuchsia-400 mb-3"><UserCircle size={24} /></div>
+                <span className="text-[10px] font-black uppercase tracking-widest">Comunidade</span>
+              </button>
             </div>
+          </div>
+        )}
+
+        {view === 'nutrition' && profile && (
+          <div className="space-y-4">
+            <button onClick={() => setView('vital')} className="p-3 bg-slate-800 rounded-2xl border border-slate-700 flex items-center gap-2 font-black text-xs opacity-60 mx-6">
+              <ChevronLeft size={16} /> VOLTAR
+            </button>
+            <NutritionTracker profile={profile} lang={lang} />
+          </div>
+        )}
+
+        {view === 'social' && (
+          <div className="space-y-4">
+            <button onClick={() => setView('vital')} className="p-3 bg-slate-800 rounded-2xl border border-slate-700 flex items-center gap-2 font-black text-xs opacity-60 mx-6">
+              <ChevronLeft size={16} /> VOLTAR
+            </button>
+            <SocialLeaderboard />
           </div>
         )}
 
