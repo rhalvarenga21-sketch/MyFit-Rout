@@ -101,17 +101,38 @@ const App: React.FC = () => {
     }
   };
 
+  // Daily Tracking State
+  const [dailyLog, setDailyLog] = useState<{ water: number, calories: number }>(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const saved = localStorage.getItem(`mfr_log_${today}`);
+    return saved ? JSON.parse(saved) : { water: 0, calories: 0 };
+  });
+
+  const [waterModalOpen, setWaterModalOpen] = useState(false);
+
+  // Save daily log
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem(`mfr_log_${today}`, JSON.stringify(dailyLog));
+  }, [dailyLog]);
+
+  const addWater = (amount: number) => {
+    setDailyLog(prev => ({ ...prev, water: prev.water + amount }));
+  };
+
   const metrics = useMemo(() => {
-    if (!profile) return { target: 0, bmr: 0, tdee: 0, labelKey: 'HEALTH', water: 0 };
+    if (!profile) return { target: 0, bmr: 0, tdee: 0, labelKey: 'HEALTH', waterTarget: 0, currentWater: 0, currentCalories: 0 };
     const calTarget = calculateDailyCalorieTarget(profile);
     return {
       target: calTarget.target,
       bmr: Math.round(calculateBMR(profile)),
       tdee: calculateTDEE(profile),
       labelKey: calTarget.labelKey as keyof typeof FitnessGoal,
-      water: calculateWaterGoal(profile.weight)
+      waterTarget: calculateWaterGoal(profile.weight),
+      currentWater: dailyLog.water,
+      currentCalories: dailyLog.calories
     };
-  }, [profile]);
+  }, [profile, dailyLog]);
 
   const todayWorkoutTitle = useMemo(() => {
     if (!profile) return "";
@@ -167,29 +188,17 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <button
-                onClick={() => {
-                  const val = prompt('Atualizar consumo de água (ml):', metrics.water.toString());
-                  if (val && !isNaN(parseInt(val))) {
-                    /* In a real app, save to DB. limiting to local state for demo */
-                    alert('Valor atualizado! (Persistência real virá na próxima atualização)');
-                  }
-                }}
+                onClick={() => setWaterModalOpen(true)}
                 className="text-left bg-slate-800 p-0 rounded-[35px] overflow-hidden border border-slate-700/50 hover:border-blue-400 transition-all"
               >
-                <MetricBox icon={Droplets} label="Água (Editar)" value={`${metrics.water}ml`} color="text-blue-400" />
+                <MetricBox icon={Droplets} label="Água" value={`${metrics.currentWater}/${metrics.waterTarget}ml`} color="text-blue-400" />
               </button>
 
               <button
-                onClick={() => {
-                  const val = prompt('Atualizar calorias consumidas:', '0');
-                  if (val && !isNaN(parseInt(val))) {
-                    /* In a real app, save to DB */
-                    alert('Valor atualizado! (Persistência real virá na próxima atualização)');
-                  }
-                }}
+                onClick={() => setView('nutrition')}
                 className="text-left bg-slate-800 p-0 rounded-[35px] overflow-hidden border border-slate-700/50 hover:border-orange-400 transition-all"
               >
-                <MetricBox icon={Utensils} label={t.metrics[metrics.labelKey.toLowerCase()] || "Meta (Editar)"} value={`${metrics.target}kcal`} color="text-orange-400" />
+                <MetricBox icon={Utensils} label="Consumido" value={`${metrics.currentCalories}/${metrics.target}kcal`} color="text-orange-400" />
               </button>
             </div>
 
@@ -526,6 +535,45 @@ const App: React.FC = () => {
         <NavBtn icon={HeartPulse} label="Vital" active={view === 'vital' || view === 'catalog' || view === 'exercises' || view === 'schedule_manager'} onClick={() => setView('vital')} />
         <NavBtn icon={User} label="Perfil" active={view === 'me' || view === 'membership' || view === 'progress'} onClick={() => setView('me')} />
       </nav>
+      {waterModalOpen && (
+        <div className="fixed inset-0 z-[60] bg-slate-900/90 backdrop-blur-md flex items-end justify-center p-6 animate-in fade-in">
+          <div className="bg-slate-800 w-full max-w-md p-8 rounded-[40px] border border-slate-700 space-y-6 animate-in slide-in-from-bottom">
+            <div className="flex justify-between items-center mb-2">
+              <div className="flex items-center gap-3">
+                <div className="bg-blue-500/20 p-3 rounded-2xl text-blue-400"><Droplets size={24} /></div>
+                <div>
+                  <h3 className="text-xl font-black uppercase italic tracking-tighter">Hidratação</h3>
+                  <p className="text-[10px] font-black uppercase opacity-40">Meta: {metrics.waterTarget}ml</p>
+                </div>
+              </div>
+              <button onClick={() => setWaterModalOpen(false)} className="p-2 bg-slate-700/50 rounded-full text-slate-400"><X size={20} /></button>
+            </div>
+
+            <div className="text-center py-4">
+              <span className="text-5xl font-black text-blue-400 tracking-tighter">{dailyLog.water}</span>
+              <span className="text-sm font-black opacity-30 uppercase ml-1">ml</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <button onClick={() => addWater(250)} className="bg-slate-700 hover:bg-blue-600/20 border border-slate-600 hover:border-blue-500 p-4 rounded-2xl font-black uppercase text-xs flex flex-col items-center gap-2 transition-all group">
+                <span className="text-lg opacity-50 group-hover:opacity-100 group-hover:text-blue-400 transition-all">+250ml</span>
+                <span className="opacity-30 text-[8px]">Copo</span>
+              </button>
+              <button onClick={() => addWater(500)} className="bg-slate-700 hover:bg-blue-600/20 border border-slate-600 hover:border-blue-500 p-4 rounded-2xl font-black uppercase text-xs flex flex-col items-center gap-2 transition-all group">
+                <span className="text-lg opacity-50 group-hover:opacity-100 group-hover:text-blue-400 transition-all">+500ml</span>
+                <span className="opacity-30 text-[8px]">Garrafa</span>
+              </button>
+            </div>
+
+            <button onClick={() => {
+              const val = prompt('Quantidade customizada (ml):');
+              if (val && !isNaN(parseInt(val))) addWater(parseInt(val));
+            }} className="w-full py-4 rounded-2xl border border-slate-700 text-xs font-black uppercase opacity-50 hover:opacity-100 hover:bg-slate-700 transition-all">
+              Outra Quantidade
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
