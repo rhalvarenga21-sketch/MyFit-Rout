@@ -1,5 +1,7 @@
 import React from 'react';
 import { Trophy, Flame, Weight, Repeat, Clock, Check, Share2, Home } from 'lucide-react';
+import { ShareableWorkoutCard } from './ShareableWorkoutCard';
+import { useState } from 'react';
 import { Language } from '../types';
 
 interface CompletedWorkoutSummaryProps {
@@ -10,6 +12,7 @@ interface CompletedWorkoutSummaryProps {
 
 export const CompletedWorkoutSummary: React.FC<CompletedWorkoutSummaryProps> = ({ sessionData, lang, onFinish }) => {
     const { workoutName, durationMinutes, totalWeightLifted, totalSets, totalReps, exercises } = sessionData;
+    const [showShare, setShowShare] = useState(false);
 
     const formatWeight = (kg: number) => {
         if (kg >= 1000) return `${(kg / 1000).toFixed(1)}t`;
@@ -99,8 +102,8 @@ export const CompletedWorkoutSummary: React.FC<CompletedWorkoutSummaryProps> = (
                                     <div
                                         key={setIdx}
                                         className={`p-2 rounded-lg text-center ${set.completed
-                                                ? 'bg-green-500/10 border border-green-500/30'
-                                                : 'bg-slate-800 border border-slate-700 opacity-40'
+                                            ? 'bg-green-500/10 border border-green-500/30'
+                                            : 'bg-slate-800 border border-slate-700 opacity-40'
                                             }`}
                                     >
                                         {set.completed ? (
@@ -130,12 +133,40 @@ export const CompletedWorkoutSummary: React.FC<CompletedWorkoutSummaryProps> = (
                 </button>
 
                 <button
+                    onClick={() => {
+                        // In a real app, this would use the Web Share API with the image generated
+                        setShowShare(true);
+                    }}
                     className="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl font-black uppercase text-xs opacity-60 hover:opacity-100 transition-all flex items-center justify-center gap-2"
                 >
                     <Share2 size={16} />
                     Compartilhar Resultado
                 </button>
             </div>
+
+            {showShare && (
+                <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-6 animate-in fade-in duration-200">
+                    <div className="mb-4 text-center">
+                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white">Pronto para postar!</h3>
+                        <p className="text-sm text-slate-400">Capture a tela abaixo para compartilhar</p>
+                    </div>
+
+                    <ShareableWorkoutCard
+                        username={sessionData.userId ? "Atleta" : "Atleta"} // Would use real name from profile context 
+                        workoutName={workoutName}
+                        duration={durationMinutes}
+                        weight={Math.ceil(totalWeightLifted)}
+                        date={new Date().toLocaleDateString('pt-BR')}
+                    />
+
+                    <button
+                        onClick={() => setShowShare(false)}
+                        className="mt-8 bg-white/10 text-white px-8 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-white/20 transition-all"
+                    >
+                        Fechar
+                    </button>
+                </div>
+            )}
 
             {/* Motivational Message */}
             <div className="bg-gradient-to-r from-purple-900/20 to-indigo-900/20 p-6 rounded-3xl border border-purple-500/20 text-center">

@@ -25,6 +25,7 @@ import { WorkoutLibrary } from './components/WorkoutLibrary';
 import { NutritionTracker } from './components/NutritionTracker';
 import { SocialLeaderboard } from './components/SocialLeaderboard';
 import { ExerciseVideoPlayer } from './components/ExerciseVideoPlayer';
+import { PaymentModal } from './components/PaymentModal';
 import { mockAuth } from './services/auth';
 import { syncProfileToCloud, fetchProfileFromCloud, completeWorkoutSession } from './services/database';
 
@@ -47,6 +48,8 @@ const App: React.FC = () => {
   const [vitalResp, setVitalResp] = useState('');
   const [vitalLoading, setVitalLoading] = useState(false);
   const [assigningToDay, setAssigningToDay] = useState<string | null>(null);
+  const [completeSessionData, setCompleteSessionData] = useState<any>(null);
+  const [pendingPlan, setPendingPlan] = useState<{ name: string, price: string, type: SubscriptionPlan } | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
 
   const t = translations[lang] as any;
@@ -233,10 +236,23 @@ const App: React.FC = () => {
               </div>
 
               <div className="space-y-4">
-                <PlanRow active={profile.subscription === SubscriptionPlan.MONTHLY} name={t.membership.monthly} price="R$ 99,90" onClick={() => saveProfile({ ...profile, subscription: SubscriptionPlan.MONTHLY, subscriptionActive: true })} />
-                <PlanRow active={profile.subscription === SubscriptionPlan.QUARTERLY} name={t.membership.quarterly} price="R$ 249,90" onClick={() => saveProfile({ ...profile, subscription: SubscriptionPlan.QUARTERLY, subscriptionActive: true })} />
-                <PlanRow active={profile.subscription === SubscriptionPlan.ANNUAL} name={t.membership.annual} price="R$ 899,90" onClick={() => saveProfile({ ...profile, subscription: SubscriptionPlan.ANNUAL, subscriptionActive: true })} />
+                <PlanRow active={profile.subscription === SubscriptionPlan.MONTHLY} name={t.membership.monthly} price="R$ 99,90" onClick={() => setPendingPlan({ name: t.membership.monthly, price: "R$ 99,90", type: SubscriptionPlan.MONTHLY })} />
+                <PlanRow active={profile.subscription === SubscriptionPlan.QUARTERLY} name={t.membership.quarterly} price="R$ 249,90" onClick={() => setPendingPlan({ name: t.membership.quarterly, price: "R$ 249,90", type: SubscriptionPlan.QUARTERLY })} />
+                <PlanRow active={profile.subscription === SubscriptionPlan.ANNUAL} name={t.membership.annual} price="R$ 899,90" onClick={() => setPendingPlan({ name: t.membership.annual, price: "R$ 899,90", type: SubscriptionPlan.ANNUAL })} />
               </div>
+
+              {pendingPlan && (
+                <PaymentModal
+                  planName={pendingPlan.name}
+                  price={pendingPlan.price}
+                  onClose={() => setPendingPlan(null)}
+                  onSuccess={() => {
+                    saveProfile({ ...profile, subscription: pendingPlan.type, subscriptionActive: true });
+                    setPendingPlan(null);
+                    // Could add confetti here later
+                  }}
+                />
+              )}
 
               <div className="p-5 bg-slate-900/50 rounded-3xl border border-slate-700/50">
                 <p className="text-xs italic opacity-40 mb-2">{t.membership.benefits}</p>
