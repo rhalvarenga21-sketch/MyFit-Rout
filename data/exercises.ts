@@ -1,4 +1,5 @@
-
+// 🔄 SYNC TEST - Updated: 2026-02-09 16:18 UTC
+// This comment verifies Git → Vercel deployment is working
 import { Language, ExperienceLevel, Exercise } from '../types';
 
 export const EXERCISE_LIBRARY: Exercise[] = [
