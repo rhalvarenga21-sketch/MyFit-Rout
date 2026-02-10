@@ -1,0 +1,161 @@
+
+# Relatório de Vídeos de Exercícios
+
+## ✅ Vídeos Implementados (36)
+- Leg Extension (Bilateral) [iQ92TuvBqRo]
+- Leg Extension (Unilateral) [iQ92TuvBqRo]
+- Leg Extension (Isometric hold (top)) [iQ92TuvBqRo]
+- Squat (Bodyweight) [dW3zj79xfrc]
+- Squat (Goblet) [dW3zj79xfrc]
+- Leg Press (Standard stance) [EotSw18oR9w]
+- Leg Press (High & wide (glute bias)) [EotSw18oR9w]
+- Leg Press (Low & narrow (quad bias)) [EotSw18oR9w]
+- Bulgarian Split Squat (Bodyweight) [tdOk9XkzGVc]
+- Bulgarian Split Squat (Dumbbells) [tdOk9XkzGVc]
+- Push-Up (Standard) [IODxDxX7oi4]
+- Push-Up (Incline (hands elevated)) [IODxDxX7oi4]
+- Push-Up (Decline (feet elevated)) [IODxDxX7oi4]
+- Push-Up (Wide) [IODxDxX7oi4]
+- Push-Up (Diamond/close grip) [IODxDxX7oi4]
+- Bench Press (Flat) [rT7Dg6D6G3E]
+- Bench Press (Paused reps) [NliSiO1AZ_8]
+- Bench Press (Close grip) [NliSiO1AZ_8]
+- Chest Fly (Flat bench) [hKe5WG-zZRM]
+- Band Chest Press (Standing) [KfDDkDOHO5c]
+- Push-Up (Tempo (3s down)) [IODxDxX7oi4]
+- Lat Pulldown (Wide grip) [JfP2zogyE8o]
+- Lat Pulldown (Neutral grip) [bNmvKpJSWKM]
+- Lat Pulldown (Single-arm) [bNmvKpJSWKM]
+- Pull-Up (Bodyweight) [eGo4IYlbE5g]
+- Assisted Pull-Up (Machine/Band) [a7_k1upEPjc]
+- Lateral Raise (Dumbbells) [lMYs7FY8os4]
+- Lateral Raise (Cable) [lMYs7FY8os4]
+- Lateral Raise (Leaning) [lMYs7FY8os4]
+- Rear Delt Fly (Bent-over DB) [H5UxZFl0lgk]
+- Rear Delt Fly (Cable) [H5UxZFl0lgk]
+- Dumbbell Curl (Standing) [13Yv2Bw06A8]
+- Dumbbell Curl (Seated) [Qemb2cWVOd8]
+- Incline Curl (Bench) [7dGvfAjiqM4]
+- Triceps Pushdown (Rope) [-pSpn8GfIeU]
+- Triceps Pushdown (Straight bar) [WbfNbXBc8FA]
+
+## ❌ Exercícios Sem Vídeo (119)
+- Back Squat (High bar) (Grupo: Legs)
+- Back Squat (Low bar) (Grupo: Legs)
+- Front Squat (Clean grip / cross-arm) (Grupo: Legs)
+- Hack Squat (Machine) (Grupo: Legs)
+- Split Squat (Bodyweight) (Grupo: Legs)
+- Lunge (Walking) (Grupo: Legs)
+- Reverse Lunge (Bodyweight) (Grupo: Legs)
+- Step-Up (Box/bench) (Grupo: Legs)
+- Sissy Squat (Supported) (Grupo: Legs)
+- Seated Leg Curl (Bilateral) (Grupo: Legs)
+- Lying Leg Curl (Bilateral) (Grupo: Legs)
+- Leg Curl (Unilateral) (Grupo: Legs)
+- Nordic Curl (Assisted) (Grupo: Legs)
+- Romanian Deadlift (Barbell) (Grupo: Legs)
+- Romanian Deadlift (Dumbbells) (Grupo: Legs)
+- Stiff Leg Deadlift (Barbell) (Grupo: Legs)
+- Good Morning (Barbell) (Grupo: Legs)
+- Single-Leg RDL (Dumbbell) (Grupo: Legs)
+- Hamstring Slide Curl (Towel/slider) (Grupo: Legs)
+- Hip Thrust (Barbell) (Grupo: Legs)
+- Hip Thrust (Machine) (Grupo: Legs)
+- Hip Thrust (Dumbbell) (Grupo: Legs)
+- Glute Bridge (Floor (bilateral)) (Grupo: Legs)
+- Glute Bridge (Single-leg) (Grupo: Legs)
+- Cable Kickback (Ankle strap) (Grupo: Legs)
+- Kickback (4-point (donkey kick)) (Grupo: Legs)
+- Glute Med Abduction (Side-lying) (Grupo: Legs)
+- Banded Lateral Walk (Mini band) (Grupo: Legs)
+- Cable Pull-Through (Rope) (Grupo: Legs)
+- Hip Adduction (Machine) (Grupo: Legs)
+- Cable Adduction (Standing) (Grupo: Legs)
+- Copenhagen Plank (Knee supported) (Grupo: Legs)
+- Hip Abduction (Machine) (Grupo: Legs)
+- Cable Abduction (Standing) (Grupo: Legs)
+- Clamshell (Mini band) (Grupo: Legs)
+- Standing Calf Raise (Bodyweight) (Grupo: Legs)
+- Standing Calf Raise (Dumbbells) (Grupo: Legs)
+- Smith Calf Raise (Standing) (Grupo: Legs)
+- Seated Calf Raise (Machine) (Grupo: Legs)
+- Single-Leg Calf Raise (Step) (Grupo: Legs)
+- Incline Bench Press (30–45 degrees) (Grupo: Chest)
+- Incline Press (Dumbbells) (Grupo: Chest)
+- Decline Bench Press (Barbell) (Grupo: Chest)
+- Incline Fly (Incline bench) (Grupo: Chest)
+- Cable Fly (High-to-low) (Grupo: Chest)
+- Cable Fly (Low-to-high) (Grupo: Chest)
+- Cable Crossover (Standard) (Grupo: Chest)
+- Pec Deck (Machine) (Grupo: Chest)
+- Dips (Chest lean) (Grupo: Chest)
+- Dips (Assisted) (Grupo: Chest)
+- Chin-Up (Underhand) (Grupo: Back)
+- Seated Cable Row (Neutral grip) (Grupo: Back)
+- Seated Cable Row (Wide grip) (Grupo: Back)
+- Face Pull (Rope to forehead) (Grupo: Back)
+- Reverse Pec Deck (Machine) (Grupo: Back)
+- Bent Over Row (Barbell) (Grupo: Back)
+- Pendlay Row (From floor) (Grupo: Back)
+- One-Arm Row (Bench supported) (Grupo: Back)
+- Chest-Supported Row (Incline bench) (Grupo: Back)
+- T-Bar Row (Landmine) (Grupo: Back)
+- Straight-Arm Pulldown (Cable) (Grupo: Back)
+- Deadlift (Conventional) (Grupo: Back)
+- Deadlift (Trap bar) (Grupo: Back)
+- Back Extension (45 degree hyper) (Grupo: Back)
+- Superman Hold (Floor) (Grupo: Back)
+- Resistance Band Row (Standing/seated) (Grupo: Back)
+- Overhead Press (Barbell standing) (Grupo: Shoulders)
+- Overhead Press (Seated dumbbells) (Grupo: Shoulders)
+- Arnold Press (Seated) (Grupo: Shoulders)
+- Front Raise (Dumbbells) (Grupo: Shoulders)
+- Upright Row (EZ bar) (Grupo: Shoulders)
+- Machine Shoulder Press (Machine) (Grupo: Shoulders)
+- Pike Push-Up (Bodyweight) (Grupo: Shoulders)
+- External Rotation (Cable/band) (Grupo: Shoulders)
+- Shrug (Dumbbells) (Grupo: Shoulders)
+- Farmer Carry (Dumbbells) (Grupo: Shoulders)
+- Hammer Curl (Neutral grip) (Grupo: Arms)
+- Concentration Curl (Seated) (Grupo: Arms)
+- Barbell Curl (Straight bar) (Grupo: Arms)
+- EZ-Bar Curl (EZ bar) (Grupo: Arms)
+- Chin-Up (Underhand) (Grupo: Arms)
+- Band Curl (Standing) (Grupo: Arms)
+- Overhead Triceps Extension (Dumbbell) (Grupo: Arms)
+- Overhead Cable Extension (Rope) (Grupo: Arms)
+- Close-Grip Bench Press (Barbell) (Grupo: Arms)
+- Dips (Bench dips) (Grupo: Arms)
+- Diamond Push-Up (Bodyweight) (Grupo: Arms)
+- Skull Crushers (EZ bar) (Grupo: Arms)
+- Wrist Curl (Seated) (Grupo: Arms)
+- Reverse Wrist Curl (Seated) (Grupo: Arms)
+- Farmer Carry (Dumbbells) (Grupo: Arms)
+- Plank (Forearm) (Grupo: Core)
+- Plank (High plank) (Grupo: Core)
+- Crunch (Basic) (Grupo: Core)
+- Reverse Crunch (Floor) (Grupo: Core)
+- Hanging Leg Raise (Straight legs) (Grupo: Core)
+- Knee Raise (Captain chair / bar) (Grupo: Core)
+- Bicycle Crunch (Alternating) (Grupo: Core)
+- Russian Twist (Bodyweight) (Grupo: Core)
+- Russian Twist (Medicine ball) (Grupo: Core)
+- Side Plank (Standard) (Grupo: Core)
+- Side Plank (With hip dips) (Grupo: Core)
+- Dead Bug (Basic) (Grupo: Core)
+- Bird Dog (Basic) (Grupo: Core)
+- Mountain Climbers (Standard) (Grupo: Core)
+- Ab Wheel Rollout (Kneeling) (Grupo: Core)
+- Cable Crunch (Kneeling) (Grupo: Core)
+- Pallof Press (Standing) (Grupo: Core)
+- Back Extension (Bodyweight) (Grupo: Core)
+- Treadmill Run (Steady State) (Grupo: Cardio)
+- Elliptical (Steady State) (Grupo: Cardio)
+- Rowing Machine (Intervals) (Grupo: Cardio)
+- Stair Climber (Steady State) (Grupo: Cardio)
+- Stationary Bike (Spinning) (Grupo: Cardio)
+- Jumping Jacks (Bodyweight) (Grupo: Cardio)
+- Burpees (Standard) (Grupo: Cardio)
+- High Knees (Bodyweight) (Grupo: Cardio)
+- Jump Rope (Basic Bounce) (Grupo: Cardio)
+- Shadow Boxing (Freestyle) (Grupo: Cardio)

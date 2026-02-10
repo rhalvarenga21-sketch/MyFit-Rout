@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>MyFitRout - Seu Coach de Alta Performance | Treinos Personalizados com IA</title>
+
+    <!-- Vercel Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <meta name="description"
+        content="Transforme seu corpo com treinos personalizados, IA avançada e acompanhamento profissional. Planos a partir de R$ 29,90/mês. Comece grátis hoje!">
+    <meta name="keywords" content="treino personalizado, fitness, musculação, coach virtual, IA fitness, app de treino">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://myfitrout-app.vercel.app/">
+    <meta property="og:title" content="MyFitRout - Seu Coach de Alta Performance">
+    <meta property="og:description"
+        content="Treinos personalizados com IA. Transforme seu corpo de forma inteligente e segura.">
+    <meta property="og:image" content="https://myfitrout-app.vercel.app/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://myfitrout-app.vercel.app/">
+    <meta property="twitter:title" content="MyFitRout - Seu Coach de Alta Performance">
+    <meta property="twitter:description"
+        content="Treinos personalizados com IA. Transforme seu corpo de forma inteligente e segura.">
+    <meta property="twitter:image" content="https://myfitrout-app.vercel.app/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="landing-styles.css">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MyFitRout",
+      "applicationCategory": "HealthApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "29.90",
+        "priceCurrency": "BRL"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1247"
+      }
+    }
+    </script>
+</head>
+
+<body class="bg-slate-900 text-white font-['Inter']">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <img src="/logo-text.png" alt="MyFitRout" class="h-8 md:h-10 w-auto object-contain" />
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" id="nav-features"
+                        class="text-slate-300 hover:text-white transition-colors font-medium">Recursos</a>
+                    <a href="#pricing" id="nav-plans"
+                        class="text-slate-300 hover:text-white transition-colors font-medium">Planos</a>
+                    <a href="#faq" id="nav-faq"
+                        class="text-slate-300 hover:text-white transition-colors font-medium">FAQ</a>
+                    <a href="https://myfitrout-app.vercel.app"
+                        class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-bold transition-all active:scale-95">
+                        <span id="nav-login">Entrar</span>
+                    </a>
+                </div>
+                <button class="md:hidden p-2 text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 animated-gradient">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-slate-900/50"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] animate-pulse"
+            style="animation-delay: 1s;"></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-8 animate-fade-in hover:bg-slate-800/80 transition-colors">
+                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                <span id="hero-badge">Inscreva-se Agora — Vagas Limitadas</span>
+            </div>
+
+            <h1 id="hero-title"
+                class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-6 leading-tight fade-in-delay-1">
+                Seu Coach de Fitness de <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Alta
+                    Performance</span>
+            </h1>
+
+            <p id="hero-subtitle"
+                class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed fade-in-delay-2">
+                Treinos com IA adaptados ao seu corpo, objetivos e limites. Resultados máximos. Treino inteligente. Sem
+                perda de tempo.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-12 fade-in-delay-3">
+                <button id="hero-cta-secondary" onclick="window.location.href='/app'"
+                    class="px-8 py-4 bg-slate-800 rounded-xl font-bold uppercase tracking-widest hover:bg-slate-700 transition-colors border border-white/5 w-full md:w-auto">
+                    Testar Demo Grátis →
+                </button>
+                <button id="hero-cta-primary"
+                    onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})"
+                    class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-lg shadow-indigo-500/25 w-full md:w-auto btn-shine">
+                    Começar Agora →
+                </button>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="flex flex-col sm:flex-row gap-6 sm:gap-12 justify-center items-center mt-12 animate-fade-in"
+                style="animation-delay: 0.5s;">
+                <!-- Avatars & Members -->
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-slate-900 object-cover"
+                            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=faces"
+                            alt="Member">
+                        <img class="w-10 h-10 rounded-full border-2 border-slate-900 object-cover"
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces"
+                            alt="Member">
+                        <img class="w-10 h-10 rounded-full border-2 border-slate-900 object-cover"
+                            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces"
+                            alt="Member">
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-slate-900 bg-slate-700 flex items-center justify-center text-xs font-bold text-white">
+                            +200
+                        </div>
+                    </div>
+                    <p id="hero-social-active" class="text-sm text-slate-300 font-medium whitespace-nowrap">
+                        200+ membros ativos
+                    </p>
+                </div>
+
+                <!-- Divider (Mobile Hidden) -->
+                <div class="hidden sm:block w-px h-8 bg-white/10"></div>
+
+                <!-- Rating -->
+                <div class="flex items-center gap-3">
+                    <div class="flex text-yellow-500 gap-0.5">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="text-sm text-slate-400">
+                        <span class="font-bold text-white">4.8/5</span> <span id="hero-social-rating">média de avaliação
+                            (247 reviews)</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 id="features-main-title"
+                    class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-4">
+                    Por que <span class="text-indigo-400">MyFitRout</span>?
+                </h2>
+                <p id="features-subtitle" class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    Tecnologia de ponta para resultados reais
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div
+                    class="group p-8 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-3xl hover:bg-slate-800/60 transition-all hover:border-indigo-500/30">
+                    <div
+                        class="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 id="feat-1-title" class="text-xl font-black mb-3">IA Avançada</h3>
+                    <p id="feat-1-desc" class="text-slate-400 leading-relaxed">
+                        Coach virtual com Google Gemini 2.5. Respostas técnicas, personalizadas e em tempo real.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div
+                    class="group p-8 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-3xl hover:bg-slate-800/60 transition-all hover:border-purple-500/30">
+                    <div
+                        class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 id="feat-2-title" class="text-xl font-black mb-3">Treinos Personalizados</h3>
+                    <p id="feat-2-desc" class="text-slate-400 leading-relaxed">
+                        Planos adaptados ao seu objetivo: emagrecimento, hipertrofia, força ou longevidade.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div
+                    class="group p-8 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-3xl hover:bg-slate-800/60 transition-all hover:border-emerald-500/30">
+                    <div
+                        class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 id="feat-3-title" class="text-xl font-black mb-3">Vídeos Demonstrativos</h3>
+                    <p id="feat-3-desc" class="text-slate-400 leading-relaxed">
+                        300+ exercícios com vídeos HD. Aprenda a técnica correta e evite lesões.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div
+                    class="group p-8 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-3xl hover:bg-slate-800/60 transition-all hover:border-amber-500/30">
+                    <div
+                        class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 id="feat-4-title" class="text-xl font-black mb-3">Acompanhamento Total</h3>
+                    <p id="feat-4-desc" class="text-slate-400 leading-relaxed">
+                        Registre treinos, monitore progresso e receba feedback inteligente sobre sua evolução.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div
+                    class="group p-8 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-3xl hover:bg-slate-800/60 transition-all hover:border-rose-500/30">
+                    <div
+                        class="w-14 h-14 bg-rose-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 id="feat-5-title" class="text-xl font-black mb-3">Disponível 24/7</h3>
+                    <p id="feat-5-desc" class="text-slate-400 leading-relaxed">
+                        Tire suas dúvidas com o Coach a qualquer momento. Orientações personalizadas de acordo com sua
+                        realidade.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div
+                    class="group p-8 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-3xl hover:bg-slate-800/60 transition-all hover:border-cyan-500/30">
+                    <div
+                        class="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 id="feat-6-title" class="text-xl font-black mb-3">Multiplataforma</h3>
+                    <p id="feat-6-desc" class="text-slate-400 leading-relaxed">
+                        Acesse de qualquer dispositivo. Seus dados sincronizados na nuvem automaticamente.
+                    </p>
+                </div>
+            </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <span id="testim-label" class="text-indigo-400 font-bold tracking-widest uppercase text-sm mb-2 block">O
+                    que nossos membros dizem</span>
+                <h2 id="testim-title" class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-4">
+                    Resultados Reais de <span class="text-indigo-400">Pessoas Reais</span>
+                </h2>
+                <p id="testim-subtitle" class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    Treino inteligente. Pessoas reais. Progresso real.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- T1 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t1-quote">Finalmente parece
+                            pessoal. Tentei muitos apps, mas o MyFitRout se adapta ao meu progresso.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            LM</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Lucas M., 34</p>
+                            <p id="t1-tag" class="text-xs text-indigo-400 font-medium uppercase">Força & Performance</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T2 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t2-quote">Perfeito para iniciantes.
+                            Tinha zero confiança. Os vídeos e a IA tornaram tudo simples.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            AP</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Ana P., 29</p>
+                            <p id="t2-tag" class="text-xs text-indigo-400 font-medium uppercase">Perda de Peso</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T3 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t3-quote">Parei de perder tempo.
+                            Cada sessão tem um propósito claro e cabe na minha rotina.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            DR</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Daniel R., 41</p>
+                            <p id="t3-tag" class="text-xs text-indigo-400 font-medium uppercase">Longevidade</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T4 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t4-quote">Parece um coach no bolso.
+                            Posso perguntar qualquer coisa e ter feedback instantâneo.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            SL</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Sofia L., 36</p>
+                            <p id="t4-tag" class="text-xs text-indigo-400 font-medium uppercase">Estilo de Vida</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T5 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t5-quote">Equilíbrio perfeito. A IA
+                            é poderosa, mas o app é fácil de usar. Só abro e treino.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            MT</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Marcos T., 38</p>
+                            <p id="t5-tag" class="text-xs text-indigo-400 font-medium uppercase">Fitness Geral</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T6 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t6-quote">Treino em casa e na
+                            academia. Ter treinos para ambos faz uma diferença enorme.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            BC</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Beatriz C., 32</p>
+                            <p id="t6-tag" class="text-xs text-indigo-400 font-medium uppercase">Perda de Peso</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T7 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t7-quote">Me sinto mais forte e
+                            confiante. Ver resultados semana após semana funciona.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            JF</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">João F., 27</p>
+                            <p id="t7-tag" class="text-xs text-indigo-400 font-medium uppercase">Ganho Muscular</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T8 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t8-quote">Seguro e bem explicado.
+                            Tinha dor no ombro, mas a orientação ajudou muito.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            CR</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Carlos R., 45</p>
+                            <p id="t8-tag" class="text-xs text-indigo-400 font-medium uppercase">Mobilidade</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T9 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t9-quote">Se adapta à minha vida.
+                            Dias cheios, viagens — o app ajusta os planos.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            FL</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">Fernanda L., 39</p>
+                            <p id="t9-tag" class="text-xs text-indigo-400 font-medium uppercase">Longevidade</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- T10 -->
+                <div
+                    class="p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl hover:border-indigo-500/30 transition-colors md:col-span-2 lg:col-span-1">
+                    <div class="flex text-yellow-500 mb-4 gap-0.5">⭐⭐⭐⭐⭐</div>
+                    <p class="text-slate-300 mb-6 italic leading-relaxed">“<span id="t10-quote">Simples, inteligente e
+                            eficaz. Sem distrações. Apenas treino que funciona.</span>”</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                            AP</div>
+                        <div>
+                            <p class="text-white font-bold text-sm">André P., 33</p>
+                            <p id="t10-tag" class="text-xs text-indigo-400 font-medium uppercase">Performance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Section -->
+            <section id="pricing" class="py-24 relative">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 id="txt-choose-plan"
+                            class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-4">
+                            Escolha seu <span class="text-indigo-400">Plano</span>
+                        </h2>
+                        <p id="txt-subtitle" class="text-xl text-slate-400 max-w-2xl mx-auto">
+                            Invista em você. Cancele quando quiser.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
+                        <!-- Essential Annual Plan -->
+                        <!-- Essential Annual Plan -->
+                        <div
+                            class="w-full md:w-[calc(33.33%-2rem)] min-w-[300px] p-8 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-xl border border-indigo-500/30 rounded-3xl hover:border-indigo-500/50 transition-all card-hover group flex flex-col">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 id="txt-essential-title-annual"
+                                        class="text-2xl font-black text-white group-hover:text-purple-300 transition-colors">
+                                        Essential Anual</h3>
+                                    <span
+                                        class="px-2 py-0.5 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-[10px] font-black text-indigo-400 uppercase">-35%</span>
+                                </div>
+                                <p id="txt-essential-desc-annual" class="text-indigo-200 text-sm min-h-[48px]">Economize
+                                    R$38 -
+                                    Consistência
+                                    que transforma</p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 id="price-essential-annual" class="text-5xl font-black text-white">R$ 99,90<span
+                                        class="text-lg text-indigo-200 font-normal">/ano</span></h4>
+                            </div>
+                            <ul id="features-essential-annual" class="space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Todos os benefícios do Essential Mensal
+                                        incluídos</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Desconto de 25%: economize R$38 por
+                                        ano</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Apenas R$8.32/mês - investimento mínimo,
+                                        máximo
+                                        resultado</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Pague R$99.90 treine 365 dias sem
+                                        preocupação
+                                        *(Pagamento simplificado)*</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Compromisso inteligente: 12 meses para
+                                        criar
+                                        hábitos</span>
+                                </li>
+                            </ul>
+                            <button id="btn-essential-annual" onclick="checkout('essential_annual')"
+                                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold uppercase tracking-widest transition-all active:scale-95 shadow-lg btn-shine text-white mt-auto">
+                                COMEÇAR AGORA
+                            </button>
+                        </div>
+
+                        <!-- Pro Plan (Highlighted) -->
+                        <!-- Pro Plan (Highlighted) -->
+                        <div
+                            class="w-full md:w-[calc(33.33%-2rem)] min-w-[300px] relative p-8 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-xl border-2 border-indigo-500/50 rounded-3xl shadow-2xl shadow-indigo-500/20 transform scale-105 z-10 card-hover flex flex-col">
+                            <div
+                                class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full">
+                                <span id="badge-popular" class="text-xs font-black uppercase tracking-widest">Mais
+                                    Popular</span>
+                            </div>
+                            <div class="mb-6">
+                                <h3 id="txt-pro-title" class="text-2xl font-black mb-2 text-white">PRO Mensal</h3>
+                                <p id="txt-pro-desc" class="text-indigo-200 text-sm min-h-[48px]">Resultados reais,
+                                    rápidos e
+                                    definitivos</p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 id="price-pro-monthly" class="text-5xl font-black">R$ 24,90<span
+                                        class="text-lg text-indigo-200 font-normal">/mês</span></h4>
+                            </div>
+                            <ul id="features-pro" class="space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-pro-1" class="text-indigo-100 font-medium">Conversas ILIMITADAS com o
+                                        Coach
+                                        (IA)
+                                        24/7</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-pro-2" class="text-indigo-100 font-medium">Planos de treino
+                                        personalizados
+                                        para
+                                        seu objetivo</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-pro-3" class="text-indigo-100 font-medium">Receitas fit exclusivas
+                                        (inverno +
+                                        verão)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-pro-4" class="text-indigo-100 font-medium">Análises avançadas: veja
+                                        sua
+                                        evolução
+                                        em tempo real</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-pro-5" class="text-indigo-100 font-medium">Treinos ilimitados + todos
+                                        os
+                                        programas
+                                        prontos</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-pro-6" class="text-indigo-100 font-medium">Acesso antecipado: teste
+                                        novidades
+                                        antes de todos</span>
+                                </li>
+                            </ul>
+                            <button id="btn-pro-monthly" onclick="checkout('pro_monthly')"
+                                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold uppercase tracking-widest transition-all active:scale-95 shadow-lg btn-shine mt-auto">
+                                COMEÇAR AGORA
+                            </button>
+                        </div>
+
+                        <!-- Annual Plan -->
+                        <!-- Annual Plan -->
+                        <div
+                            class="w-full md:w-[calc(33.33%-2rem)] min-w-[300px] p-8 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-xl border border-indigo-500/30 rounded-3xl hover:border-indigo-500/50 transition-all card-hover group flex flex-col">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 id="txt-annual-title"
+                                        class="text-2xl font-black text-white group-hover:text-purple-300 transition-colors">
+                                        PRO Anual</h3>
+                                    <span id="txt-discount-badge"
+                                        class="px-2 py-0.5 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-[10px] font-black text-emerald-400 uppercase">-33%</span>
+                                </div>
+                                <p id="txt-annual-desc" class="text-indigo-200 text-sm min-h-[48px]">Economize R$100 -
+                                    Compromisso com seus
+                                    resultados</p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 id="price-pro-annual" class="text-5xl font-black text-white">R$ 199,90<span
+                                        class="text-lg text-indigo-200 font-normal">/ano</span></h4>
+                                <p id="price-equiv-pro-annual" class="text-sm text-emerald-400 mt-2">Equivale a R$
+                                    16,65/mês</p>
+                            </div>
+                            <ul id="features-annual" class="space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ann-1" class="text-indigo-100 font-medium">Tudo do PRO + desconto de
+                                        33%
+                                        (R$100
+                                        economizados)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ann-2" class="text-indigo-100 font-medium">Pague R$199- treine 365
+                                        dias sem
+                                        preocupação *(Pagamento simplificado)*</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ann-3" class="text-indigo-100 font-medium">Apenas R$16.65/mês - menos
+                                        que 2
+                                        cafés
+                                        por semana</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ann-4" class="text-indigo-100 font-medium">Garantia estendida: 7 dias
+                                        para
+                                        testar
+                                        sem risco</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ann-5" class="text-indigo-100 font-medium">Foco total: um ano para
+                                        transformar seu
+                                        corpo</span>
+                                </li>
+                            </ul>
+                            <button id="btn-annual" onclick="checkout('pro_annual')"
+                                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold uppercase tracking-widest transition-all active:scale-95 shadow-lg btn-shine text-white mt-auto">
+                                COMEÇAR AGORA
+                            </button>
+                        </div>
+
+                        <!-- Spacer to force next row (or just rely on flex wrap flow) -->
+                        <!-- Pro Weekly Plan -->
+                        <!-- Pro Weekly Plan -->
+                        <div
+                            class="w-full md:w-[calc(33.33%-2rem)] min-w-[300px] relative p-8 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-xl border border-indigo-500/30 rounded-3xl hover:border-indigo-500/50 transition-all card-hover group flex flex-col">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 id="txt-pro-weekly-title"
+                                        class="text-2xl font-black text-white group-hover:text-purple-300 transition-colors">
+                                        Passe PRO Semanal</h3>
+                                </div>
+                                <p id="txt-pro-weekly-desc" class="text-indigo-200 text-sm min-h-[48px]">Teste o poder
+                                    do PRO
+                                    por apenas
+                                    R$7.90</p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 id="price-pro-weekly" class="text-5xl font-black text-white">R$ 7,90<span
+                                        class="text-lg text-indigo-200 font-normal">/sem</span></h4>
+                            </div>
+                            <ul id="features-pro-weekly" class="space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">7 dias de acesso TOTAL ao PRO - sem
+                                        limitações</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Zero compromisso</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Conversas ILIMITADAS com o Coach (IA)
+                                        24/7</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Perfeito para decider se: "O plano PRO é
+                                        para
+                                        mim?"</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-indigo-100 font-medium">Risco zero: apenas R$7.90.</span>
+                                </li>
+                            </ul>
+                            <button id="btn-pro-weekly" onclick="checkout('pro_weekly')"
+                                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold uppercase tracking-widest transition-all active:scale-95 shadow-lg btn-shine text-white mt-auto">
+                                COMEÇAR AGORA
+                            </button>
+                        </div>
+
+                        <!-- Essential Plan -->
+                        <!-- Essential Plan -->
+                        <div
+                            class="w-full md:w-[calc(33.33%-2rem)] min-w-[300px] p-8 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-xl border border-indigo-500/30 rounded-3xl hover:border-indigo-500/50 transition-all card-hover group flex flex-col">
+                            <div class="mb-6">
+                                <h3 id="txt-essential-title"
+                                    class="text-2xl font-black mb-2 text-white group-hover:text-purple-300 transition-colors">
+                                    Essential Mensal</h3>
+                                <p id="txt-essential-desc" class="text-indigo-200 text-sm min-h-[48px]">Transforme seu
+                                    corpo com
+                                    inteligência
+                                </p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 id="price-essential-monthly" class="text-5xl font-black text-white">R$ 12,90<span
+                                        class="text-lg text-indigo-200 font-normal">/mês</span></h4>
+                            </div>
+                            <ul id="features-essential" class="space-y-4 mb-8">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ess-1" class="text-indigo-100 font-medium">100 perguntas mensais com
+                                        Coach
+                                        (IA)
+                                        personalizado</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ess-2" class="text-indigo-100 font-medium">Biblioteca completa: 150+
+                                        exercícios em
+                                        vídeo</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ess-3" class="text-indigo-100 font-medium">Dashboard inteligente de
+                                        progresso
+                                        e
+                                        evolução</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="feat-ess-4" class="text-indigo-100 font-medium">App mobile: treine em
+                                        qualquer
+                                        lugar,
+                                        qualquer hora</span>
+                                </li>
+                            </ul>
+                            <button id="btn-essential" onclick="checkout('essential_monthly')"
+                                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-xl font-bold uppercase tracking-widest transition-all active:scale-95 shadow-lg btn-shine text-white mt-auto">
+                                COMEÇAR AGORA
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class="text-center text-slate-500 text-sm mt-12 bg-slate-900/50 p-6 rounded-2xl border border-white/5">
+                        <p id="secure-msg">💳 Pagamento seguro via Revolut ou Lastlink • 🔒 Dados criptografados</p>
+                        <div class="mt-4">
+                            <span id="cancel-title" class="text-indigo-400 font-bold">Política de Cancelamento
+                                Justa:</span><br />
+                            <span id="cancel-desc">Reembolso integral (100%) em até 7 dias.<br />Para planos anuais,
+                                após 7
+                                dias, será cobrada uma taxa de 20% sobre o valor restante a ser restituído.</span>
+                        </div>
+                    </div>
+
+                    <p id="disclaimer-ai"
+                        class="text-center text-slate-600 text-[10px] mt-4 max-w-2xl mx-auto uppercase tracking-wider opacity-60">
+                        Nota: Os treinos são gerados por Inteligência Artificial avançada. O Coach é um assistente
+                        virtual
+                        treinado para alta performance interativa.
+                    </p>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="py-24 bg-slate-800/20">
+                <div class="max-w-4xl mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 id="faq-main-title"
+                            class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-4">
+                            Perguntas <span class="text-indigo-400">Frequentes</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <details class="group p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl">
+                            <summary class="flex items-center justify-between cursor-pointer font-bold text-lg">
+                                <span id="faq-q1">Como funciona a IA do MyFitRout?</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </summary>
+                            <p id="faq-a1" class="mt-4 text-slate-400 leading-relaxed">
+                                Utilizamos o Google Gemini 2.5, uma das IAs mais avançadas do mundo. Ela analisa seu
+                                perfil,
+                                objetivos e histórico para criar treinos personalizados e responder dúvidas técnicas em
+                                tempo
+                                real.
+                            </p>
+                        </details>
+
+                        <details class="group p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl">
+                            <summary class="flex items-center justify-between cursor-pointer font-bold text-lg">
+                                <span id="faq-q2">Posso cancelar a qualquer momento?</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </summary>
+                            <p id="faq-a2" class="mt-4 text-slate-400 leading-relaxed">
+                                Sim! Não há fidelidade. Você pode cancelar sua assinatura a qualquer momento pelo
+                                próprio app,
+                                sem burocracia.
+                            </p>
+                        </details>
+
+                        <details class="group p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl">
+                            <summary class="flex items-center justify-between cursor-pointer font-bold text-lg">
+                                <span id="faq-q3">Funciona para iniciantes?</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </summary>
+                            <p id="faq-a3" class="mt-4 text-slate-400 leading-relaxed">
+                                Perfeitamente! O MyFitRout se adapta ao seu nível. Temos exercícios e orientações para
+                                iniciantes, intermediários e avançados.
+                            </p>
+                        </details>
+
+                        <details class="group p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl">
+                            <summary class="flex items-center justify-between cursor-pointer font-bold text-lg">
+                                <span id="faq-q-equip">Preciso de equipamentos?</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </summary>
+                            <p id="faq-a-equip" class="mt-4 text-slate-400 leading-relaxed">
+                                Temos treinos para academia e para casa. Você escolhe o que funciona melhor para você.
+                                Nosso
+                                catálogo inclui exercícios com e sem equipamentos.
+                            </p>
+                        </details>
+
+                        <details class="group p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl">
+                            <summary class="flex items-center justify-between cursor-pointer font-bold text-lg">
+                                <span id="faq-q4">Como funciona o pagamento?</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </summary>
+                            <p id="faq-a4" class="mt-4 text-slate-400 leading-relaxed">
+                                Processamos pagamentos via Revolut e Last Link. Aceitamos cartão de crédito e débito.
+                            </p>
+                        </details>
+
+                        <details class="group p-6 bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl">
+                            <summary class="flex items-center justify-between cursor-pointer font-bold text-lg">
+                                <span id="faq-q-privacy">Meus dados estão seguros?</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </summary>
+                            <p id="faq-a-privacy" class="mt-4 text-slate-400 leading-relaxed">
+                                Sim. Sua privacidade é prioridade. O MyFitRout segue as diretrizes da GDPR e LGPD. Seus
+                                dados
+                                são criptografados e nunca vendidos.
+                            </p>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Final -->
+            <section class="py-24 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-purple-600/20"></div>
+                <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+                    <h2 id="cta-final-title"
+                        class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-6">
+                        Pronto para <span class="text-indigo-400">Transformar</span><br />
+                        seu Corpo?
+                    </h2>
+                    <p id="cta-final-desc" class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+                        Junte-se a nossa comunidade de membros ativos que já estão alcançando seus objetivos com
+                        MyFitRout.
+                    </p>
+                    <a href="#pricing"
+                        class="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl font-black uppercase tracking-widest text-white shadow-2xl hover:shadow-indigo-500/50 transition-all active:scale-95">
+                        <span id="btn-final-text">Começar Agora</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="py-12 border-t border-white/5">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="grid md:grid-cols-4 gap-8 mb-8">
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <img src="/logo-text.png" alt="MyFitRout" class="h-8 w-auto object-contain" />
+                            </div>
+                            <p id="footer-desc" class="text-slate-400 text-sm">
+                                Seu coach de alta performance powered by AI.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 id="footer-prod-title" class="font-bold mb-4">Produto</h4>
+                            <ul class="space-y-2 text-sm text-slate-400">
+                                <li><a href="#features" id="footer-features"
+                                        class="hover:text-white transition-colors">Recursos</a></li>
+                                <li><a href="#pricing" id="footer-plans"
+                                        class="hover:text-white transition-colors">Planos</a>
+                                </li>
+                                <li><a href="https://myfitrout-app.vercel.app" id="footer-app-link"
+                                        class="hover:text-white transition-colors">App</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 id="footer-support-title" class="font-bold mb-4">Suporte</h4>
+                            <ul class="space-y-2 text-sm text-slate-400">
+                                <li><a href="#faq" id="footer-faq" class="hover:text-white transition-colors">FAQ</a>
+                                </li>
+                                <li><a href="mailto:suporte@myfitrout.com" id="footer-contact"
+                                        class="hover:text-white transition-colors">Contato</a></li>
+                                <li><a href="#" id="footer-terms" class="hover:text-white transition-colors">Termos de
+                                        Uso</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 id="footer-social-title" class="font-bold mb-4">Social</h4>
+                            <div class="flex gap-4">
+                                <a href="#"
+                                    class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                    </svg>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-8 border-t border-white/5 text-center text-slate-500 text-sm">
+                        <p id="footer-copy">© 2026 MyFitRout. Todos os direitos reservados. Feito com 💜 para atletas.
+                        </p>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Lead Capture Modal -->
+            <div id="lead-modal" class="fixed inset-0 z-[100] hidden">
+                <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm transition-opacity opacity-0"
+                    id="lead-backdrop">
+                </div>
+                <div class="relative min-h-screen flex items-center justify-center p-4">
+                    <div class="bg-slate-800 border border-white/10 rounded-2xl w-full max-w-md p-8 transform scale-95 opacity-0 transition-all duration-300"
+                        id="lead-content">
+                        <button onclick="closeLeadModal()"
+                            class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="text-center mb-8">
+                            <div
+                                class="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h3 id="modal-title" class="text-2xl font-black italic uppercase tracking-tighter mb-2">
+                                Quase lá!
+                            </h3>
+                            <p id="modal-desc" class="text-slate-400">Digite seu e-mail para processar sua inscrição e
+                                enviar os
+                                dados de
+                                acesso.</p>
+                        </div>
+                        <form onsubmit="submitLead(event)" class="space-y-4">
+                            <div>
+                                <label class="sr-only">E-mail</label>
+                                <input type="email" id="lead-email" required placeholder="seu@email.com"
+                                    class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+                            </div>
+                            <button type="submit" id="modal-btn"
+                                class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl font-bold uppercase tracking-widest hover:scale-[1.02] transition-transform">
+                                Continuar →
+                            </button>
+                            <p id="modal-security" class="text-center text-xs text-slate-600">Ambiente seguro. Seus
+                                dados estão
+                                protegidos.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Integration: Revolut (Global) + Last Link (Brazil) -->
+            <!-- Payment Integration: Revolut (Global) + Last Link (Brazil) -->
+            <script src="landing-checkout-v4.js"></script>
+</body>
+
+</html>

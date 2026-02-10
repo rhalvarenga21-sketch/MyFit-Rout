@@ -1,0 +1,53 @@
+/**
+ * PENDING SYNC ON APP START - App.tsx
+ * 
+ * INSTRUÇÕES:
+ * 1. Abra App.tsx
+ * 2. Localize a seção de useEffect (próximo ao início do componente App)
+ * 3. Adicione este useEffect APÓS os outros useEffects existentes
+ */
+
+// ============================================
+// CÓDIGO NOVO (ADICIONAR APÓS OUTROS useEffect)
+// ============================================
+
+// Sync pending workouts on app start (ZERO DATA LOSS)
+useEffect(() => {
+  if (currentUser && profile && !isSyncing) {
+    console.log('🔄 Checking for pending workout backups...');
+    
+    // Check sync status
+    const status = getSyncStatus(currentUser.id);
+    
+    if (status.hasPending) {
+      console.log(`📤 Found ${status.pending} pending workout(s). Syncing...`);
+      
+      // Sync in background
+      syncPendingBackups(currentUser.id)
+        .then(syncedCount => {
+          if (syncedCount > 0) {
+            console.log(`✅ Successfully synced ${syncedCount} pending workout(s)!`);
+            
+            // Optional: Show success notification
+            // You can add a toast notification here if you have one
+          }
+        })
+        .catch(err => {
+          console.error('⚠️ Failed to sync pending workouts:', err);
+          // Silent fail - will retry next time
+        });
+    } else {
+      console.log('✅ No pending workouts to sync');
+    }
+  }
+}, [currentUser, profile, isSyncing]);
+
+// ============================================
+// FIM DO CÓDIGO NOVO
+// ============================================
+
+/**
+ * LOCALIZAÇÃO SUGERIDA:
+ * Adicione este useEffect logo após o useEffect que carrega o perfil do usuário
+ * (procure por "fetchProfileFromCloud" no código)
+ */

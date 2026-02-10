@@ -1,0 +1,57 @@
+/**
+ * ADD SYNC STATUS TO HEADER - App.tsx
+ * 
+ * INSTRUÇÕES:
+ * 1. Adicione o import no topo do arquivo
+ * 2. Adicione o componente no header do app
+ */
+
+// ============================================
+// PASSO 1: ADICIONAR IMPORT (próximo aos outros imports de components)
+// ============================================
+
+import { SyncStatus } from './components/SyncStatus';
+
+// ============================================
+// PASSO 2: ADICIONAR NO HEADER
+// ============================================
+
+/**
+ * Localize o header do app (procure por "header" ou "top bar")
+ * Geralmente está dentro de um <div> com className contendo "header" ou "top"
+ * 
+ * Adicione o SyncStatus próximo ao nome do usuário ou ícone de perfil:
+ */
+
+{currentUser && (
+  <div className="flex items-center gap-3">
+    {/* Existing header content */}
+    
+    {/* ADD THIS: */}
+    <SyncStatus userId={currentUser.id} />
+    
+    {/* Rest of header */}
+  </div>
+)}
+
+// ============================================
+// EXEMPLO COMPLETO DE HEADER:
+// ============================================
+
+<div className="flex items-center justify-between p-4 bg-slate-800 border-b border-slate-700">
+  <h1 className="text-xl font-black">MyFitRout</h1>
+  
+  <div className="flex items-center gap-3">
+    {/* Sync Status Indicator */}
+    {currentUser && <SyncStatus userId={currentUser.id} />}
+    
+    {/* User Profile/Settings */}
+    <button onClick={() => setView('profile')}>
+      <UserCircle size={24} />
+    </button>
+  </div>
+</div>
+
+// ============================================
+// FIM DO CÓDIGO
+// ============================================

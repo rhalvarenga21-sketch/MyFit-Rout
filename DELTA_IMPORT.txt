@@ -1,0 +1,5 @@
+Chest	Chest		Dumbbell Chest Fly	DeltaBolic Technical	Dumbbell		Intermediate						Dumbbell Chest Fly (DeltaBolic)	Dumbbell Chest Fly (DeltaBolic)				delta-chest-fly
+Shoulders	Shoulders		Lateral Raise	DeltaBolic Incline	Dumbbell		Intermediate						Incline Lateral Raise (DeltaBolic)	Incline Lateral Raise (DeltaBolic)				delta-lat-raise
+Shoulders	Shoulders		Rear Delt Fly	DeltaBolic Incline 45	Dumbbell		Intermediate						Rear Delt Fly (DeltaBolic)	Rear Delt Fly (DeltaBolic)				delta-rear-fly
+Arms	Arms		Bicep Curl	DeltaBolic Wide Grip	Barbell		Beginner						Wide Grip Bicep Curl (DeltaBolic)	Wide Grip Bicep Curl (DeltaBolic)				delta-bicep-wide
+Arms	Arms		Bicep Curl	DeltaBolic Close Grip	Barbell		Beginner						Close Grip Bicep Curl (DeltaBolic)	Close Grip Bicep Curl (DeltaBolic)				delta-bicep-close

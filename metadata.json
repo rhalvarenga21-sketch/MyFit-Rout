@@ -1,0 +1,7 @@
+{
+  "name": "MyFitRout - Virtual Coach & Longevity",
+  "description": "Uma plataforma inteligente de treino focada em técnica, saúde e longevidade, conectando alunos a academias de alta performance.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
