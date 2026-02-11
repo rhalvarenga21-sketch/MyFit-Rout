@@ -1,7 +1,5 @@
 import { Language, UserProfile } from "../types";
 
-console.log("🤖 Rafa Fit - Your Smart AI Coach");
-
 // Simula delay de API para parecer real
 const simulateDelay = () => new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 400));
 

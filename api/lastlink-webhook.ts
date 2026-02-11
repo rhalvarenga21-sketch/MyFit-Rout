@@ -4,6 +4,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import crypto from 'crypto';
 
 // Configure Clients
 // Note: VITE_ variables are usually client-side, but in this serverless context they act as env vars.
@@ -35,14 +36,11 @@ const PRODUCT_MAP: { [key: string]: string } = {
     'CD7968A27': 'PRO',       // Weekly (Trial)
 };
 
-// Helper: Generate Secure Pattern
-function generatePassword(length = 12) {
+// Helper: Generate Secure Password using crypto
+function generatePassword(length = 12): string {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    let retVal = "";
-    for (let i = 0, n = charset.length; i < length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-    }
-    return retVal;
+    const bytes = crypto.randomBytes(length);
+    return Array.from(bytes).map(b => charset[b % charset.length]).join('');
 }
 
 const TRANSLATIONS = {
@@ -121,6 +119,32 @@ function detectLanguage(payload: any = {}): 'PT' | 'EN' | 'ES' {
 export default async function handler(req: any, res: any) {
     // Only allow POST
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+    // CRITICAL: Validate webhook signature from Lastlink
+    const signature = req.headers['x-lastlink-signature'] || req.headers['x-webhook-signature'];
+    const webhookSecret = process.env.LASTLINK_WEBHOOK_SECRET;
+
+    if (webhookSecret && signature) {
+        const expectedSignature = crypto
+            .createHmac('sha256', webhookSecret)
+            .update(JSON.stringify(req.body))
+            .digest('hex');
+        
+        const providedSignature = signature.toString().replace('sha256=', '');
+        
+        if (expectedSignature !== providedSignature) {
+            console.error('❌ Invalid webhook signature');
+            return res.status(401).json({ error: 'Invalid signature' });
+        }
+    } else if (webhookSecret) {
+        // Secret configured but no signature provided
+        console.error('❌ Webhook signature missing');
+        return res.status(401).json({ error: 'Signature required' });
+    }
+    // If no secret configured, allow for backward compatibility (log warning)
+    if (!webhookSecret) {
+        console.warn('⚠️  LASTLINK_WEBHOOK_SECRET not configured - webhook unprotected!');
+    }
 
     try {
         const payload = req.body;

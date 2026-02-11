@@ -59,11 +59,6 @@ const App: React.FC = () => {
   // 🛡️ AutoSave System
   const { saveWorkout, isSyncing: isBackupSyncing, pendingCount } = useAutoSave(currentUser?.id, profile || undefined);
 
-  // 🧪 Deployment Verification Log
-  useEffect(() => {
-    console.log('🚀 DEPLOYMENT TEST: VERIFIED v1.0 - ' + new Date().toISOString());
-  }, []);
-
 
   // Notifications Init
   useEffect(() => {
@@ -796,6 +791,7 @@ const App: React.FC = () => {
               setTheme={setTheme}
               onBack={() => setView('me')}
               onApiTester={() => setView('api_tester')}
+              userRole={profile?.role}
             />
           )
         }

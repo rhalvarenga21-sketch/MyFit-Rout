@@ -10,9 +10,10 @@ interface SettingsProps {
     setTheme: (t: 'dark' | 'light') => void;
     onBack: () => void;
     onApiTester?: () => void;
+    userRole?: string;
 }
 
-export const Settings: React.FC<SettingsProps> = ({ lang, setLang, theme, setTheme, onBack, onApiTester }) => {
+export const Settings: React.FC<SettingsProps> = ({ lang, setLang, theme, setTheme, onBack, onApiTester, userRole }) => {
     const t = translations[lang] as any;
 
     return (
@@ -57,7 +58,7 @@ export const Settings: React.FC<SettingsProps> = ({ lang, setLang, theme, setThe
                                 <div className="w-5 h-5 bg-white rounded-full shadow-md translate-x-5" />
                             </button>
                         </div>
-                        {onApiTester && (
+                        {onApiTester && userRole === 'ADMIN' && (
                             <div
                                 onClick={onApiTester}
                                 className="w-full p-6 flex items-center justify-between hover:bg-slate-700/50 transition-colors cursor-pointer border-t border-slate-700/50"

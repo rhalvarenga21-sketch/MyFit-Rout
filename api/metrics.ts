@@ -2,10 +2,9 @@
 import { createClient } from '@supabase/supabase-js';
 
 export default async function handler(req, res) {
-    // Security Check (Simple key in header or query param)
+    // Security Check - Only env var allowed
     const apiKey = req.headers['x-api-key'] || req.query.key;
-    if (apiKey !== process.env.METRICS_API_KEY && apiKey !== 'secret-clawbot-key') {
-        // Allow 'secret-clawbot-key' as fallback for easy testing by user
+    if (!process.env.METRICS_API_KEY || apiKey !== process.env.METRICS_API_KEY) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 

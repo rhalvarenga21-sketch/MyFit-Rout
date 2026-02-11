@@ -36,7 +36,7 @@ export const authService = {
   // Recuperar Senha
   resetPassword: async (email: string) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://myfitrout.com/reset-password', // Ajustar para seu domínio
+      redirectTo: 'https://myfitrout-app.vercel.app/app#reset-password',
     });
     if (error) throw error;
   },
