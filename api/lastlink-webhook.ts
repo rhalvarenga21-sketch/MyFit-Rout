@@ -26,15 +26,41 @@ const supabase = createClient(
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 // Product Mapping (Last Link ID -> App Role)
+// Supports both short codes (C00235787) and UUIDs (0323ed19-6442-42df...)
 const PRODUCT_MAP: { [key: string]: string } = {
     // ESSENTIAL
     'CD85C185A': 'ESSENTIAL', // Monthly
     'C00235787': 'ESSENTIAL', // Annual
+    '0323ed19-6442-42df-b106-d0100c813626': 'ESSENTIAL', // UUID format
+    
     // PRO
     'C3A4ECD3D': 'PRO',       // Monthly
     'C35F0D49B': 'PRO',       // Annual
     'CD7968A27': 'PRO',       // Weekly (Trial)
 };
+
+// Helper: Extract product type from Lastlink offer URL or ID
+function getProductTypeFromOffer(payload: any): string {
+    // Try offer URL first (contains short code)
+    const offerUrl = payload.Offer?.Url || payload.offer?.url || '';
+    const offerMatch = offerUrl.match(/\/p\/([A-Z0-9]+)/);
+    if (offerMatch && PRODUCT_MAP[offerMatch[1]]) {
+        return PRODUCT_MAP[offerMatch[1]];
+    }
+    
+    // Try product ID (UUID or short code)
+    const productId = 
+        payload.Products?.[0]?.Id || 
+        payload.product_id || 
+        payload.productId;
+    
+    if (productId && PRODUCT_MAP[productId]) {
+        return PRODUCT_MAP[productId];
+    }
+    
+    // Default to PRO
+    return 'PRO';
+}
 
 // Helper: Generate Secure Password using crypto
 function generatePassword(length = 12): string {
@@ -150,23 +176,67 @@ export default async function handler(req: any, res: any) {
         const payload = req.body;
         console.log('🔔 Webhook Event Received:', JSON.stringify(payload, null, 2));
 
-        // Extract Data
-        // Adapting to common webhook payloads (LastLink/Hotmart/Generic)
-        const eventType = payload.event || payload.status;
-        const customerEmail = payload.email || payload.customer?.email;
-        const productId = payload.product_id || payload.productId;
-        const transactionId = payload.id || payload.transaction_id;
+        // Extract Data - LASTLINK FORMAT (case-sensitive)
+        const eventType = payload.event || payload.status || payload.eventType;
+        
+        const customerEmail = 
+            payload.email || 
+            payload.Buyer?.Email ||           // Lastlink format (uppercase)
+            payload.buyer?.email ||           // Generic format
+            payload.customer?.email || 
+            payload.user?.email ||
+            payload.client?.email ||
+            payload.subscriber?.email ||
+            payload.contact?.email ||
+            payload.billing?.email ||
+            payload.data?.email ||
+            payload.data?.customer?.email ||
+            payload.purchase?.buyer_email ||
+            payload.Purchase?.Buyer?.Email || // Nested Lastlink format
+            payload.data?.Buyer?.Email;
+        
+        const customerName = 
+            payload.Buyer?.Name ||
+            payload.buyer?.name ||
+            payload.customer?.name ||
+            payload.name;
+        
+        const productId = 
+            payload.product_id || 
+            payload.productId || 
+            payload.Products?.[0]?.Id ||      // Lastlink format
+            payload.data?.product_id;
+            
+        const transactionId = payload.id || payload.transaction_id || payload.data?.id;
+
+        // Enhanced logging for debugging
+        console.log('📊 Extracted fields:', {
+            eventType,
+            customerEmail,
+            customerName,
+            productId,
+            transactionId
+        });
 
         if (!customerEmail) {
-            console.warn('⚠️ Webhook missing email. Skipping.');
-            return res.status(200).json({ ignored: true, reason: 'no_email' });
+            console.warn('⚠️ Webhook missing email after exhaustive search.');
+            console.warn('Available top-level keys:', Object.keys(payload));
+            return res.status(200).json({ 
+                ignored: true, 
+                reason: 'no_email',
+                debug: {
+                    availableKeys: Object.keys(payload),
+                    hasBuyer: !!payload.Buyer,
+                    buyerKeys: payload.Buyer ? Object.keys(payload.Buyer) : []
+                }
+            });
         }
 
         // ===================================
         // 1. PURCHASE APPROVED / PAID
         // ===================================
         if (eventType === 'purchase.approved' || eventType === 'paid' || eventType === 'approved') {
-            const subscriptionType = PRODUCT_MAP[productId] || 'PRO';
+            const subscriptionType = getProductTypeFromOffer(payload);
             const lang = detectLanguage(payload);
             const t = (TRANSLATIONS as any)[lang];
             let finalPassword = null;
