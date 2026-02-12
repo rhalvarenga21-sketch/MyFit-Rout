@@ -1,464 +1,212 @@
-// MyFitRout - Last Link Webhook Handler
-// Agent 4.0 - Payment & Notifications
-// Path: /api/lastlink-webhook.ts
+import { Resend } from "resend";
+import { EmailTemplate } from "@/emails/WelcomeEmail";
+import { NextRequest, NextResponse } from "next/server";
 
-import { createClient } from '@supabase/supabase-js';
-import { Resend } from 'resend';
-import crypto from 'crypto';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Configure Clients
-// Note: VITE_ variables are usually client-side, but in this serverless context they act as env vars.
-// Ideally, use SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel project settings.
-// Configure Clients
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+export async function POST(req: NextRequest) {
+  console.log("\n" + "=".repeat(60));
+  console.log("🔔 WEBHOOK EVENT RECEIVED - " + new Date().toISOString());
+  console.log("=".repeat(60));
 
-// Fail gracefully if keys are missing (prevents 500 Crash loop without logs)
-if (!SUPABASE_URL || !SUPABASE_KEY) {
-    console.error(`❌ Critical config missing. URL: ${!!SUPABASE_URL}, KEY: ${!!SUPABASE_KEY}`);
-}
+  try {
+    // 1. PARSE DO BODY
+    const body = await req.json();
+    console.log("📦 Raw Body:", JSON.stringify(body, null, 2));
 
-const supabase = createClient(
-    SUPABASE_URL || 'https://placeholder.supabase.co',
-    SUPABASE_KEY || 'placeholder-key'
-);
+    // 2. EXTRAIR DADOS (suporta múltiplos formatos)
+    const eventType = (body.eventType || body.event_type || body.EventType || "unknown").toLowerCase();
+    const buyerEmail = body.Buyer?.Email || body.buyer?.email || body.Buyer?.email;
+    const productId = body.Product?.Id || body.product?.id || body.Product?.id;
+    const buyerName = body.Buyer?.Name || body.buyer?.name || body.Buyer?.name || "Cliente";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+    console.log("\n📊 EXTRACTED DATA:");
+    console.log("  Event Type:", eventType);
+    console.log("  Buyer Email:", buyerEmail);
+    console.log("  Buyer Name:", buyerName);
+    console.log("  Product ID:", productId);
 
-// Product Mapping (Last Link ID -> App Role)
-// Supports both short codes (C00235787) and UUIDs (0323ed19-6442-42df...)
-const PRODUCT_MAP: { [key: string]: string } = {
-    // ESSENTIAL
-    'CD85C185A': 'ESSENTIAL', // Monthly
-    'C00235787': 'ESSENTIAL', // Annual
-    '0323ed19-6442-42df-b106-d0100c813626': 'ESSENTIAL', // UUID format
+    // 3. VALIDAR CONFIGURAÇÕES DO RESEND
+    console.log("\n⚙️  VALIDATING CONFIGURATION:");
+    const hasApiKey = !!process.env.RESEND_API_KEY;
+    const isValidKey = process.env.RESEND_API_KEY?.startsWith('re_');
+    const hasFromEmail = !!process.env.RESEND_FROM_EMAIL;
+
+    console.log("  RESEND_API_KEY exists:", hasApiKey);
+    console.log("  RESEND_API_KEY valid format:", isValidKey);
+    console.log("  RESEND_FROM_EMAIL exists:", hasFromEmail);
+    console.log("  RESEND_FROM_EMAIL value:", process.env.RESEND_FROM_EMAIL);
+
+    if (!hasApiKey || !isValidKey) {
+      console.error("\n❌ CRITICAL: RESEND_API_KEY is invalid or missing");
+      console.error("   Please check Vercel Environment Variables");
+      console.error("   Key should start with 're_'");
+      console.error("=".repeat(60) + "\n");
+      
+      return NextResponse.json({ 
+        error: "Email service not configured properly",
+        details: "RESEND_API_KEY is invalid or missing",
+        action: "Check Vercel Environment Variables"
+      }, { status: 500 });
+    }
+
+    if (!hasFromEmail) {
+      console.error("\n❌ CRITICAL: RESEND_FROM_EMAIL is missing");
+      console.error("   Please add RESEND_FROM_EMAIL to Vercel Environment Variables");
+      console.error("   Example: onboarding@resend.dev or noreply@yourdomain.com");
+      console.error("=".repeat(60) + "\n");
+      
+      return NextResponse.json({ 
+        error: "Email service not configured properly",
+        details: "RESEND_FROM_EMAIL is missing",
+        action: "Add RESEND_FROM_EMAIL to Environment Variables"
+      }, { status: 500 });
+    }
+
+    // 4. VERIFICAR CONDIÇÕES PARA ENVIO
+    console.log("\n🔍 CHECKING SEND CONDITIONS:");
     
-    // PRO
-    'C3A4ECD3D': 'PRO',       // Monthly
-    'C35F0D49B': 'PRO',       // Annual
-    'CD7968A27': 'PRO',       // Weekly (Trial)
-};
+    // Suporta tanto "Order.Success" quanto "order.success"
+    const isOrderSuccess = eventType === "order.success";
+    const hasEmail = !!buyerEmail;
+    const isValidEmail = buyerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail);
 
-// Helper: Extract product type from Lastlink offer URL or ID
-function getProductTypeFromOffer(payload: any): string {
-    // Try offer URL first (contains short code)
-    const offerUrl = payload.Offer?.Url || payload.offer?.url || '';
-    const offerMatch = offerUrl.match(/\/p\/([A-Z0-9]+)/);
-    if (offerMatch && PRODUCT_MAP[offerMatch[1]]) {
-        return PRODUCT_MAP[offerMatch[1]];
+    console.log("  Condition 1 - Order.Success:", isOrderSuccess, 
+                `(got: '${eventType}')`);
+    console.log("  Condition 2 - Has email:", hasEmail);
+    console.log("  Condition 3 - Valid email format:", isValidEmail);
+
+    if (!isOrderSuccess) {
+      console.log("\n⚠️  EVENT IGNORED: Not an Order.Success event");
+      console.log("   Expected: 'order.success'");
+      console.log("   Got: '" + eventType + "'");
+      console.log("=".repeat(60) + "\n");
+      
+      return NextResponse.json({ 
+        success: false,
+        message: "Event type not handled",
+        eventType: eventType,
+        expectedType: "order.success"
+      });
     }
+
+    if (!hasEmail) {
+      console.log("\n⚠️  EMAIL MISSING: Buyer email not found in payload");
+      console.log("   Checked paths: Buyer.Email, buyer.email");
+      console.log("=".repeat(60) + "\n");
+      
+      return NextResponse.json({ 
+        success: false,
+        message: "Buyer email is missing from payload",
+        action: "Check Lastlink webhook configuration"
+      });
+    }
+
+    if (!isValidEmail) {
+      console.log("\n⚠️  INVALID EMAIL FORMAT: '" + buyerEmail + "'");
+      console.log("=".repeat(60) + "\n");
+      
+      return NextResponse.json({ 
+        success: false,
+        message: "Invalid email format",
+        email: buyerEmail
+      });
+    }
+
+    // 5. TUDO OK - ENVIAR E-MAIL
+    console.log("\n✅ ALL CONDITIONS MET - PROCEEDING TO SEND EMAIL");
     
-    // Try product ID (UUID or short code)
-    const productId = 
-        payload.Products?.[0]?.Id || 
-        payload.product_id || 
-        payload.productId;
-    
-    if (productId && PRODUCT_MAP[productId]) {
-        return PRODUCT_MAP[productId];
-    }
-    
-    // Default to PRO
-    return 'PRO';
-}
-
-// Helper: Generate Secure Password using crypto
-function generatePassword(length = 12): string {
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    const bytes = crypto.randomBytes(length);
-    return Array.from(bytes).map(b => charset[b % charset.length]).join('');
-}
-
-const TRANSLATIONS = {
-    PT: {
-        subject: '🚀 Bem-vindo(a) ao Time! Seu acesso chegou.',
-        title: 'Bem-vindo(a) ao Time! 🦍',
-        greeting_1: 'Olá! É um prazer ter você conosco. Seu plano',
-        greeting_2: 'foi ativado e seu acesso à plataforma já está liberado.',
-        credentials_intro: 'Abaixo estão suas credenciais para acessar o app e começar sua transformação hoje mesmo:',
-        box_title: 'Suas Credenciais',
-        label_login: 'Login:',
-        label_pass: 'Senha:',
-        pass_hidden: '(Sua senha atual)',
-        btn_action: 'Acessar Plataforma',
-        tip: 'Recomendamos alterar sua senha após o primeiro acesso.',
-        footer: 'Todos os direitos reservados.',
-        social_action: 'Siga a gente 📸',
-        role: 'MyFitRout - Manager'
-    },
-    EN: {
-        subject: '🚀 Welcome to the Team! Your access is here.',
-        title: 'Welcome to the Team! 🦍',
-        greeting_1: 'Hello! It\'s a pleasure to have you with us. Your plan',
-        greeting_2: 'has been activated and your access is ready.',
-        credentials_intro: 'Below are your credentials to access the app and start your transformation today:',
-        box_title: 'Your Credentials',
-        label_login: 'Login:',
-        label_pass: 'Password:',
-        pass_hidden: '(Your current password)',
-        btn_action: 'Access Platform',
-        tip: 'We recommend changing your password after the first login.',
-        footer: 'All rights reserved.',
-        social_action: 'Follow us 📸',
-        role: 'MyFitRout - Manager'
-    },
-    ES: {
-        subject: '🚀 ¡Bienvenido al Equipo! Tu acceso está listo.',
-        title: '¡Bienvenido al Equipo! 🦍',
-        greeting_1: '¡Hola! Es un placer tenerte con nosotros. Tu plan',
-        greeting_2: 'ha sido activado y tu acceso ya está liberado.',
-        credentials_intro: 'A continuación, tus credenciales para acceder a la app y comenzar tu transformación hoy:',
-        box_title: 'Tus Credenciales',
-        label_login: 'Login:',
-        label_pass: 'Contraseña:',
-        pass_hidden: '(Tu contraseña actual)',
-        btn_action: 'Acceder a la Plataforma',
-        tip: 'Recomendamos cambiar tu contraseña después del primer acceso.',
-        footer: 'Todos los derechos reservados.',
-        social_action: 'Síguenos 📸',
-        role: 'MyFitRout - Manager'
-    }
-};
-
-function detectLanguage(payload: any = {}): 'PT' | 'EN' | 'ES' {
-    const address = payload.address || {};
-    const country = (address.country || payload.country_code || payload.country || "").toUpperCase();
-    const email = (payload.email || "").toLowerCase();
-
-    // Explicit Country Logic
-    if (['BR', 'PT', 'AO', 'MZ'].includes(country)) return 'PT';
-    if (['ES', 'MX', 'AR', 'CO', 'CL', 'PE', 'UY', 'PY', 'BO', 'EC', 'VE', 'GT', 'CR', 'PA', 'DO'].includes(country)) return 'ES';
-
-    // Email Logic
-    if (email.endsWith('.br')) return 'PT';
-    if (email.endsWith('.es') || email.endsWith('.mx') || email.endsWith('.ar')) return 'ES';
-
-    // Fallback Default
-    // User Audience is primarily BR/Globalmix. Defaulting to PT if unknown country for now is safer for testing transparency 
-    // unless strictly .com/US.
-    // If country is EMPTY, assume PT for this specific MVP context (user request).
-    if (!country) return 'PT';
-
-    return 'EN';
-}
-
-export default async function handler(req: any, res: any) {
-    // Only allow POST
-    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-
-    // CRITICAL: Validate webhook signature from Lastlink
-    const signature = req.headers['x-lastlink-signature'] || req.headers['x-webhook-signature'];
-    const webhookSecret = process.env.LASTLINK_WEBHOOK_SECRET;
-
-    if (webhookSecret && signature) {
-        const expectedSignature = crypto
-            .createHmac('sha256', webhookSecret)
-            .update(JSON.stringify(req.body))
-            .digest('hex');
-        
-        const providedSignature = signature.toString().replace('sha256=', '');
-        
-        if (expectedSignature !== providedSignature) {
-            console.error('❌ Invalid webhook signature');
-            return res.status(401).json({ error: 'Invalid signature' });
-        }
-    } else if (webhookSecret) {
-        // Secret configured but no signature provided
-        console.error('❌ Webhook signature missing');
-        return res.status(401).json({ error: 'Signature required' });
-    }
-    // If no secret configured, allow for backward compatibility (log warning)
-    if (!webhookSecret) {
-        console.warn('⚠️  LASTLINK_WEBHOOK_SECRET not configured - webhook unprotected!');
-    }
-
     try {
-        const payload = req.body;
-        console.log('🔔 Webhook Event Received:', JSON.stringify(payload, null, 2));
+      console.log("\n📧 EMAIL DETAILS:");
+      console.log("  From:", process.env.RESEND_FROM_EMAIL);
+      console.log("  To:", buyerEmail);
+      console.log("  Subject: Seu Treino Personalizado - MyFitRout");
+      console.log("  Name:", buyerName);
 
-        // Extract Data - LASTLINK FORMAT (case-sensitive)
-        const eventType = payload.event || payload.status || payload.eventType;
-        
-        const customerEmail = 
-            payload.email || 
-            payload.Buyer?.Email ||           // Lastlink format (uppercase)
-            payload.buyer?.email ||           // Generic format
-            payload.customer?.email || 
-            payload.user?.email ||
-            payload.client?.email ||
-            payload.subscriber?.email ||
-            payload.contact?.email ||
-            payload.billing?.email ||
-            payload.data?.email ||
-            payload.data?.customer?.email ||
-            payload.purchase?.buyer_email ||
-            payload.Purchase?.Buyer?.Email || // Nested Lastlink format
-            payload.data?.Buyer?.Email;
-        
-        const customerName = 
-            payload.Buyer?.Name ||
-            payload.buyer?.name ||
-            payload.customer?.name ||
-            payload.name;
-        
-        const productId = 
-            payload.product_id || 
-            payload.productId || 
-            payload.Products?.[0]?.Id ||      // Lastlink format
-            payload.data?.product_id;
-            
-        const transactionId = payload.id || payload.transaction_id || payload.data?.id;
+      console.log("\n📤 Calling Resend API...");
+      
+      const emailData = await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL!,
+        to: buyerEmail,
+        subject: "Seu Treino Personalizado - MyFitRout",
+        react: EmailTemplate({ firstName: buyerName }),
+      });
 
-        // Enhanced logging for debugging
-        console.log('📊 Extracted fields:', {
-            eventType,
-            customerEmail,
-            customerName,
-            productId,
-            transactionId
-        });
+      console.log("\n🎉 EMAIL SENT SUCCESSFULLY!");
+      console.log("  Email ID:", emailData.id);
+      console.log("  Status: Delivered to Resend");
+      console.log("  Check Resend Dashboard for delivery status");
+      console.log("=".repeat(60) + "\n");
 
-        if (!customerEmail) {
-            console.warn('⚠️ Webhook missing email after exhaustive search.');
-            console.warn('Available top-level keys:', Object.keys(payload));
-            return res.status(200).json({ 
-                ignored: true, 
-                reason: 'no_email',
-                debug: {
-                    availableKeys: Object.keys(payload),
-                    hasBuyer: !!payload.Buyer,
-                    buyerKeys: payload.Buyer ? Object.keys(payload.Buyer) : []
-                }
-            });
-        }
+      return NextResponse.json({ 
+        success: true, 
+        message: "Email sent successfully",
+        emailId: emailData.id,
+        to: buyerEmail
+      });
 
-        // ===================================
-        // 1. PURCHASE APPROVED / PAID
-        // ===================================
-        if (eventType === 'purchase.approved' || eventType === 'paid' || eventType === 'approved') {
-            const subscriptionType = getProductTypeFromOffer(payload);
-            const lang = detectLanguage(payload);
-            const t = (TRANSLATIONS as any)[lang];
-            let finalPassword = null;
-            let isNewUser = false;
+    } catch (emailError: any) {
+      console.error("\n❌ EMAIL SEND FAILED");
+      console.error("  Error Name:", emailError.name);
+      console.error("  Error Message:", emailError.message);
+      
+      // Erros comuns do Resend
+      if (emailError.message?.includes("API key")) {
+        console.error("  → Problem: Invalid or expired API key");
+        console.error("  → Solution: Check RESEND_API_KEY in Vercel");
+      } else if (emailError.message?.includes("from")) {
+        console.error("  → Problem: Invalid 'from' email address");
+        console.error("  → Solution: Verify domain in Resend or use onboarding@resend.dev");
+      } else if (emailError.message?.includes("rate limit")) {
+        console.error("  → Problem: Rate limit exceeded");
+        console.error("  → Solution: Wait or upgrade Resend plan");
+      }
+      
+      console.error("\n  Full Error Object:");
+      console.error(JSON.stringify(emailError, null, 2));
+      console.error("=".repeat(60) + "\n");
 
-            console.log(`✅ Approving Access: ${customerEmail} - Plan: ${subscriptionType}`);
-
-            // --- A. Auth User Management ---
-            // Try to create user. If fails, they likely exist.
-            const tempPassword = generatePassword();
-            let userId = null;
-
-            // Note: createUser is an Admin function
-            const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
-                email: customerEmail,
-                password: tempPassword,
-                email_confirm: true // Auto-confirm email
-            });
-
-            if (createError) {
-                // Check if error is "User already registered"
-                const msg = createError.message?.toLowerCase();
-                if (msg.includes('already registered') || createError.status === 422) {
-                    console.log(`👤 User already exists in Auth: ${customerEmail}.`);
-                    isNewUser = false;
-
-                    // Fetch existing profile ID to ensure upsert works
-                    const { data: distinctProfile } = await supabase.from('profiles').select('id').eq('email', customerEmail).single();
-                    if (distinctProfile) {
-                        userId = distinctProfile.id;
-                    }
-                } else {
-                    console.error('❌ Error creating user:', createError);
-                    throw createError;
-                }
-            } else {
-                console.log(`👤 New User Created: ${newUser.user.id}`);
-                isNewUser = true;
-                finalPassword = tempPassword;
-                userId = newUser.user.id;
-            }
-
-            // --- B. Update Profile (Database) ---
-            const profilePayload: any = {
-                email: customerEmail,
-                subscription: subscriptionType,
-                subscription_status: 'active',
-                lastlink_transaction_id: transactionId,
-                updated_at: new Date().toISOString(),
-            };
-            if (userId) profilePayload.id = userId;
-
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .upsert(profilePayload, { onConflict: 'email' });
-
-            if (profileError) {
-                console.error('❌ Profile update failed:', profileError);
-                throw profileError;
-            }
-
-            // --- C. Send Notifications (Resend) ---
-            if (process.env.RESEND_API_KEY) {
-                // 1. Client Email
-                const { error: emailError } = await resend.emails.send({
-                    from: 'Rafael - MyFitRout <onboarding@resend.dev>', // Sender Name + Verified Domain
-                    replyTo: 'myfitrout_app@outlook.com',               // User's Outlook Address
-                    to: customerEmail,
-                    subject: t.subject,
-                    html: `
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <meta charset="utf-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>${t.title}</title>
-                        </head>
-                        <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', user-select, sans-serif;">
-                            
-                            <!-- Container Principal -->
-                            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td align="center" style="padding: 40px 0;">
-                                        
-                                        <!-- Card do Email -->
-                                        <table role="presentation" width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                                            
-                                            <!-- Cabeçalho com Logo -->
-                                            <tr>
-                                                <td align="center" style="background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%); padding: 30px;">
-                                                    <img src="https://myfitrout-app.vercel.app/logo-text.png" alt="MyFitRout" width="180" style="display: block; border: 0;">
-                                                </td>
-                                            </tr>
-
-                                            <!-- Conteúdo Principal -->
-                                            <tr>
-                                                <td style="padding: 40px;">
-                                                    <h1 style="color: #1a1a1a; margin: 0 0 20px 0; font-size: 24px; text-align: center;">${t.title}</h1>
-                                                    
-                                                    <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-                                                        ${t.greeting_1} <strong>${subscriptionType}</strong> ${t.greeting_2}
-                                                    </p>
-                                                    <p style="color: #4b5563; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
-                                                        ${t.credentials_intro}
-                                                    </p>
-
-                                                    <!-- Box de Credenciais -->
-                                                    <div style="background-color: #f3f4f6; border-left: 4px solid #6366f1; padding: 20px; border-radius: 4px; margin-bottom: 30px;">
-                                                        <p style="margin: 0 0 10px 0; font-size: 14px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold;">${t.box_title}</p>
-                                                        <p style="margin: 0 0 5px 0; font-size: 16px; color: #1a1a1a;"><strong>${t.label_login}</strong> ${customerEmail}</p>
-                                                        ${isNewUser
-                            ? `<p style="margin: 0; font-size: 16px; color: #1a1a1a;"><strong>${t.label_pass}</strong> ${finalPassword}</p>`
-                            : `<p style="margin: 0; font-size: 16px; color: #1a1a1a;"><strong>${t.label_pass}</strong> <em>${t.pass_hidden}</em></p>`}
-                                                    </div>
-
-                                                    <!-- Botão de Ação -->
-                                                    <div style="text-align: center; margin-bottom: 30px;">
-                                                        <a href="https://myfitrout-app.vercel.app/app" style="background-color: #6366f1; color: #ffffff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">${t.btn_action}</a>
-                                                        
-                                                        <div style="margin-top: 24px;">
-                                                            <a href="https://instagram.com/myfitrout" style="color: #4b5563; text-decoration: none; font-size: 14px; font-weight: 600;">
-                                                                ${t.social_action} <span style="color: #6366f1;">@myfitrout</span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    ${isNewUser ? `<p style="color: #6b7280; font-size: 14px; text-align: center; margin-bottom: 30px;"><em>${t.tip}</em></p>` : ''}
-
-                                                    <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 30px 0;">
-
-                                                    <!-- Assinatura Personalizada -->
-                                                    <table role="presentation" border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td style="vertical-align: top;">
-                                                                <img src="https://myfitrout-app.vercel.app/logo-app.png" alt="Logo" width="48" style="border-radius: 8px; display: block;">
-                                                            </td>
-                                                            <td style="padding-left: 16px; vertical-align: top;">
-                                                                <p style="margin: 0; font-weight: bold; color: #1a1a1a; font-size: 16px;">Rafael Alvarenga</p>
-                                                                <p style="margin: 4px 0 0 0; color: #6366f1; font-weight: 600; font-size: 14px;">${t.role}</p>
-                                                                <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px;">
-                                                                    <a href="mailto:myfitrout_app@outlook.com" style="color: #6b7280; text-decoration: none;">myfitrout_app@outlook.com</a>
-                                                                </p>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-
-                                                </td>
-                                            </tr>
-                                            
-                                            <!-- Footer -->
-                                            <tr>
-                                                <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-                                                    <p style="margin: 0; color: #9ca3af; font-size: 12px;">© ${new Date().getFullYear()} MyFitRout. ${t.footer}</p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </body>
-                        </html>
-                    `
-                });
-
-                if (emailError) console.error("Error sending user email:", emailError);
-                else console.log("📧 User email sent.");
-
-                // 2. Admin Notification
-                // 'suporte@myfitrout.com' is a placeholder. Using a const or env var logic is better, but hardcoded for now is fine for MVP.
-                const adminEmail = process.env.ADMIN_EMAIL || 'suporte@myfitrout.com';
-                await resend.emails.send({
-                    from: 'MyFitRout System <onboarding@resend.dev>',
-                    to: adminEmail,
-                    subject: `💰 Nova Venda: ${subscriptionType} - ${customerEmail}`,
-                    html: `
-                        <h3>Nova Venda Aprovada!</h3>
-                        <ul>
-                            <li><strong>Cliente:</strong> ${customerEmail}</li>
-                            <li><strong>Plano:</strong> ${subscriptionType}</li>
-                            <li><strong>Transação:</strong> ${transactionId}</li>
-                            <li><strong>Conta Nova?</strong> ${isNewUser ? 'Sim' : 'Não'}</li>
-                        </ul>
-                    `
-                });
-                console.log("🔔 Admin notification sent.");
-            } else {
-                console.warn('⚠️ RESEND_API_KEY missing. Emails not sent.');
-            }
-
-            return res.status(200).json({ success: true, created: isNewUser });
-        }
-
-        // ===================================
-        // 2. REFUND / CANCELLATION
-        // ===================================
-        if (eventType === 'purchase.refunded' || eventType === 'subscription.canceled') {
-            console.log(`🚫 Revoking Access: ${customerEmail}`);
-            await supabase.from('profiles').update({
-                subscription: 'NONE',
-                subscription_status: 'canceled',
-                updated_at: new Date().toISOString(),
-            }).eq('email', customerEmail);
-
-            if (process.env.RESEND_API_KEY) {
-                const adminEmail = process.env.ADMIN_EMAIL || 'suporte@myfitrout.com';
-                await resend.emails.send({
-                    from: 'MyFitRout System <onboarding@resend.dev>',
-                    to: adminEmail,
-                    subject: `⚠️ Cancelamento/Reembolso: ${customerEmail}`,
-                    html: `<p>O usuário ${customerEmail} teve seu plano cancelado ou reembolsado.</p>`
-                });
-            }
-
-            return res.status(200).json({ success: true, action: 'revoked' });
-        }
-
-        return res.status(200).json({ received: true });
-
-    } catch (error: any) {
-        console.error('❌ Handler Error:', error);
-        return res.status(500).json({ error: error.message });
+      return NextResponse.json({ 
+        error: "Failed to send email",
+        details: emailError.message,
+        type: emailError.name,
+        action: "Check logs above for specific solution"
+      }, { status: 500 });
     }
+
+  } catch (error: any) {
+    console.error("\n💥 CRITICAL ERROR IN WEBHOOK HANDLER");
+    console.error("  Error Name:", error.name);
+    console.error("  Error Message:", error.message);
+    console.error("  Error Stack:");
+    console.error(error.stack);
+    console.error("\n  Full Error Object:");
+    console.error(JSON.stringify(error, null, 2));
+    console.error("=".repeat(60) + "\n");
+
+    return NextResponse.json({ 
+      error: "Internal webhook error",
+      details: error.message,
+      type: error.name
+    }, { status: 500 });
+  }
+}
+
+// Health check endpoint
+export async function GET() {
+  console.log("🏥 Health check requested");
+  
+  const hasApiKey = !!process.env.RESEND_API_KEY;
+  const isValidKey = process.env.RESEND_API_KEY?.startsWith('re_');
+  const hasFromEmail = !!process.env.RESEND_FROM_EMAIL;
+  
+  return NextResponse.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    config: {
+      resendApiKey: hasApiKey && isValidKey ? "configured" : "missing/invalid",
+      resendFromEmail: hasFromEmail ? "configured" : "missing",
+      fromEmail: process.env.RESEND_FROM_EMAIL || "not set"
+    }
+  });
 }
