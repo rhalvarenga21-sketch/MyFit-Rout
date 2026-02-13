@@ -1,5 +1,4 @@
 import { Resend } from "resend";
-import { EmailTemplate } from "../emails/WelcomeEmail.tsx";
 import { NextRequest, NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -39,103 +38,140 @@ export async function POST(req: NextRequest) {
 
     if (!hasApiKey || !isValidKey) {
       console.error("\n❌ CRITICAL: RESEND_API_KEY is invalid or missing");
-      console.error("   Please check Vercel Environment Variables");
-      console.error("   Key should start with 're_'");
-      console.error("=".repeat(60) + "\n");
-      
       return NextResponse.json({ 
-        error: "Email service not configured properly",
-        details: "RESEND_API_KEY is invalid or missing",
-        action: "Check Vercel Environment Variables"
+        error: "RESEND_API_KEY is invalid or missing"
       }, { status: 500 });
     }
 
     if (!hasFromEmail) {
       console.error("\n❌ CRITICAL: RESEND_FROM_EMAIL is missing");
-      console.error("   Please add RESEND_FROM_EMAIL to Vercel Environment Variables");
-      console.error("   Example: onboarding@resend.dev or noreply@yourdomain.com");
-      console.error("=".repeat(60) + "\n");
-      
       return NextResponse.json({ 
-        error: "Email service not configured properly",
-        details: "RESEND_FROM_EMAIL is missing",
-        action: "Add RESEND_FROM_EMAIL to Environment Variables"
+        error: "RESEND_FROM_EMAIL is missing"
       }, { status: 500 });
     }
 
     // 4. VERIFICAR CONDIÇÕES PARA ENVIO
     console.log("\n🔍 CHECKING SEND CONDITIONS:");
     
-    // Suporta tanto "Order.Success" quanto "order.success"
     const isOrderSuccess = eventType === "order.success";
     const hasEmail = !!buyerEmail;
     const isValidEmail = buyerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail);
 
-    console.log("  Condition 1 - Order.Success:", isOrderSuccess, 
-                `(got: '${eventType}')`);
+    console.log("  Condition 1 - Order.Success:", isOrderSuccess, `(got: '${eventType}')`);
     console.log("  Condition 2 - Has email:", hasEmail);
     console.log("  Condition 3 - Valid email format:", isValidEmail);
 
     if (!isOrderSuccess) {
       console.log("\n⚠️  EVENT IGNORED: Not an Order.Success event");
-      console.log("   Expected: 'order.success'");
-      console.log("   Got: '" + eventType + "'");
-      console.log("=".repeat(60) + "\n");
-      
       return NextResponse.json({ 
         success: false,
         message: "Event type not handled",
-        eventType: eventType,
-        expectedType: "order.success"
+        eventType: eventType
       });
     }
 
-    if (!hasEmail) {
-      console.log("\n⚠️  EMAIL MISSING: Buyer email not found in payload");
-      console.log("   Checked paths: Buyer.Email, buyer.email");
-      console.log("=".repeat(60) + "\n");
-      
+    if (!hasEmail || !isValidEmail) {
+      console.log("\n⚠️  EMAIL INVALID OR MISSING");
       return NextResponse.json({ 
         success: false,
-        message: "Buyer email is missing from payload",
-        action: "Check Lastlink webhook configuration"
+        message: "Invalid or missing email"
       });
     }
 
-    if (!isValidEmail) {
-      console.log("\n⚠️  INVALID EMAIL FORMAT: '" + buyerEmail + "'");
-      console.log("=".repeat(60) + "\n");
-      
-      return NextResponse.json({ 
-        success: false,
-        message: "Invalid email format",
-        email: buyerEmail
-      });
-    }
-
-    // 5. TUDO OK - ENVIAR E-MAIL
+    // 5. ENVIAR E-MAIL COM HTML PURO
     console.log("\n✅ ALL CONDITIONS MET - PROCEEDING TO SEND EMAIL");
     
     try {
       console.log("\n📧 EMAIL DETAILS:");
       console.log("  From:", process.env.RESEND_FROM_EMAIL);
       console.log("  To:", buyerEmail);
-      console.log("  Subject: Seu Treino Personalizado - MyFitRout");
-      console.log("  Name:", buyerName);
+
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 20px;">
+              <tr>
+                <td align="center">
+                  <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    
+                    <!-- Header -->
+                    <tr>
+                      <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; text-align: center;">
+                        <h1 style="color: #ffffff; font-size: 32px; margin: 0; font-weight: bold;">
+                          🎉 Bem-vindo ao MyFitRout!
+                        </h1>
+                      </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                      <td style="padding: 40px 30px;">
+                        <p style="color: #333; font-size: 18px; margin: 0 0 20px 0;">
+                          Olá <strong>${buyerName}</strong>,
+                        </p>
+                        
+                        <p style="color: #666; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                          Obrigado por sua compra! Estamos muito felizes em tê-lo conosco. 🚀
+                        </p>
+                        
+                        <p style="color: #666; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
+                          Seu <strong>treino personalizado</strong> está pronto e aguardando por você!
+                        </p>
+                        
+                        <!-- Button -->
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td align="center" style="padding: 20px 0;">
+                              <a href="https://myfitrout.com" style="background-color: #4CAF50; color: #ffffff; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-size: 18px; font-weight: bold; display: inline-block;">
+                                Acessar Meu Treino
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                        
+                        <p style="color: #666; font-size: 14px; line-height: 1.6; margin: 30px 0 0 0;">
+                          💪 Prepare-se para alcançar seus objetivos!<br>
+                          Qualquer dúvida, estamos à disposição.
+                        </p>
+                      </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                      <td style="background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #eee;">
+                        <p style="color: #999; font-size: 14px; margin: 0 0 10px 0;">
+                          Equipe MyFitRout
+                        </p>
+                        <p style="color: #ccc; font-size: 12px; margin: 0;">
+                          © 2026 MyFitRout. Todos os direitos reservados.
+                        </p>
+                      </td>
+                    </tr>
+                    
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </body>
+        </html>
+      `;
 
       console.log("\n📤 Calling Resend API...");
       
       const emailData = await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL!,
         to: buyerEmail,
-        subject: "Seu Treino Personalizado - MyFitRout",
-        react: EmailTemplate({ firstName: buyerName }),
+        subject: "🎉 Bem-vindo ao MyFitRout - Seu Treino Está Pronto!",
+        html: htmlContent,
       });
 
       console.log("\n🎉 EMAIL SENT SUCCESSFULLY!");
       console.log("  Email ID:", emailData.id);
-      console.log("  Status: Delivered to Resend");
-      console.log("  Check Resend Dashboard for delivery status");
       console.log("=".repeat(60) + "\n");
 
       return NextResponse.json({ 
@@ -147,55 +183,29 @@ export async function POST(req: NextRequest) {
 
     } catch (emailError: any) {
       console.error("\n❌ EMAIL SEND FAILED");
-      console.error("  Error Name:", emailError.name);
-      console.error("  Error Message:", emailError.message);
-      
-      // Erros comuns do Resend
-      if (emailError.message?.includes("API key")) {
-        console.error("  → Problem: Invalid or expired API key");
-        console.error("  → Solution: Check RESEND_API_KEY in Vercel");
-      } else if (emailError.message?.includes("from")) {
-        console.error("  → Problem: Invalid 'from' email address");
-        console.error("  → Solution: Verify domain in Resend or use onboarding@resend.dev");
-      } else if (emailError.message?.includes("rate limit")) {
-        console.error("  → Problem: Rate limit exceeded");
-        console.error("  → Solution: Wait or upgrade Resend plan");
-      }
-      
-      console.error("\n  Full Error Object:");
-      console.error(JSON.stringify(emailError, null, 2));
+      console.error("  Error:", emailError.message);
       console.error("=".repeat(60) + "\n");
 
       return NextResponse.json({ 
         error: "Failed to send email",
-        details: emailError.message,
-        type: emailError.name,
-        action: "Check logs above for specific solution"
+        details: emailError.message
       }, { status: 500 });
     }
 
   } catch (error: any) {
-    console.error("\n💥 CRITICAL ERROR IN WEBHOOK HANDLER");
-    console.error("  Error Name:", error.name);
-    console.error("  Error Message:", error.message);
-    console.error("  Error Stack:");
-    console.error(error.stack);
-    console.error("\n  Full Error Object:");
-    console.error(JSON.stringify(error, null, 2));
+    console.error("\n💥 CRITICAL ERROR");
+    console.error("  Error:", error.message);
     console.error("=".repeat(60) + "\n");
 
     return NextResponse.json({ 
       error: "Internal webhook error",
-      details: error.message,
-      type: error.name
+      details: error.message
     }, { status: 500 });
   }
 }
 
-// Health check endpoint
+// Health check
 export async function GET() {
-  console.log("🏥 Health check requested");
-  
   const hasApiKey = !!process.env.RESEND_API_KEY;
   const isValidKey = process.env.RESEND_API_KEY?.startsWith('re_');
   const hasFromEmail = !!process.env.RESEND_FROM_EMAIL;
