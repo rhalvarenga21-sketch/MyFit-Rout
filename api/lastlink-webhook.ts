@@ -64,7 +64,7 @@ export default async function handler(req: any, res: any) {
     }
 
     // Verificar condições
-    const isOrderSuccess = eventType === "order.success";
+  const isOrderSuccess = eventType === "order.success" || eventType === "compra completa";
     const hasEmail = !!buyerEmail;
     const isValidEmail = buyerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail);
 
