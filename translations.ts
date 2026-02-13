@@ -386,6 +386,19 @@ export const translations = {
       postWorkout: "Pós-Treino",
       dinner: "Jantar"
     }
+    },
+    socialShare: {
+      header: "Partilhar Conquista",
+      copy: "Copiar Texto",
+      download: "Baixar Card",
+      join: "Baixe MyFitRout"
+    },
+    videoPlayer: {
+      comingSoon: "Em Breve",
+      swapExercise: "Trocar Exercício",
+      exportChat: "Exportar Chat",
+      copyLogs: "Copiar Logs"
+    }
   },
   [Language.EN]: {
     welcome: "Welcome to MyFitRout",
@@ -771,6 +784,21 @@ export const translations = {
       postWorkout: "Post-Workout",
       dinner: "Dinner"
     }
+    socialShare: {
+      header: "Share Glory",
+      copy: "Copy Text",
+      download: "Download Card",
+      join: "Download MyFitRout"
+    },
+    payment: {
+      cardNamePlaceholder: "John Doe"
+    },
+    videoPlayer: {
+      comingSoon: "Coming Soon",
+      swapExercise: "Swap Exercise",
+      exportChat: "Export Chat",
+      copyLogs: "Copy Logs"
+    }
   },
   [Language.ES]: {
     welcome: "Bienvenido a MyFitRout",
@@ -903,6 +931,22 @@ export const translations = {
       preWorkout: "Pre-Entreno",
       postWorkout: "Post-Entreno",
       dinner: "Cena"
+      },
+    socialShare: {
+      header: "Compartir Logro",
+      copy: "Copiar Texto",
+      download: "Descargar Tarjeta",
+      join: "Descarga MyFitRout"
+    },
+    payment: {
+      cardNamePlaceholder: "Juan Silva"
+    },
+    videoPlayer: {
+      comingSoon: "Próximamente",
+      swapExercise: "Cambiar Ejercicio",
+      exportChat: "Exportar Chat",
+      copyLogs: "Copiar Registros"
+    }
     },
     splits: {
       ALTERNATING: "Superior / Inferior",
