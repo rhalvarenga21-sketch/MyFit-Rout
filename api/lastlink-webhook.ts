@@ -34,9 +34,9 @@ export default async function handler(req: any, res: any) {
     console.log("📦 Raw Body:", JSON.stringify(body, null, 2));
 
     // Extrair dados
-    const eventType = (body.eventType || body.event_type || body.EventType || "unknown").toLowerCase();
-    const buyerEmail = body.Buyer?.Email || body.buyer?.email || body.Buyer?.email;
-    const buyerName = body.Buyer?.Name || body.buyer?.name || body.Buyer?.name || "Cliente";
+    const eventType = (body.Event || body.eventType || body.event_type || body.EventType || "unknown").toLowerCase().replace(/_/g, " ");
+    const buyerEmail = body.Data?.Buyer?.Email || body.Data?.Member?.Email || body.Buyer?.Email || body.buyer?.email;
+    const buyerName = body.Data?.Buyer?.Name || body.Data?.Member?.Name || body.Buyer?.Name || body.buyer?.name || "Cliente";
 
     console.log("\n📊 EXTRACTED DATA:");
     console.log("  Event Type:", eventType);
@@ -64,7 +64,7 @@ export default async function handler(req: any, res: any) {
     }
 
     // Verificar condições
-  const isOrderSuccess = eventType === "order.success" || eventType === "compra completa";
+    const isOrderSuccess = eventType === "order.success" || eventType === "compra completa" || eventType === "purchase order confirmed" || eventType === "product access started";
     const hasEmail = !!buyerEmail;
     const isValidEmail = buyerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail);
 
