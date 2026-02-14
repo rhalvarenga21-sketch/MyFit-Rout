@@ -1,4 +1,3 @@
-
 import { Language } from './types';
 
 export const translations = {
@@ -385,9 +384,7 @@ export const translations = {
       preWorkout: "Pré-Treino",
       postWorkout: "Pós-Treino",
       dinner: "Jantar"
-    }
-  },
-  socialShare: {
+    },
     socialShare: {
       header: "Partilhar Conquista",
       copy: "Copiar Texto",
@@ -712,7 +709,8 @@ export const translations = {
       cvv: "CVV",
       payButton: "Pay",
       processing: "Processing...",
-      poweredBy: "Powered by Revolut + Last Link"
+      poweredBy: "Powered by Revolut + Last Link",
+      cardNamePlaceholder: "John Doe"
     },
     settings: {
       title: "Settings",
@@ -784,17 +782,13 @@ export const translations = {
       snack: "Snacks",
       preWorkout: "Pre-Workout",
       postWorkout: "Post-Workout",
-      dinner: "Jantar"
-    }
-  },
-  socialShare: {
+      dinner: "Dinner"
+    },
+    socialShare: {
       header: "Share Glory",
       copy: "Copy Text",
       download: "Download Card",
       join: "Download MyFitRout"
-    },
-    payment: {
-      cardNamePlaceholder: "John Doe"
     },
     videoPlayer: {
       comingSoon: "Coming Soon",
@@ -903,55 +897,6 @@ export const translations = {
       weeklyRoutine: "Rutina Semanal",
       dayFocus: "Enfoque del Día",
       whatToTrain: "¿Qué vamos a entrenar?"
-    },
-    tracker: {
-      consumed: "Consumidas",
-      burned: "Quemadas",
-      fiber: "Fibra",
-      sodium: "Sodio",
-      addRef: "Agregar",
-      copyDay: "Copiar Día",
-      clear: "Limpiar",
-      options: "Opciones",
-      waterIntake: "Consumo de Agua",
-      reset: "Reiniciar",
-      remaining: "Restan",
-      createFood: "Crear mi propio alimento",
-      searchPlaceholder: "Buscar alimento...",
-      searching: "Buscando alimentos...",
-      noResults: "No se encontraron alimentos.",
-      results: "Resultados",
-      quantity: "Cantidad (gramos)",
-      confirm: "Confirmar",
-      back: "Volver",
-      add: "Agregar",
-      save: "Guardar Alimento",
-      cancel: "Cancelar",
-      nameLabel: "Nombre del Alimento",
-      caloriesLabel: "Calorías (100g)",
-      breakfast: "Desayuno",
-      lunch: "Almuerzo",
-      snack: "Merienda",
-      preWorkout: "Pre-Entreno",
-      postWorkout: "Post-Entreno",
-      dinner: "Cena"
-      },
-    socialShare: {
-      header: "Compartir Logro",
-      copy: "Copiar Texto",
-      download: "Descargar Tarjeta",
-      join: "Descarga MyFitRout"
-    },
-    payment: {
-      cardNamePlaceholder: "Juan Silva"
-    },
-    videoPlayer: {
-      comingSoon: "Próximamente",
-      updatingLibrary: "Actualizando Biblioteca",
-      swapExercise: "Cambiar Ejercicio",
-      exportChat: "Exportar Chat",
-      copyLogs: "Copiar Registros"
-    }
     },
     splits: {
       ALTERNATING: "Superior / Inferior",
@@ -1163,7 +1108,8 @@ export const translations = {
       cvv: "CVV",
       payButton: "Pagar",
       processing: "Procesando...",
-      poweredBy: "Powered by Revolut + Last Link"
+      poweredBy: "Powered by Revolut + Last Link",
+      cardNamePlaceholder: "Juan Silva"
     },
     settings: {
       title: "Ajustes",
@@ -1204,6 +1150,51 @@ export const translations = {
     },
     categories: {
       FULL_BODY: "Cuerpo Completo", UPPER: "Superior", LOWER: "Inferior", RECOVERY: "Recuperación", CARDIO: "Cardio", CUSTOM: "Personalizado"
+    },
+    tracker: {
+      consumed: "Consumidas",
+      burned: "Quemadas",
+      fiber: "Fibra",
+      sodium: "Sodio",
+      addRef: "Agregar",
+      copyDay: "Copiar Día",
+      clear: "Limpiar",
+      options: "Opciones",
+      waterIntake: "Consumo de Agua",
+      reset: "Reiniciar",
+      remaining: "Restan",
+      createFood: "Crear mi propio alimento",
+      searchPlaceholder: "Buscar alimento...",
+      searching: "Buscando alimentos...",
+      noResults: "No se encontraron alimentos.",
+      results: "Resultados",
+      quantity: "Cantidad (gramos)",
+      confirm: "Confirmar",
+      back: "Volver",
+      add: "Agregar",
+      save: "Guardar Alimento",
+      cancel: "Cancelar",
+      nameLabel: "Nombre del Alimento",
+      caloriesLabel: "Calorías (100g)",
+      breakfast: "Desayuno",
+      lunch: "Almuerzo",
+      snack: "Merienda",
+      preWorkout: "Pre-Entreno",
+      postWorkout: "Post-Entreno",
+      dinner: "Cena"
+    },
+    socialShare: {
+      header: "Compartir Logro",
+      copy: "Copiar Texto",
+      download: "Descargar Tarjeta",
+      join: "Descarga MyFitRout"
+    },
+    videoPlayer: {
+      comingSoon: "Próximamente",
+      updatingLibrary: "Actualizando Biblioteca",
+      swapExercise: "Cambiar Ejercicio",
+      exportChat: "Exportar Chat",
+      copyLogs: "Copiar Registros"
     }
   }
 };
