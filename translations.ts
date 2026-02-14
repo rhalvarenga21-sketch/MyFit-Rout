@@ -395,6 +395,7 @@ export const translations = {
     },
     videoPlayer: {
       comingSoon: "Em Breve",
+      updatingLibrary: "Atualizando Biblioteca",
       swapExercise: "Trocar Exercício",
       exportChat: "Exportar Chat",
       copyLogs: "Copiar Logs"
@@ -795,6 +796,7 @@ export const translations = {
     },
     videoPlayer: {
       comingSoon: "Coming Soon",
+      updatingLibrary: "Updating Library",
       swapExercise: "Swap Exercise",
       exportChat: "Export Chat",
       copyLogs: "Copy Logs"
@@ -943,6 +945,7 @@ export const translations = {
     },
     videoPlayer: {
       comingSoon: "Próximamente",
+      updatingLibrary: "Actualizando Biblioteca",
       swapExercise: "Cambiar Ejercicio",
       exportChat: "Exportar Chat",
       copyLogs: "Copiar Registros"

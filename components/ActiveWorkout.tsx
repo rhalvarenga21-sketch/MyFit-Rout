@@ -496,7 +496,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                                     <button
                                         onClick={() => setSwapModalOpen(true)}
                                         className="px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 border border-indigo-500/30 rounded-lg text-indigo-300 text-[10px] font-black uppercase tracking-wider flex items-center gap-2 transition-all active:scale-95"
-                                        title={t.activeWorkout?.swap || "Swap Exercise"}
+                                        title={t.videoPlayer.swapExercise}
                                     >
                                         <Repeat size={12} />
                                         {lang === Language.PT ? 'Trocar' : 'Swap'}

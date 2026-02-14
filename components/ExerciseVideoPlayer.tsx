@@ -1,13 +1,16 @@
 import React from 'react';
 import { Play, ExternalLink, VideoOff } from 'lucide-react';
+import { Language } from '../types';
+import { translations } from '../translations';
 
 interface ExerciseVideoPlayerProps {
-    videoUrl?: string; // Can be a direct URL or YouTube ID
+    videoUrl?: string;
     exerciseName: string;
+    lang: Language;  // ← ADICIONAR
 }
 
-export const ExerciseVideoPlayer: React.FC<ExerciseVideoPlayerProps> = ({ videoUrl, exerciseName }) => {
-    // If no visual, show "Coming Soon" placeholder instead of search link
+export const ExerciseVideoPlayer: React.FC<ExerciseVideoPlayerProps> = ({ videoUrl, exerciseName, lang }) => {
+    const t = translations[lang] as any;  // ← ADICIONAR
     if (!videoUrl) {
         return (
             <div className="w-full aspect-video bg-slate-900 rounded-2xl flex flex-col items-center justify-center border border-slate-700 p-6 text-center relative overflow-hidden group">
@@ -15,8 +18,8 @@ export const ExerciseVideoPlayer: React.FC<ExerciseVideoPlayerProps> = ({ videoU
                 <div className="bg-slate-800 p-4 rounded-full mb-3 shadow-lg group-hover:scale-110 transition-transform">
                     <VideoOff className="text-slate-500" size={24} />
                 </div>
-                <h3 className="text-sm font-black text-slate-300 uppercase tracking-wide mb-1">Demonstração em Breve</h3>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Atualizando Biblioteca</p>
+                <h3 className="text-sm font-black text-slate-300 uppercase tracking-wide mb-1">{t.videoPlayer.comingSoon}</h3>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{t.videoPlayer.updatingLibrary}</p>
                 <div className="mt-4 flex gap-1">
                     <span className="w-1 h-1 bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '0s' }} />
                     <span className="w-1 h-1 bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />

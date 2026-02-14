@@ -344,7 +344,7 @@ export const CoachChat: React.FC<CoachChatProps> = ({
                         </div>
                         {messages.length > 0 && (
                             <>
-                                <button onClick={handleExportChat} className="p-2.5 bg-slate-800 rounded-xl text-slate-500 hover:text-indigo-400 active:scale-90 transition-all border border-white/5" title="Exportar Chat">
+                                <button onClick={handleExportChat} className="p-2.5 bg-slate-800 rounded-xl text-slate-500 hover:text-indigo-400 active:scale-90 transition-all border border-white/5" title={t.videoPlayer.exportChat}>
                                     <Download size={18} />
                                 </button>
                                 <button onClick={handleClearChat} className="p-2.5 bg-slate-800 rounded-xl text-slate-500 hover:text-rose-400 active:scale-90 transition-all border border-white/5">

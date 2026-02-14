@@ -75,7 +75,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({ planName, price, onC
                 <form onSubmit={handlePay} className="p-6 space-y-4 overflow-y-auto">
                     <div className="space-y-1">
                         <label className="text-[10px] font-black uppercase text-slate-400 ml-2">{t.payment.cardName}</label>
-                        <input required className="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl text-white outline-none focus:border-indigo-500 transition-all font-bold placeholder:font-normal" placeholder="John Doe" />
+                        <input required className="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl text-white outline-none focus:border-indigo-500 transition-all font-bold placeholder:font-normal" placeholder={t.payment.cardNamePlaceholder}/>
                     </div>
 
                     <div className="space-y-1">
