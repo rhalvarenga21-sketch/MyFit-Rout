@@ -1486,8 +1486,8 @@ export const EXERCISE_LIBRARY: Exercise[] = [
   {
     id: "back_upper_back_pendlay_row_from_floor_barbell_gym_advanced",
     name: {
-      [Language.PT]: "Remada Pendlay",
-      [Language.EN]: "Pendlay Row (From floor)",
+      [Language.PT]: "Remada curvada - pegada supinada",
+      [Language.EN]: "Bent Over Row (Underhand grip)",
       [Language.ES]: "Remo Pendlay"
     },
     muscleGroup: "Back",
@@ -1496,7 +1496,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Remada Pendlay"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "TD00shuX6hA",
     equipment: "Barbell",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -1576,8 +1576,8 @@ export const EXERCISE_LIBRARY: Exercise[] = [
   {
     id: "back_back_deadlift_conventional_barbell_gym_advanced",
     name: {
-      [Language.PT]: "Levantamento terra (Convencional)",
-      [Language.EN]: "Deadlift (Conventional)",
+      [Language.PT]: "Levantamento terra romeno com barra",
+      [Language.EN]: "Romanian Deadlift (Barbell)",
       [Language.ES]: "Peso muerto (Convencional)"
     },
     muscleGroup: "Back",
@@ -1586,7 +1586,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Levantamento terra"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "lp3Nkr05TC8",
     equipment: "Barbell",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -1676,7 +1676,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Desenvolvimento"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "0-UNSkfq-Vw",
     equipment: "Barbell",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -1694,7 +1694,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Desenvolvimento"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "Fhrvcqy4hKA",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -1712,7 +1712,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Desenvolvimento Arnold"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "166waxYDZhg",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -1748,7 +1748,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Elevação lateral"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "xNM9hqpQl34",
     equipment: "Cable",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -2342,7 +2342,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Abdominal (crunch)"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "4eE2mHdh2wM",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
