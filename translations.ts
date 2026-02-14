@@ -386,7 +386,8 @@ export const translations = {
       postWorkout: "Pós-Treino",
       dinner: "Jantar"
     }
-    },
+  },
+  socialShare: {
     socialShare: {
       header: "Partilhar Conquista",
       copy: "Copiar Texto",
@@ -783,9 +784,10 @@ export const translations = {
       snack: "Snacks",
       preWorkout: "Pre-Workout",
       postWorkout: "Post-Workout",
-      dinner: "Dinner"
+      dinner: "Jantar"
     }
-    socialShare: {
+  },
+  socialShare: {
       header: "Share Glory",
       copy: "Copy Text",
       download: "Download Card",
@@ -933,8 +935,9 @@ export const translations = {
       preWorkout: "Pre-Entreno",
       postWorkout: "Post-Entreno",
       dinner: "Cena"
-      },
-    socialShare: {
+    }
+  },
+  socialShare: {
       header: "Compartir Logro",
       copy: "Copiar Texto",
       download: "Descargar Tarjeta",
