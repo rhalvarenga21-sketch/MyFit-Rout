@@ -272,7 +272,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Slow eccentric"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "LT_nelifZ_k",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -290,7 +290,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Tall posture"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "gINMjZAUSRE",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -308,7 +308,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Often knee-friendly"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "SW_R1y9K_Ns",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -380,7 +380,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Hips pressed down"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "K28eNyvdxQM",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -550,8 +550,8 @@ export const EXERCISE_LIBRARY: Exercise[] = [
   {
     id: "Hip thrust (empuje de cadera) — Máquina",
     name: {
-      [Language.PT]: "Hip thrust (elevação pélvica) (Máquina)",
-      [Language.EN]: "Hip Thrust (Machine)",
+      [Language.PT]: "Elevação pélvica com barra no banco",
+      [Language.EN]: "Hip Thrust (Barbell on bench)",
       [Language.ES]: "Hip thrust (empuje de cadera) (Máquina)"
     },
     muscleGroup: "Legs",
@@ -560,7 +560,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Adjust pad position"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "SY1eYXrCPzg",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -578,7 +578,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Use bench/couch"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "eLsXLoV3jLM",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -596,7 +596,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Squeeze at top"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "1nEL_H0lnNc",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
