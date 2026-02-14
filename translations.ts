@@ -935,9 +935,8 @@ export const translations = {
       preWorkout: "Pre-Entreno",
       postWorkout: "Post-Entreno",
       dinner: "Cena"
-    }
-  },
-  socialShare: {
+      },
+    socialShare: {
       header: "Compartir Logro",
       copy: "Copiar Texto",
       download: "Descargar Tarjeta",
