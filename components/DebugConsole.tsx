@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { logger } from '../services/debug';
 import { X, Trash, Bug, Copy } from 'lucide-react';
+import { translations } from '../translations';
+import { Language } from '../types';
 
 export const DebugConsole: React.FC = () => {
-    const [open, setOpen] = useState(false);
+    const t = translations[Language.PT] as any;
+    const [open, setOpen] = useState(false);  // <- ADICIONAR ESTA LINHA
     const [logs, setLogs] = useState(logger.getLogs());
 
     useEffect(() => {
@@ -36,7 +39,7 @@ export const DebugConsole: React.FC = () => {
                         <button onClick={() => {
                             navigator.clipboard.writeText(JSON.stringify(logs, null, 2));
                             alert('Logs copied to clipboard');
-                        }} className="p-1 hover:text-white" title={t.videoPlayer.copyLogs}"><Copy size={14} /></button>
+                        }} className="p-1 hover:text-white" title={t.videoPlayer.copyLogs}><Copy size={14} /></button>
                         <button onClick={() => logger.clear()} className="p-1 hover:text-white" title="Clear"><Trash size={14} /></button>
                         <button onClick={() => setOpen(false)} className="p-1 hover:text-white"><X size={14} /></button>
                     </div>
