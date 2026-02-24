@@ -550,8 +550,8 @@ export const EXERCISE_LIBRARY: Exercise[] = [
   {
     id: "Hip thrust (empuje de cadera) — Máquina",
     name: {
-      [Language.PT]: "Hip thrust (elevação pélvica) (Máquina)",
-      [Language.EN]: "Hip Thrust (Machine)",
+      [Language.PT]: "Elevação pélvica com barra no banco",
+      [Language.EN]: "Hip Thrust (Barbell on bench)",
       [Language.ES]: "Hip thrust (empuje de cadera) (Máquina)"
     },
     muscleGroup: "Legs",
@@ -1486,8 +1486,8 @@ export const EXERCISE_LIBRARY: Exercise[] = [
   {
     id: "back_upper_back_pendlay_row_from_floor_barbell_gym_advanced",
     name: {
-      [Language.PT]: "Remada Pendlay",
-      [Language.EN]: "Pendlay Row (From floor)",
+      [Language.PT]: "Remada curvada - pegada supinada",
+      [Language.EN]: "Bent Over Row (Underhand grip)",
       [Language.ES]: "Remo Pendlay"
     },
     muscleGroup: "Back",
@@ -1576,8 +1576,8 @@ export const EXERCISE_LIBRARY: Exercise[] = [
   {
     id: "back_back_deadlift_conventional_barbell_gym_advanced",
     name: {
-      [Language.PT]: "Levantamento terra (Convencional)",
-      [Language.EN]: "Deadlift (Conventional)",
+      [Language.PT]: "Levantamento terra romeno com barra",
+      [Language.EN]: "Romanian Deadlift (Barbell)",
       [Language.ES]: "Peso muerto (Convencional)"
     },
     muscleGroup: "Back",
