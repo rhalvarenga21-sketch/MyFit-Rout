@@ -272,7 +272,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Slow eccentric"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "LT_nelifZ_k",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -290,7 +290,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Tall posture"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "gINMjZAUSRE",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -308,7 +308,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Often knee-friendly"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "SW_R1y9K_Ns",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -380,7 +380,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Hips pressed down"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "K28eNyvdxQM",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -560,7 +560,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Adjust pad position"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "SY1eYXrCPzg",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -578,7 +578,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Use bench/couch"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "eLsXLoV3jLM",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -596,7 +596,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Squeeze at top"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "1nEL_H0lnNc",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -1496,7 +1496,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Remada Pendlay"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "TD00shuX6hA",
     equipment: "Barbell",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -1586,7 +1586,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Levantamento terra"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "lp3Nkr05TC8",
     equipment: "Barbell",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -1676,7 +1676,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Desenvolvimento"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "0-UNSkfq-Vw",
     equipment: "Barbell",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -1694,7 +1694,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Desenvolvimento"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "Fhrvcqy4hKA",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -1712,7 +1712,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Desenvolvimento Arnold"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "166waxYDZhg",
     equipment: "Dumbbell",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -1748,7 +1748,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Elevação lateral"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "xNM9hqpQl34",
     equipment: "Cable",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -2342,7 +2342,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Abdominal (crunch)"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "4eE2mHdh2wM",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
