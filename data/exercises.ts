@@ -54,7 +54,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Knees track toes; brace core"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "JWFljl14kSc",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -74,7 +74,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Depth + neutral spine"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "fYvifUC5Nac",
     equipment: "Barbell",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -905,7 +905,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Flexão de braço"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "A3g6GD7w87w",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -1122,7 +1122,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Peck deck (voador)"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "lSV3-8mlUnc",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -1140,7 +1140,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Paralelas (dips)"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "f4YYJfRHGD0",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -1158,7 +1158,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Paralelas (dips)"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "kDZMwIuKPgE",
     equipment: "Machine/Band",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -1176,7 +1176,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Supino/press com elástico"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "T0UJ0W-_yIE",
     equipment: "Band",
     difficulty: ExperienceLevel.BEGINNER
   },
