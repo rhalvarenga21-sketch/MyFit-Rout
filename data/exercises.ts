@@ -887,7 +887,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Flexão de braço"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "vtnAwuBNGL8",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
