@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check, ChevronLeft, Timer, Repeat, Plus, Minus, Sparkles, X, AlertCircle, ChevronRight } from 'lucide-react';
 import { ExerciseVideoPlayer } from './ExerciseVideoPlayer';
 import { PresetWorkout, Language, UserProfile, Exercise, ExperienceLevel } from '../types';
@@ -34,23 +34,20 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
     workout, lang, userId, profile, onComplete, onCancel, onUpdateProfile, customExercises
 }) => {
     const t = translations[lang] as any;
-
     const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
     const [currentSetIndex, setCurrentSetIndex] = useState(0);
     const [currentWeight, setCurrentWeight] = useState(20);
     const [currentReps, setCurrentReps] = useState(10);
     const [exerciseLogs, setExerciseLogs] = useState<ExerciseLog[]>([]);
     const [startTime] = useState(new Date());
-
     const [isResting, setIsResting] = useState(false);
     const [restTimeLeft, setRestTimeLeft] = useState(0);
-
     const [aiModalOpen, setAiModalOpen] = useState(false);
     const [aiResponse, setAiResponse] = useState('');
     const [aiLoading, setAiLoading] = useState(false);
-
     const [swapModalOpen, setSwapModalOpen] = useState(false);
     const [swapSearch, setSwapSearch] = useState('');
+    const [exercises, setExercises] = useState<Exercise[]>([]);
 
     const allExerciseIds = [
         ...(workout.warmupIds || []),
@@ -58,8 +55,6 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
         ...(workout.accessoryIds || []),
         ...(workout.cooldownIds || [])
     ];
-
-    const [exercises, setExercises] = useState<Exercise[]>([]);
 
     useEffect(() => {
         if (typeof customExercises !== 'undefined' && customExercises.length > 0) {
@@ -121,14 +116,13 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
         const cleanName = exercise?.name[Language.EN].split('(')[0].trim() || '';
         const tokens = cleanName.split(' ').filter(w => w.length > 2);
         const fallback = EXERCISE_LIBRARY.find(e =>
-            e.muscleGroup === exercise?.muscleGroup &&
-            e.videoUrl &&
+            e.muscleGroup === exercise?.muscleGroup && e.videoUrl &&
             tokens.every(token => e.name[Language.EN].includes(token))
         );
         return fallback?.videoUrl || '';
     };
 
-    const getAvailableExercises = (): Exercise[] => {
+    const getAvailableExercises = () => {
         const fullLib = [...EXERCISE_LIBRARY, ...(profile.customExercises || [])];
         if (!swapSearch) return fullLib.slice(0, 20);
         const lower = swapSearch.toLowerCase();
@@ -198,16 +192,13 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
         const updatedLogs = [...exerciseLogs];
         const currentLog = updatedLogs[currentExerciseIndex];
         if (!currentLog || !currentLog.sets[currentSetIndex]) return;
-
         const isLastSet = currentSetIndex === (currentExercise.sets || 3) - 1;
         const alreadyCompleted = currentLog.sets[currentSetIndex].completed;
-
         currentLog.sets[currentSetIndex] = {
             ...currentLog.sets[currentSetIndex],
             reps: currentReps, weight: currentWeight, completed: true
         };
         setExerciseLogs(updatedLogs);
-
         if (isLastSet) {
             if (alreadyCompleted) { advanceExercise(); return; }
             setTimeout(() => advanceExercise(), 400);
@@ -266,104 +257,4 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({
 
     if (!currentExercise || exercises.length === 0) {
         return (
-            <div className="min-h-screen bg-slate-900 text-white p-6 flex flex-col items-center justify-center">
-                <p className="text-xl font-black mb-4">{t.activeWorkout.noExercises}</p>
-                <button onClick={onCancel} className="bg-indigo-600 px-6 py-3 rounded-2xl font-black">{t.activeWorkout.back}</button>
-            </div>
-        );
-    }
-
-    const currentLog = exerciseLogs[currentExerciseIndex];
-    const totalSets = currentExercise.sets || 3;
-    const isLastExercise = currentExerciseIndex === exercises.length - 1;
-    const isLastSet = currentSetIndex === totalSets - 1;
-    const videoUrl = getVideoUrl(currentExercise);
-
-    return (
-        <div className="min-h-screen bg-slate-900 text-white flex flex-col" style={{ maxWidth: '480px', margin: '0 auto' }}>
-
-            {/* REST TIMER fullscreen */}
-            {isResting && (
-                <div className="fixed inset-0 z-50 bg-slate-900 flex flex-col items-center justify-center p-8">
-                    <div className="mb-8 text-center">
-                        <p className="text-[10px] font-black uppercase opacity-40 tracking-widest mb-1">
-                            {lang === Language.PT ? 'A SEGUIR' : lang === Language.ES ? 'SIGUIENTE' : 'UP NEXT'}
-                        </p>
-                        <p className="text-lg font-black italic uppercase text-white">
-                            {exercises[currentExerciseIndex]?.name[lang]}
-                        </p>
-                        {currentSetIndex > 0 && (
-                            <p className="text-sm text-indigo-400 font-bold mt-1">
-                                SET {currentSetIndex + 1}/{totalSets}
-                            </p>
-                        )}
-                    </div>
-                    <div className="w-48 h-48 rounded-full bg-orange-600/20 border-4 border-orange-500 flex flex-col items-center justify-center mb-8 shadow-2xl shadow-orange-600/20">
-                        <Timer size={28} className="text-orange-400 mb-1" />
-                        <p className="text-6xl font-black text-white tracking-tighter">{formatTime(restTimeLeft)}</p>
-                    </div>
-                    <div className="w-full space-y-3">
-                        <div className="flex gap-3">
-                            <button onClick={() => setRestTimeLeft(prev => Math.max(0, prev - 15))} className="flex-1 py-4 bg-slate-800 border border-slate-700 rounded-2xl font-black text-sm uppercase">−15s</button>
-                            <button onClick={() => setRestTimeLeft(prev => prev + 30)} className="flex-1 py-4 bg-slate-800 border border-slate-700 rounded-2xl font-black text-sm uppercase">+30s</button>
-                        </div>
-                        <button onClick={() => setIsResting(false)} className="w-full py-5 bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-2xl font-black uppercase text-base shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2">
-                            <ChevronRight size={20} />
-                            {t.activeWorkout.skipRest}
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {/* HEADER */}
-            <div className="flex-none px-4 pt-4 pb-3">
-                <div className="flex items-center justify-between mb-3">
-                    <button onClick={onCancel} className="p-2.5 bg-slate-800 rounded-xl border border-slate-700">
-                        <ChevronLeft size={20} />
-                    </button>
-                    <div className="text-center">
-                        <p className="text-[9px] font-black uppercase opacity-40 tracking-widest">{t.activeWorkout.activeTraining}</p>
-                        <h2 className="font-black text-sm italic uppercase tracking-tighter leading-tight">{workout.title[lang]}</h2>
-                    </div>
-                    <button onClick={() => { setAiModalOpen(true); setAiResponse(''); }} className="p-2.5 bg-indigo-600 rounded-xl border border-indigo-500 shadow-lg shadow-indigo-600/30">
-                        <Sparkles size={20} />
-                    </button>
-                </div>
-                <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full transition-all duration-500" style={{ width: `${progressPercent}%` }} />
-                    </div>
-                    <span className="text-[10px] font-black text-indigo-400 whitespace-nowrap">{totalSetsCompleted}/{totalSetsTotal}</span>
-                </div>
-            </div>
-
-            {/* VIDEO */}
-            <div className="flex-none px-4 pb-3">
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50">
-                    <ExerciseVideoPlayer key={currentExercise.id} videoUrl={videoUrl} exerciseName={currentExercise.name[lang]} lang={lang} />
-                </div>
-            </div>
-
-            {/* EXERCISE INFO */}
-            <div className="flex-none px-4 pb-3">
-                <div className="flex items-start justify-between">
-                    <div className="flex-1 min-w-0">
-                        <p className="text-[9px] font-black uppercase opacity-40 tracking-widest mb-0.5">{t.activeWorkout.exercise} {currentExerciseIndex + 1}/{exercises.length}</p>
-                        <h3 className="text-xl font-black italic uppercase tracking-tighter leading-tight truncate">{currentExercise.name[lang]}</h3>
-                        <p className="text-[10px] font-black uppercase opacity-40 tracking-wider mt-0.5">{currentExercise.muscleGroup} · {t.activeWorkout.target}: {currentExercise.reps} {t.activeWorkout.reps}</p>
-                    </div>
-                    <button onClick={() => setSwapModalOpen(true)} className="ml-3 px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-slate-400 text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 flex-shrink-0">
-                        <Repeat size={12} />
-                        {lang === Language.PT ? 'Trocar' : 'Swap'}
-                    </button>
-                </div>
-            </div>
-
-            {/* SET COUNTER */}
-            <div className="flex-none px-4 pb-3">
-                <div className="flex items-center justify-between bg-slate-800 rounded-2xl px-5 py-3 border border-slate-700/50">
-                    <div className="text-center">
-                        <p className="text-[9px] font-black uppercase opacity-40 tracking-widest">{t.activeWorkout.set}</p>
-                        <p className="text-2xl font-black text-indigo-400">{currentSetIndex + 1}<span className="text-slate-600 text-base">/{totalSets}</span></p>
-                    </div>
-                    <div className=
+            <div className="min-h-screen bg-slate-900 text-blue with truncated code at the bottom**
