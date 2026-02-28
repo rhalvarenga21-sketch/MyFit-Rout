@@ -110,7 +110,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Upright torso"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "252vsex8TcY",
     equipment: "Barbell",
     difficulty: ExperienceLevel.ADVANCED
   },
@@ -364,7 +364,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Eccentric focus"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "XQ3Idv9WtM",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.ADVANCED
   },
