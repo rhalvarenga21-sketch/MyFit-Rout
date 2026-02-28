@@ -2494,7 +2494,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Use handles"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "umhnurSFp_4",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -2512,7 +2512,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Drive with legs"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "yaxveBJGoy8",
     equipment: "Machine",
     difficulty: ExperienceLevel.INTERMEDIATE
   },
@@ -2548,7 +2548,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Adjust seat height"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "wG7J7dgZsrk",
     equipment: "Machine",
     difficulty: ExperienceLevel.BEGINNER
   },
@@ -2602,7 +2602,7 @@ export const EXERCISE_LIBRARY: Exercise[] = [
     executionTips: ["Knees to hip level"],
     commonMistakes: [],
     safetyNotes: "Maintain good form",
-    videoUrl: "",
+    videoUrl: "ONRh56YMFaY",
     equipment: "Bodyweight",
     difficulty: ExperienceLevel.BEGINNER
   },
