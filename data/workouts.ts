@@ -195,10 +195,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "GYM",
     "warmupIds": [],
     "mainBlockIds": [
-      "Curl femoral sentado — Bilateral",
-      "Peso muerto rumano — Barra",
-      "Elevación de gemelos a una pierna — Step",
-      "Sentadilla frontal — Agarre clean / brazos cruzados"
+      "legs_hamstrings_leg_curl_seated_bilateral_machine_gym_beginner",
+      "back_back_deadlift_conventional_barbell_gym_advanced",
+      "legs_calves_calf_raise_single_leg_step_bodyweight_home_gym_intermediate",
+      "legs_quads_front_squat_clean_grip_cross_arms_barbell_gym_intermediate"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -224,10 +224,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "HOME",
     "warmupIds": [],
     "mainBlockIds": [
-      "Curl femoral con deslizamiento — Towel/slider",
-      "Patada de glúteo en polea — Tobillera",
-      "Prensa de piernas — Bajo y estrecho (énfasis cuádriceps)",
-      "Peso muerto piernas rígidas — Barra"
+      "legs_hamstrings_hamstring_slide_curl_towel_slider_bodyweight_home_intermediate",
+      "legs_glutes_kickback_4_point_donkey_kick_bodyweight_cable_home_gym_beginner",
+      "legs_quads_leg_press_low_narrow_quad_focus_machine_gym_beginner",
+      "legs_hamstrings_stiff_leg_deadlift_barbell_barbell_gym_intermediate"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -427,10 +427,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "GYM",
     "warmupIds": [],
     "mainBlockIds": [
-      "Remo (Máquina) — Intervalos",
-      "Burpees — Estándar",
-      "Bicicleta Estática — Spinning",
-      "Sombra de Boxeo — Libre"
+      "cardio_cardio_rowing_machine_intervals_machine_gym_beginner",
+      "cardio_cardio_burpees_standard_bodyweight_home_gym_intermediate",
+      "cardio_cardio_stationary_bike_spinning_machine_gym_beginner",
+      "cardio_cardio_shadow_boxing_freestyle_bodyweight_home_beginner"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -456,10 +456,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "HOME",
     "warmupIds": [],
     "mainBlockIds": [
-      "Burpees — Estándar",
-      "Saltar la cuerda — Básico",
-      "Jumping Jacks — Peso corporal",
-      "Cinta de correr — Ritmo Constante"
+      "cardio_cardio_burpees_standard_bodyweight_home_gym_intermediate",
+      "cardio_cardio_jump_rope_basic_bodyweight_home_gym_beginner",
+      "cardio_cardio_jumping_jacks_bodyweight_bodyweight_home_beginner",
+      "cardio_cardio_treadmill_steady_pace_machine_gym_beginner"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -601,10 +601,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "GYM",
     "warmupIds": [],
     "mainBlockIds": [
-      "Caminata lateral con banda — Banda mini",
-      "Abducción de cadera (glúteo medio) — Acostado de lado",
-      "Clamshell — Banda mini",
-      "Elevación de gemelos a una pierna — Step"
+      "legs_glutes_banded_lateral_walk_mini_band_band_home_gym_beginner",
+      "legs_glutes_glute_med_abduction_side_lying_bodyweight_home_beginner",
+      "legs_glutes_clamshell_mini_band_band_home_beginner",
+      "legs_calves_calf_raise_single_leg_step_bodyweight_home_gym_intermediate"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -630,10 +630,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "HOME",
     "warmupIds": [],
     "mainBlockIds": [
-      "Zancada inversa — Peso corporal",
-      "Aducción en polea — De pie",
-      "Caminata lateral con banda — Banda mini",
-      "Zancada — Walking"
+      "legs_quads_split_squat_reverse_lunge_bodyweight_home_beginner",
+      "legs_adductors_cable_adduction_standing_cable_gym_intermediate",
+      "legs_glutes_banded_lateral_walk_mini_band_band_home_gym_beginner",
+      "legs_quads_walking_lunge_bodyweight_dumbbell_home_gym_beginner"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -833,10 +833,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "GYM",
     "warmupIds": [],
     "mainBlockIds": [
-      "Elíptica — Estándar",
-      "Cinta de correr — Ritmo Constante",
-      "Sombra de Boxeo — Libre",
-      "Remo (Máquina) — Intervalos"
+      "cardio_cardio_elliptical_standard_machine_gym_beginner",
+      "cardio_cardio_treadmill_steady_pace_machine_gym_beginner",
+      "cardio_cardio_shadow_boxing_freestyle_bodyweight_home_beginner",
+      "cardio_cardio_rowing_machine_intervals_machine_gym_beginner"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -862,10 +862,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "HOME",
     "warmupIds": [],
     "mainBlockIds": [
-      "Remo (Máquina) — Intervalos",
-      "Escaladora — Estándar",
-      "Cinta de correr — Ritmo Constante",
-      "Burpees — Estándar"
+      "cardio_cardio_rowing_machine_intervals_machine_gym_beginner",
+      "cardio_cardio_stair_climber_standard_machine_gym_intermediate",
+      "cardio_cardio_treadmill_steady_pace_machine_gym_beginner",
+      "cardio_cardio_burpees_standard_bodyweight_home_gym_intermediate"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -1007,10 +1007,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "GYM",
     "warmupIds": [],
     "mainBlockIds": [
-      "Plancha Copenhagen — Knee supported",
-      "Prensa de piernas — Alto y amplio (énfasis glúteo)",
-      "Abducción en polea — De pie",
-      "Peso muerto piernas rígidas — Barra"
+      "legs_adductors_copenhagen_plank_knee_supported_bodyweight_home_advanced",
+      "legs_glutes_leg_press_high_wide_glute_focus_machine_gym_beginner",
+      "legs_adductors_cable_adduction_standing_cable_gym_intermediate",
+      "legs_hamstrings_stiff_leg_deadlift_barbell_barbell_gym_intermediate"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -1036,10 +1036,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "HOME",
     "warmupIds": [],
     "mainBlockIds": [
-      "Curl femoral — Unilateral",
-      "Subida al banco (step-up) — Box/bench",
-      "Curl femoral sentado — Bilateral",
-      "Good morning — Barra"
+      "legs_hamstrings_leg_curl_lying_unilateral_machine_gym_intermediate",
+      "legs_quads_step_up_box_bench_bodyweight_dumbbell_home_gym_beginner",
+      "legs_hamstrings_leg_curl_seated_bilateral_machine_gym_beginner",
+      "legs_hamstrings_good_morning_barbell_barbell_gym_intermediate"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -1239,10 +1239,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "GYM",
     "warmupIds": [],
     "mainBlockIds": [
-      "Saltar la cuerda — Básico",
-      "Escaladora — Estándar",
-      "Jumping Jacks — Peso corporal",
-      "Cinta de correr — Ritmo Constante"
+      "cardio_cardio_jump_rope_basic_bodyweight_home_gym_beginner",
+      "cardio_cardio_stair_climber_standard_machine_gym_intermediate",
+      "cardio_cardio_jumping_jacks_bodyweight_bodyweight_home_beginner",
+      "cardio_cardio_treadmill_steady_pace_machine_gym_beginner"
     ],
     "accessoryIds": [],
     "cooldownIds": []
@@ -1268,10 +1268,10 @@ export const PRESET_WORKOUTS: PresetWorkout[] = [
     "environment": "HOME",
     "warmupIds": [],
     "mainBlockIds": [
-      "Burpees — Estándar",
-      "Jumping Jacks — Peso corporal",
-      "Remo (Máquina) — Intervalos",
-      "Sombra de Boxeo — Libre"
+      "cardio_cardio_burpees_standard_bodyweight_home_gym_intermediate",
+      "cardio_cardio_jumping_jacks_bodyweight_bodyweight_home_beginner",
+      "cardio_cardio_rowing_machine_intervals_machine_gym_beginner",
+      "cardio_cardio_shadow_boxing_freestyle_bodyweight_home_beginner"
     ],
     "accessoryIds": [],
     "cooldownIds": []
