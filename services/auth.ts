@@ -31,7 +31,7 @@ export const authService = {
   // Recuperar Senha
   resetPassword: async (email: string) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://myfit-rout.vercel.app/#reset-password',  // ← MUDOU AQUI!
+      redirectTo: 'https://myfitrout.com/#reset-password',
     });
     if (error) throw error;
   },
