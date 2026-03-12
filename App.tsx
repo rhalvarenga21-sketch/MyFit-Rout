@@ -62,11 +62,16 @@ const App: React.FC = () => {
   // Detectar reset password na URL
   useEffect(() => {
     const hash = window.location.hash;
-    if (hash.includes('access_token') && hash.includes('type=recovery')) {
+    if (hash.includes('access_token') && (hash.includes('type=recovery') || hash.includes('reset-password'))) {
+      const params = new URLSearchParams(hash.replace(/^#.*?access_token=/, 'access_token='));
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+      if (accessToken && refreshToken) {
+        supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+      }
       setResetPasswordMode(true);
     }
   }, []);
-
 
   const [lang, setLang] = useState<Language>(Language.PT);
   const [view, setView] = useState<'home' | 'catalog' | 'vital' | 'me' | 'workout_summary' | 'workout_active' | 'workout_completed' | 'exercises' | 'schedule_manager' | 'membership' | 'progress' | 'nutrition' | 'social' | 'exercise_library' | 'settings' | 'api_tester' | 'coach'>('home');
@@ -1314,7 +1319,26 @@ const Login: React.FC<any> = ({ lang, setLang, onAuth }) => {
       setLoading(false);
     }
   };
-
+  
+  const handleResetPassword = async () => {
+    if (!newPassword || !confirmPassword) return alert('Preencha ambos os campos');
+    if (newPassword !== confirmPassword) return alert('As senhas não coincidem');
+    if (newPassword.length < 6) return alert('Mínimo 6 caracteres');
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) throw error;
+      alert('Senha alterada com sucesso!');
+      setResetPasswordMode(false);
+      setNewPassword('');
+      setConfirmPassword('');
+      window.location.hash = '';
+    } catch (e: any) {
+      alert('Erro ao alterar senha: ' + (e.message || 'tente novamente'));
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col p-10 items-center justify-center">
       <div className="w-full max-w-md space-y-12">
