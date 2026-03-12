@@ -323,7 +323,33 @@ const App: React.FC = () => {
     const workout = PRESET_WORKOUTS.find(p => p.id === plan.presetWorkoutId);
     return workout ? workout.title[lang] : "Workout";
   }, [profile, lang, t]);
-
+// Modal de reset password - deve aparecer mesmo sem login
+  if (resetPasswordMode) return (
+    <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-6">
+      <div className="bg-slate-900 rounded-3xl p-8 max-w-md w-full space-y-6 border-2 border-slate-800">
+        <div className="text-center space-y-2">
+          <Key size={40} className="text-indigo-400 mx-auto" />
+          <h2 className="text-2xl font-black text-white">Nova Senha</h2>
+          <p className="text-sm text-slate-400">Escolha uma senha forte</p>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <label className="text-xs font-bold uppercase text-slate-400 ml-2">Nova Senha</label>
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-xl text-white outline-none focus:border-indigo-500 mt-1" placeholder="Mínimo 6 caracteres" />
+          </div>
+          <div>
+            <label className="text-xs font-bold uppercase text-slate-400 ml-2">Confirmar Senha</label>
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-xl text-white outline-none focus:border-indigo-500 mt-1" placeholder="Digite novamente" />
+          </div>
+        </div>
+        <div className="flex gap-3">
+          <button onClick={() => { setResetPasswordMode(false); window.location.hash = ''; }} className="flex-1 p-4 bg-slate-800 hover:bg-slate-700 rounded-xl font-bold text-white transition-colors">Cancelar</button>
+          <button onClick={handleResetPassword} className="flex-1 p-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-bold text-white transition-colors">Alterar Senha</button>
+        </div>
+      </div>
+    </div>
+  );
+  
   if (!currentUser) return <Login lang={lang} setLang={setLang} onAuth={handleAuthSuccess} />;
   if (isSyncing && !profile) return <SyncLoader lang={lang} />;
   // Force onboarding ONLY if profile doesn't exist (first time user)
