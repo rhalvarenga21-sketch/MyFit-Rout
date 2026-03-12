@@ -44,6 +44,8 @@ import { useAutoSave } from './hooks/useAutoSave';
 import { SyncStatus } from './components/SyncStatus';
 import { DebugConsole } from './components/DebugConsole';
 
+import { supabase } from './lib/supabase';
+
 const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const;
 
 const App: React.FC = () => {
@@ -53,6 +55,10 @@ const App: React.FC = () => {
   });
 
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [resetPasswordMode, setResetPasswordMode] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [lang, setLang] = useState<Language>(Language.PT);
   const [view, setView] = useState<'home' | 'catalog' | 'vital' | 'me' | 'workout_summary' | 'workout_active' | 'workout_completed' | 'exercises' | 'schedule_manager' | 'membership' | 'progress' | 'nutrition' | 'social' | 'exercise_library' | 'settings' | 'api_tester' | 'coach'>('home');
   const [selectedWorkout, setSelectedWorkout] = useState<PresetWorkout | CustomWorkout | null>(null);
@@ -1756,6 +1762,62 @@ const Onboarding: React.FC<any> = ({ lang, user, setLang, onComplete, existingPr
           {step < 6 ? t.onboarding.next : t.onboarding.finish}
         </button>
       </div>
+      {resetPasswordMode && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6">
+          <div className="bg-slate-900 rounded-3xl p-8 max-w-md w-full space-y-6 border-2 border-slate-800">
+            <div className="text-center space-y-2">
+              <Key size={40} className="text-indigo-400 mx-auto" />
+              <h2 className="text-2xl font-black">Nova Senha</h2>
+              <p className="text-sm text-slate-400">Escolha uma senha forte</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-bold uppercase text-slate-400 ml-2">Nova Senha</label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 mt-1"
+                  placeholder="Mínimo 6 caracteres"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold uppercase text-slate-400 ml-2">Confirmar Senha</label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full bg-slate-800 border-2 border-slate-700 p-4 rounded-xl outline-none focus:border-indigo-500 mt-1"
+                  placeholder="Digite novamente"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setResetPasswordMode(false);
+                  window.location.hash = '';
+                }}
+                className="flex-1 p-4 bg-slate-800 hover:bg-slate-700 rounded-xl font-bold transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleResetPassword}
+                disabled={isSyncing}
+                className="flex-1 p-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-bold disabled:opacity-50 transition-colors"
+              >
+                {isSyncing ? 'Salvando...' : 'Alterar Senha'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </div>
   );
 };
