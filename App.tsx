@@ -323,7 +323,26 @@ const App: React.FC = () => {
     const workout = PRESET_WORKOUTS.find(p => p.id === plan.presetWorkoutId);
     return workout ? workout.title[lang] : "Workout";
   }, [profile, lang, t]);
-// Modal de reset password - deve aparecer mesmo sem login
+const handleResetPassword = async () => {
+    if (!newPassword || !confirmPassword) return alert('Preencha ambos os campos');
+    if (newPassword !== confirmPassword) return alert('As senhas não coincidem');
+    if (newPassword.length < 6) return alert('Mínimo 6 caracteres');
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) throw error;
+      alert('Senha alterada com sucesso!');
+      setResetPasswordMode(false);
+      setNewPassword('');
+      setConfirmPassword('');
+      window.location.hash = '';
+    } catch (e: any) {
+      alert('Erro ao alterar senha: ' + (e.message || 'tente novamente'));
+    } finally {
+      setLoading(false);
+    }
+  };
+  // Modal de reset password - deve aparecer mesmo sem login
   if (resetPasswordMode) return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-6">
       <div className="bg-slate-900 rounded-3xl p-8 max-w-md w-full space-y-6 border-2 border-slate-800">
@@ -349,7 +368,7 @@ const App: React.FC = () => {
       </div>
     </div>
   );
-  
+
   if (!currentUser) return <Login lang={lang} setLang={setLang} onAuth={handleAuthSuccess} />;
   if (isSyncing && !profile) return <SyncLoader lang={lang} />;
   // Force onboarding ONLY if profile doesn't exist (first time user)
@@ -1346,25 +1365,6 @@ const Login: React.FC<any> = ({ lang, setLang, onAuth }) => {
     }
   };
   
-  const handleResetPassword = async () => {
-    if (!newPassword || !confirmPassword) return alert('Preencha ambos os campos');
-    if (newPassword !== confirmPassword) return alert('As senhas não coincidem');
-    if (newPassword.length < 6) return alert('Mínimo 6 caracteres');
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.updateUser({ password: newPassword });
-      if (error) throw error;
-      alert('Senha alterada com sucesso!');
-      setResetPasswordMode(false);
-      setNewPassword('');
-      setConfirmPassword('');
-      window.location.hash = '';
-    } catch (e: any) {
-      alert('Erro ao alterar senha: ' + (e.message || 'tente novamente'));
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col p-10 items-center justify-center">
       <div className="w-full max-w-md space-y-12">
