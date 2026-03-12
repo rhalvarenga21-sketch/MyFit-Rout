@@ -59,6 +59,15 @@ const App: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  // Detectar reset password na URL
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.includes('access_token') && hash.includes('type=recovery')) {
+      setResetPasswordMode(true);
+    }
+  }, []);
+
+
   const [lang, setLang] = useState<Language>(Language.PT);
   const [view, setView] = useState<'home' | 'catalog' | 'vital' | 'me' | 'workout_summary' | 'workout_active' | 'workout_completed' | 'exercises' | 'schedule_manager' | 'membership' | 'progress' | 'nutrition' | 'social' | 'exercise_library' | 'settings' | 'api_tester' | 'coach'>('home');
   const [selectedWorkout, setSelectedWorkout] = useState<PresetWorkout | CustomWorkout | null>(null);
