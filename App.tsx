@@ -333,7 +333,6 @@ const handleResetPassword = async () => {
     if (!newPassword || !confirmPassword) return alert('Preencha ambos os campos');
     if (newPassword !== confirmPassword) return alert('As senhas não coincidem');
     if (newPassword.length < 6) return alert('Mínimo 6 caracteres');
-    setLoading(true);
     try {
       const { error } = await supabase.auth.updateUser({ password: newPassword });
       if (error) throw error;
@@ -344,8 +343,6 @@ const handleResetPassword = async () => {
       window.location.hash = '';
     } catch (e: any) {
       alert('Erro ao alterar senha: ' + (e.message || 'tente novamente'));
-    } finally {
-      setLoading(false);
     }
   };
   // Modal de reset password - deve aparecer mesmo sem login
