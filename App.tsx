@@ -59,7 +59,7 @@ const App: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // Detectar reset password na URL
+// Detectar reset password na URL
   useEffect(() => {
     const hash = window.location.hash;
     if (hash.includes('access_token') && (hash.includes('type=recovery') || hash.includes('reset-password'))) {
@@ -67,9 +67,15 @@ const App: React.FC = () => {
       const accessToken = params.get('access_token');
       const refreshToken = params.get('refresh_token');
       if (accessToken && refreshToken) {
-        supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken }).then(({ error }) => {
+          if (error) {
+            console.error('Erro ao configurar sessão:', error.message);
+            alert('Link expirado. Solicite um novo link de recuperação.');
+          } else {
+            setResetPasswordMode(true);
+          }
+        });
       }
-      setResetPasswordMode(true);
     }
   }, []);
 
