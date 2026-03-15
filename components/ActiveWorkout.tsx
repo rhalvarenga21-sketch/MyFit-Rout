@@ -370,12 +370,16 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
         onComplete(sessionData);
     };
 
-    const skipSet = () => {
+     const skipSet = () => {
         if (currentSetIndex < (currentExercise.sets || 3) - 1) {
             setCurrentSetIndex(currentSetIndex + 1);
+            setShowVideo(false);
+            setUserToggledVideo(false);
         } else if (currentExerciseIndex < exercises.length - 1) {
             setCurrentExerciseIndex(currentExerciseIndex + 1);
             setCurrentSetIndex(0);
+            setShowVideo(true);
+            setUserToggledVideo(false);
         }
     };
 
