@@ -42,7 +42,9 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
 
     const [startTime] = useState(new Date());
     const [showVideo, setShowVideo] = useState(true);
-    const [restMinimized, setRestMinimized] = useState(false);
+    const [userToggledVideo, setUserToggledVideo] = useState(false);
+    const [userToggledVideo, setUserToggledVideo] = useState(false);
+    const [restMinimized, setRestMinimized] = useState(true);
 
     // AI Coach State
     const [aiModalOpen, setAiModalOpen] = useState(false);
@@ -312,6 +314,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                 setRestTimeLeft(90);
                 setIsResting(true);
                 setCurrentSetIndex(currentSetIndex + 1);
+                if (!userToggledVideo) setShowVideo(false);
             }
         }
     };
@@ -520,7 +523,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
 
                         {/* Video Toggle */}
                         <button
-                            onPointerDown={(e) => { e.preventDefault(); setShowVideo(!showVideo); }}
+                            onPointerDown={(e) => { e.preventDefault(); setShowVideo(!showVideo); setUserToggledVideo(true); }}
                             className="w-full mt-4 p-4 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center gap-2 font-black uppercase text-xs active:bg-slate-900/80 transition-colors"
                             style={{ touchAction: 'manipulation' }}
                         >
@@ -724,6 +727,13 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                             className="w-full p-4 rounded-2xl border border-slate-700 font-black uppercase text-xs opacity-60 hover:opacity-100 transition-all"
                         >
                             {t.activeWorkout.skipSet}
+                        </button>
+
+                        <button
+                            onClick={advanceExercise}
+                            className="w-full p-4 rounded-2xl border border-red-800/50 text-red-400 font-black uppercase text-xs opacity-60 hover:opacity-100 transition-all"
+                        >
+                            {lang === 'PT' ? 'Pular Exercício →' : lang === 'ES' ? 'Saltar Ejercicio →' : 'Skip Exercise →'}
                         </button>
                     </div>
 
