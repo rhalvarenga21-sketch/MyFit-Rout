@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+export default function handler(req, res) {
     const country = req.headers['x-vercel-ip-country'] || 'UNKNOWN';
     const city = req.headers['x-vercel-ip-city'] || '';
     const region = req.headers['x-vercel-ip-country-region'] || '';
@@ -12,4 +12,4 @@ module.exports = (req, res) => {
         region,
         source: 'vercel-headers'
     });
-};
+}
