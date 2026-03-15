@@ -379,8 +379,9 @@ async function detectAndSetCurrency() {
         let targetCurrency = 'USD';
         let targetLang = 'EN';
 
+        const euroCountries = ['AT','BE','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES','HR','AD','MC','SM','VA','ME','XK'];
         if (country === 'BR') targetCurrency = 'BRL';
-        else if (currency === 'EUR' || country === 'CH') targetCurrency = 'EUR';
+        else if (currency === 'EUR' || country === 'CH' || euroCountries.includes(country)) targetCurrency = 'EUR';
         else targetCurrency = 'USD';
 
         if (['BR', 'PT', 'AO', 'MZ'].includes(country)) targetLang = 'PT';
