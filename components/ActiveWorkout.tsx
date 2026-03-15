@@ -312,10 +312,11 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                 }, 500);
             } else {
                 // If NOT last set, advance immediately to rest/next set
+                   setCurrentSetIndex(currentSetIndex + 1);
+                setShowVideo(false);
+                setUserToggledVideo(false);
                 setRestTimeLeft(90);
                 setIsResting(true);
-                setCurrentSetIndex(currentSetIndex + 1);
-                if (!userToggledVideo) setShowVideo(false);
             }
         }
     };
