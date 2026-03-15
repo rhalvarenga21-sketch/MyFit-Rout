@@ -41,7 +41,7 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
     const [restTimeLeft, setRestTimeLeft] = useState(0);
 
     const [startTime] = useState(new Date());
-    const [showVideo, setShowVideo] = useState(false);
+    const [showVideo, setShowVideo] = useState(true);
     const [restMinimized, setRestMinimized] = useState(false);
 
     // AI Coach State
