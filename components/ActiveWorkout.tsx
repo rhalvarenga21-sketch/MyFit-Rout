@@ -520,8 +520,9 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
 
                         {/* Video Toggle */}
                         <button
-                            onClick={() => setShowVideo(!showVideo)}
-                            className="w-full mt-4 p-4 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center gap-2 font-black uppercase text-xs hover:bg-slate-900/80 transition-colors"
+                            onPointerDown={(e) => { e.preventDefault(); setShowVideo(!showVideo); }}
+                            className="w-full mt-4 p-4 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center gap-2 font-black uppercase text-xs active:bg-slate-900/80 transition-colors"
+                            style={{ touchAction: 'manipulation' }}
                         >
                             <Video size={16} className="text-indigo-400" />
                             {showVideo ? t.activeWorkout.hideVideo : t.activeWorkout.showVideo}

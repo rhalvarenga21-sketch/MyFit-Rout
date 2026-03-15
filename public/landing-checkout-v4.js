@@ -330,16 +330,20 @@ const GLOBAL_PRICING = {
 // 🕵️ GEO-IP LOGIC (REDUNDANT)
 // ==========================================
 async function fetchGeoIP() {
+    // PRIMARY: Vercel headers via /api/geo (free, unlimited, zero rate limit)
     try {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), 3000);
-        const response = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+        const response = await fetch('/api/geo', { signal: controller.signal });
         clearTimeout(id);
         const data = await response.json();
-        if (data.error) throw new Error("ipapi error");
-        return { country: data.country_code, currency: data.currency, source: 'ipapi.co' };
-    } catch (e) { console.warn('ipapi.co failed:', e); }
+        if (data.country && data.country !== 'UNKNOWN') {
+            return { country: data.country, currency: null, source: 'vercel-headers' };
+        }
+        throw new Error("Vercel headers returned UNKNOWN");
+    } catch (e) { console.warn('/api/geo failed:', e); }
 
+    // FALLBACK: ipwho.is (free, no key)
     try {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), 3000);
@@ -370,7 +374,7 @@ async function detectAndSetCurrency() {
     try {
         const data = await fetchGeoIP();
         const country = data.country;
-        const currency = data.currency;
+        const currency = data.currency || '';
 
         let targetCurrency = 'USD';
         let targetLang = 'EN';
