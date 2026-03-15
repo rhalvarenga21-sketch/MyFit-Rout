@@ -165,6 +165,8 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
         // Reset current set progress for this exercise
         setCurrentSetIndex(0);
         setCurrentReps(parseInt((newExercise.reps || "10").split('-')[0]));
+        setShowVideo(true);
+        setUserToggledVideo(false);
         setSwapModalOpen(false);
         setSwapSearch('');
     };
@@ -322,6 +324,8 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
         if (currentExerciseIndex < exercises.length - 1) {
             setCurrentExerciseIndex(prev => prev + 1);
             setCurrentSetIndex(0);
+            setShowVideo(true);
+            setUserToggledVideo(false);
             setRestTimeLeft(90);
             setIsResting(true);
         } else {
