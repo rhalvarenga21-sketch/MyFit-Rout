@@ -394,13 +394,26 @@ async function detectAndSetCurrency() {
         console.warn('GeoIP Critical Failure:', error);
 
         const navLang = (navigator.language || 'en').toLowerCase();
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
         let fallbackCurr = 'USD';
         let fallbackLang = 'EN';
+
+        // European timezones → EUR
+        const euroZones = ['Europe/', 'Atlantic/Azores', 'Atlantic/Canary', 'Atlantic/Madeira'];
+        const isEuroTz = euroZones.some(z => tz.startsWith(z));
+        // European browser languages
+        const euroLangs = ['de', 'fr', 'it', 'nl', 'el', 'pl', 'cs', 'sk', 'hu', 'ro', 'bg', 'hr', 'sl', 'fi', 'sv', 'da', 'nb', 'nn', 'et', 'lv', 'lt', 'ga', 'mt'];
+        const isEuroLang = euroLangs.some(l => navLang.startsWith(l));
+        // en-IE, en-GB and similar European English locales
+        const euroEnLocales = ['en-ie', 'en-gb', 'en-de', 'en-fr', 'en-nl', 'en-at', 'en-be', 'en-ch'];
+        const isEuroEn = euroEnLocales.some(l => navLang === l);
 
         if (navLang.includes('pt')) {
             fallbackCurr = 'BRL'; fallbackLang = 'PT';
         } else if (navLang.includes('es')) {
-            fallbackCurr = 'USD'; fallbackLang = 'ES';
+            fallbackCurr = 'EUR'; fallbackLang = 'ES';
+        } else if (isEuroTz || isEuroLang || isEuroEn) {
+            fallbackCurr = 'EUR'; fallbackLang = 'EN';
         }
 
         localStorage.setItem('myfitrout_currency_locked', fallbackCurr);
