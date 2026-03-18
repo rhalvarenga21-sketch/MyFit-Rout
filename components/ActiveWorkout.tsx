@@ -544,10 +544,10 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                                 <ExerciseVideoPlayer
                                     videoUrl={exerciseDetails?.videoUrl}
                                     exerciseName={exerciseDetails?.name[lang] || ''}
+                                    lang={lang}
                                 />
                             </div>
                         )}
-                    </div>
 
                     {/* Log Set Form */}
                     <div className="bg-slate-800 p-6 rounded-[35px] border border-slate-700/50 space-y-6">
