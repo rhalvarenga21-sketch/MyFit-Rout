@@ -447,13 +447,13 @@ export const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ workout, lang, use
                         <div className="flex items-center gap-3">
                             <Timer size={24} className="text-white animate-pulse" />
                             <div>
-                                <p className="text-[10px] font-black uppercase text-orange-200 tracking-widest leading-none">Descanso</p>
+                                <p className="text-[10px] font-black uppercase text-orange-200 tracking-widest leading-none">{lang === 'PT' ? 'Descanso' : lang === 'ES' ? 'Descanso' : 'Rest'}</p>
                                 <p className="text-2xl font-black text-white leading-none">{formatTime(restTimeLeft)}</p>
                             </div>
                         </div>
-                        <div className="flex gap-2">
-                            <button onClick={() => setRestMinimized(false)} className="bg-white/20 p-2 rounded-xl text-white font-bold text-xs">Exibir</button>
-                            <button onClick={() => setIsResting(false)} className="bg-white text-orange-600 px-4 py-2 rounded-xl font-bold uppercase text-xs">Pular</button>
+                         <div className="flex gap-2">
+                            <button onClick={() => setRestMinimized(false)} className="bg-white/20 p-2 rounded-xl text-white font-bold text-xs">{lang === 'PT' ? 'Exibir' : lang === 'ES' ? 'Mostrar' : 'Show'}</button>
+                            <button onClick={() => setIsResting(false)} className="bg-white text-orange-600 px-4 py-2 rounded-xl font-bold uppercase text-xs">{lang === 'PT' ? 'Pular' : lang === 'ES' ? 'Saltar' : 'Skip'}</button>
                         </div>
                     </div>
                 ) : (
