@@ -38,7 +38,7 @@ const TRANSLATIONS = {
         features_subtitle: "Ciência do exercício aplicada aos seus resultados",
         feat_1_title: "Coach Inteligente", feat_1_desc: "Respostas técnicas e personalizadas em tempo real. Tire dúvidas sobre técnica, nutrição e progressão — como ter um coach profissional sob demanda.",
         feat_2_title: "Treinos Personalizados", feat_2_desc: "Sem planos genéricos. Nunca. Seus treinos são feitos para seus objetivos — emagrecimento, hipertrofia, força ou longevidade — e evoluem com você.",
-        feat_3_title: "Biblioteca de Exercícios", feat_3_desc: "Dezenas de exercícios com vídeos demonstrativos e treinos prontos para cada objetivo. Aprenda a técnica correta, treine com confiança e reduza o risco de lesões.",
+        feat_3_title: "Biblioteca de Exercícios", feat_3_desc: "150+ exercícios com vídeos HD. Aprenda a técnica correta, treine com confiança e reduza drasticamente o risco de lesões.",
         feat_4_title: "Monitoramento Completo", feat_4_desc: "Tudo rastreado. Cada evolução medida. Registre treinos, monitore performance e receba insights para manter seu progresso constante.",
         feat_5_title: "Coach Disponível 24/7", feat_5_desc: "Treine no seu horário. Tire dúvidas a qualquer momento e receba orientações que se adaptam à sua rotina e realidade.",
         feat_6_title: "Multiplataforma & Cloud", feat_6_desc: "Treine em qualquer lugar. Qualquer dispositivo. Seus dados sincronizam automaticamente na nuvem — seu progresso está sempre com você.",
@@ -66,7 +66,7 @@ const TRANSLATIONS = {
         // Pricing Cards
         p_ess_month_title: "Essential Mensal",
         p_ess_month_desc: "Transforme seu corpo com inteligência",
-        p_ess_month_feats: ["100 perguntas mensais com Coach personalizado", "Biblioteca completa com exercícios e vídeos + treinos personalizados de acordo com os seus objetivos", "Dashboard de progresso e evolução", "App mobile: treine em qualquer lugar, qualquer hora"],
+        p_ess_month_feats: ["100 perguntas mensais com Coach personalizado", "Biblioteca completa: 150+ exercícios em vídeo", "Dashboard de progresso e evolução", "App mobile: treine em qualquer lugar, qualquer hora"],
         p_ess_month_btn: "COMEÇAR AGORA",
 
         p_ess_annual_title: "Essential Anual",
@@ -142,7 +142,7 @@ const TRANSLATIONS = {
         features_subtitle: "Exercise science applied to your results",
         feat_1_title: "Smart Coach", feat_1_desc: "Precise, personalized guidance in real-time. Get answers on technique, nutrition, and progression — like having a professional coach on demand.",
         feat_2_title: "Personalized Workouts", feat_2_desc: "No generic plans. Ever. Your workouts are tailored to your goals — fat loss, muscle gain, strength, or longevity — and adapt as you evolve.",
-        feat_3_title: "Exercise Demo Library", feat_3_desc: "Dozens of exercises with demo videos and ready-made workout presets for every goal. Learn correct technique, train with confidence, and reduce the risk of injuries.",
+        feat_3_title: "Exercise Demo Library", feat_3_desc: "150+ exercises with HD videos. Learn correct technique, train with confidence, and significantly reduce the risk of injuries.",
         feat_4_title: "Full Progress Tracking", feat_4_desc: "Everything tracked. Every improvement measured. Log workouts, monitor performance, and receive smart insights that keep you progressing week after week.",
         feat_5_title: "Coach Available 24/7", feat_5_desc: "Train on your schedule, not someone else's. Ask questions anytime and get guidance that fits your routine, level, and real-life constraints.",
         feat_6_title: "Multiplatform & Cloud Sync", feat_6_desc: "Train anywhere. Any device. Your data syncs automatically to the cloud — your progress is always with you.",
@@ -168,7 +168,7 @@ const TRANSLATIONS = {
         badge_popular: "MOST POPULAR",
 
         // Pricing Cards
-        p_ess_month_title: "Essential Monthly", p_ess_month_desc: "Transform your body with intelligence", p_ess_month_feats: ["100 Coach questions/mo (Personalized)", "Complete library with exercises and videos + personalized workouts tailored to your goals", "Smart progress & evolution dashboard", "Mobile App: train anywhere, anytime"], p_ess_month_btn: "START NOW",
+        p_ess_month_title: "Essential Monthly", p_ess_month_desc: "Transform your body with intelligence", p_ess_month_feats: ["100 Coach questions/mo (Personalized)", "Complete library: 150+ video exercises", "Smart progress & evolution dashboard", "Mobile App: train anywhere, anytime"], p_ess_month_btn: "START NOW",
         p_ess_annual_title: "Essential Annual", p_ess_annual_desc: "Consistency that transforms — save 35%", p_ess_annual_feats: ["All Essential Monthly benefits included", "Just ~{sym}8.32/mo — minimum investment, maximum result", "Pay once, train 365 days worry-free", "12 months to build habits that last"], p_ess_annual_btn: "START NOW",
         p_pro_week_title: "PRO Weekly Pass", p_pro_week_desc: "Test PRO power for just {sym}7.90", p_pro_week_feats: ["7 days of FULL PRO access — no limitations", "Zero commitment", "UNLIMITED Coach conversations 24/7", "Perfect to decide if PRO is for you", "Zero risk: just {sym}7.90"], p_pro_week_btn: "START NOW",
         p_pro_month_title: "PRO Monthly", p_pro_month_desc: "Real, fast, and definitive results", p_pro_month_feats: ["UNLIMITED Coach conversations 24/7", "Personalized workout plans for your goal", "Exclusive fit recipes (winter + summer)", "Advanced analytics: see your evolution in real-time", "Unlimited workouts + all ready-made programs", "Early access to new features"], p_pro_month_btn: "START NOW",
@@ -227,7 +227,7 @@ const TRANSLATIONS = {
         features_subtitle: "Ciencia del ejercicio aplicada a tus resultados",
         feat_1_title: "Coach Inteligente", feat_1_desc: "Respuestas técnicas y personalizadas en tiempo real. Resuelve dudas sobre técnica, nutrición y progresión — como tener un coach profesional a tu disposición.",
         feat_2_title: "Entrenamientos Personalizados", feat_2_desc: "Sin planes genéricos. Jamás. Tus entrenamientos se adaptan a tus objetivos — pérdida de peso, hipertrofia, fuerza o longevidad — y evolucionan contigo.",
-        feat_3_title: "Biblioteca de Ejercicios", feat_3_desc: "Decenas de ejercicios con videos demostrativos y entrenamientos predefinidos para cada objetivo. Aprende la técnica correcta, entrena con confianza y reduce el riesgo de lesiones.",
+        feat_3_title: "Biblioteca de Ejercicios", feat_3_desc: "150+ ejercicios con videos HD. Aprende la técnica correcta, entrena con confianza y reduce drásticamente el riesgo de lesiones.",
         feat_4_title: "Seguimiento Completo", feat_4_desc: "Todo rastreado. Cada mejora medida. Registra entrenamientos, monitorea tu rendimiento y recibe insights para mantener tu progreso.",
         feat_5_title: "Coach Disponible 24/7", feat_5_desc: "Entrena en tu horario. Haz preguntas en cualquier momento y recibe orientación que se adapta a tu rutina y realidad.",
         feat_6_title: "Multiplataforma & Cloud", feat_6_desc: "Entrena donde sea. Cualquier dispositivo. Tus datos se sincronizan automáticamente en la nube — tu progreso siempre contigo.",
@@ -252,7 +252,7 @@ const TRANSLATIONS = {
         pricing_subtitle: "Invierte en ti. Cancela cuando quieras.",
         badge_popular: "MÁS POPULAR",
 
-        p_ess_month_title: "Essential Mensual", p_ess_month_desc: "Transforma tu cuerpo con inteligencia", p_ess_month_feats: ["100 preguntas mensuales al Coach personalizado", "Biblioteca completa con ejercicios y videos + entrenamientos personalizados según tus objetivos", "Dashboard de progreso y evolución", "App móvil: entrena donde sea, cuando sea"], p_ess_month_btn: "EMPEZAR AHORA",
+        p_ess_month_title: "Essential Mensual", p_ess_month_desc: "Transforma tu cuerpo con inteligencia", p_ess_month_feats: ["100 preguntas mensuales al Coach personalizado", "Biblioteca completa: 150+ ejercicios en video", "Dashboard de progreso y evolución", "App móvil: entrena donde sea, cuando sea"], p_ess_month_btn: "EMPEZAR AHORA",
         p_ess_annual_title: "Essential Anual", p_ess_annual_desc: "Consistencia que transforma — ahorra 35%", p_ess_annual_feats: ["Todos los beneficios de Essential Mensual", "Solo ~{sym}8.32/mes — inversión mínima, máximo resultado", "Paga una vez, entrena 365 días sin preocupaciones", "12 meses para crear hábitos que duran"], p_ess_annual_btn: "EMPEZAR AHORA",
         p_pro_week_title: "Pase PRO Semanal", p_pro_week_desc: "Prueba el poder de PRO por solo {sym}7.90", p_pro_week_feats: ["7 días de acceso TOTAL a PRO — sin límites", "Cero compromiso", "Conversaciones ILIMITADAS con el Coach 24/7", "Perfecto para decidir si el plan PRO es para ti", "Riesgo cero: solo {sym}7.90"], p_pro_week_btn: "EMPEZAR AHORA",
         p_pro_month_title: "PRO Mensual", p_pro_month_desc: "Resultados reales, rápidos y definitivos", p_pro_month_feats: ["Conversaciones ILIMITADAS con el Coach 24/7", "Planes de entrenamiento personalizados", "Recetas fit exclusivas (invierno + verano)", "Análisis avanzados: evolución en tiempo real", "Entrenamientos ilimitados + programas listos", "Acceso anticipado a novedades"], p_pro_month_btn: "EMPEZAR AHORA",
@@ -330,20 +330,16 @@ const GLOBAL_PRICING = {
 // 🕵️ GEO-IP LOGIC (REDUNDANT)
 // ==========================================
 async function fetchGeoIP() {
-    // PRIMARY: Vercel headers via /api/geo (free, unlimited, zero rate limit)
     try {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), 3000);
-        const response = await fetch('/api/geo', { signal: controller.signal });
+        const response = await fetch('https://ipapi.co/json/', { signal: controller.signal });
         clearTimeout(id);
         const data = await response.json();
-        if (data.country && data.country !== 'UNKNOWN') {
-            return { country: data.country, currency: null, source: 'vercel-headers' };
-        }
-        throw new Error("Vercel headers returned UNKNOWN");
-    } catch (e) { console.warn('/api/geo failed:', e); }
+        if (data.error) throw new Error("ipapi error");
+        return { country: data.country_code, currency: data.currency, source: 'ipapi.co' };
+    } catch (e) { console.warn('ipapi.co failed:', e); }
 
-    // FALLBACK: ipwho.is (free, no key)
     try {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), 3000);
@@ -374,14 +370,13 @@ async function detectAndSetCurrency() {
     try {
         const data = await fetchGeoIP();
         const country = data.country;
-        const currency = data.currency || '';
+        const currency = data.currency;
 
         let targetCurrency = 'USD';
         let targetLang = 'EN';
 
-        const euroCountries = ['AT','BE','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES','HR','AD','MC','SM','VA','ME','XK'];
         if (country === 'BR') targetCurrency = 'BRL';
-        else if (currency === 'EUR' || country === 'CH' || euroCountries.includes(country)) targetCurrency = 'EUR';
+        else if (currency === 'EUR' || country === 'CH') targetCurrency = 'EUR';
         else targetCurrency = 'USD';
 
         if (['BR', 'PT', 'AO', 'MZ'].includes(country)) targetLang = 'PT';

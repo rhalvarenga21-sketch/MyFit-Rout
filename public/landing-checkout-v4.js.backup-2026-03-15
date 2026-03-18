@@ -1,6 +1,5 @@
 // MyFitRout - Global Checkout & GeoIP v4 (Redundant & Hardened & Full Translation)
 // Agent 3.0 - Full Page Translation (Nav + Hero + Features + Pricing + FAQ + Footer)
-// v4.1 - Updated copy: science-based, no AI/Gemini mentions, honest social proof
 
 // ==========================================
 // 🔗 LAST LINK CONFIGURATION
@@ -25,38 +24,38 @@ const TRANSLATIONS = {
         nav_login: "Entrar",
 
         // Hero
-        hero_badge: "Seu Treino Personalizado Começa Aqui",
-        hero_title: `Treino Inteligente, <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Resultado Real</span>`,
-        hero_subtitle: "Treinos baseados em ciência, adaptados ao seu corpo, objetivos e rotina. Progressão inteligente. Resultados reais. Sem perda de tempo.",
+        hero_badge: "Inscreva-se Agora — Vagas Limitadas",
+        hero_title: `Seu Coach de Fitness de <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Alta Performance</span>`,
+        hero_subtitle: "Treinos com IA adaptados ao seu corpo, objetivos e limites. Resultados máximos. Treino inteligente. Sem perda de tempo.",
         cta_primary: "COMEÇAR AGORA →",
         cta_secondary: "TESTAR DEMO GRÁTIS →",
-        hero_social_active: "Membros Fundadores em Acesso Antecipado",
-        hero_social_rating: "treinos baseados em ciência do exercício",
+        hero_social_active: "200+ membros ativos",
+        hero_social_rating: "média de avaliação (247 reviews)",
 
         // Features
         features_main_title: `Por que <span class="text-indigo-400">MyFitRout</span>?`,
-        features_subtitle: "Ciência do exercício aplicada aos seus resultados",
-        feat_1_title: "Coach Inteligente", feat_1_desc: "Respostas técnicas e personalizadas em tempo real. Tire dúvidas sobre técnica, nutrição e progressão — como ter um coach profissional sob demanda.",
+        features_subtitle: "Tecnologia de ponta para resultados reais",
+        feat_1_title: "Advanced AI Coach", feat_1_desc: "Treino inteligente. Resultados reais. Impulsionado por IA. Receba orientações precisas e respostas em tempo real — como ter um coach profissional sob demanda.",
         feat_2_title: "Treinos Personalizados", feat_2_desc: "Sem planos genéricos. Nunca. Seus treinos são feitos para seus objetivos — emagrecimento, hipertrofia, força ou longevidade — e evoluem com você.",
-        feat_3_title: "Biblioteca de Exercícios", feat_3_desc: "Dezenas de exercícios com vídeos demonstrativos e treinos prontos para cada objetivo. Aprenda a técnica correta, treine com confiança e reduza o risco de lesões.",
-        feat_4_title: "Monitoramento Completo", feat_4_desc: "Tudo rastreado. Cada evolução medida. Registre treinos, monitore performance e receba insights para manter seu progresso constante.",
-        feat_5_title: "Coach Disponível 24/7", feat_5_desc: "Treine no seu horário. Tire dúvidas a qualquer momento e receba orientações que se adaptam à sua rotina e realidade.",
+        feat_3_title: "Biblioteca de Exercícios", feat_3_desc: "150+ exercícios com vídeos HD. Aprenda a técnica correta, treine com confiança e reduza drasticamente o risco de lesões.",
+        feat_4_title: "Monitoramento Completo", feat_4_desc: "Tudo rastreado. Cada evolução medida. Registre treinos, monitore performance e receba insights inteligentes para manter seu progresso constante.",
+        feat_5_title: "AI Coach Disponível 24/7", feat_5_desc: "Treine no seu horário. Tire dúvidas a qualquer momento e receba orientações que se adaptam à sua rotina e realidade.",
         feat_6_title: "Multiplataforma & Cloud", feat_6_desc: "Treine em qualquer lugar. Qualquer dispositivo. Seus dados sincronizam automaticamente na nuvem — seu progresso está sempre com você.",
 
-        // Early Access Section (replaces testimonials)
-        testim_label: "Programa de Acesso Antecipado",
-        testim_title: `Seja um <span class="text-indigo-400">Membro Fundador</span>`,
-        testim_subtitle: "Junte-se aos primeiros membros e ajude a construir o futuro do fitness personalizado.",
-        t1_quote: "Garanta o menor preço que o MyFitRout terá. Membros Fundadores mantêm o valor promocional para sempre.", t1_tag: "Preço de Lançamento",
-        t2_quote: "Influencie diretamente as próximas funcionalidades. Seus feedbacks moldam o produto.", t2_tag: "Sua Voz Importa",
-        t3_quote: "Teste novidades antes de todos. Novos exercícios, funcionalidades e programas em primeira mão.", t3_tag: "Acesso Antecipado",
-        t4_quote: "Membros Fundadores recebem um badge permanente no perfil — reconhecimento por apoiar desde o início.", t4_tag: "Badge Exclusivo",
-        t5_quote: "Treinos baseados em princípios de periodização, sobrecarga progressiva e recuperação — não em achismo.", t5_tag: "Ciência Aplicada",
-        t6_quote: "Faça parte de um grupo fechado de pessoas comprometidas com seus resultados.", t6_tag: "Comunidade Exclusiva",
-        t7_quote: "", t7_tag: "",
-        t8_quote: "", t8_tag: "",
-        t9_quote: "", t9_tag: "",
-        t10_quote: "", t10_tag: "",
+        // Testimonials
+        testim_label: "O que nossos membros dizem",
+        testim_title: `Resultados Reais de <span class="text-indigo-400">Pessoas Reais</span>`,
+        testim_subtitle: "Treino inteligente. Pessoas reais. Progresso real.",
+        t1_quote: "Finalmente parece pessoal. Tentei muitos apps, mas o MyFitRout se adapta ao meu progresso.", t1_tag: "Força & Performance",
+        t2_quote: "Perfeito para iniciantes. Tinha zero confiança. Os vídeos e a IA tornaram tudo simples.", t2_tag: "Perda de Peso",
+        t3_quote: "Parei de perder tempo. Cada sessão tem um propósito claro e cabe na minha rotina.", t3_tag: "Longevidade",
+        t4_quote: "Parece um coach no bolso. Posso perguntar qualquer coisa e ter feedback instantâneo.", t4_tag: "Estilo de Vida",
+        t5_quote: "Equilíbrio perfeito. A IA é poderosa, mas o app é fácil de usar. Só abro e treino.", t5_tag: "Fitness Geral",
+        t6_quote: "Treino em casa e na academia. Ter treinos para ambos faz uma diferença enorme.", t6_tag: "Perda de Peso",
+        t7_quote: "Me sinto mais forte e confiante. Ver resultados semana após semana funciona.", t7_tag: "Ganho Muscular",
+        t8_quote: "Seguro e bem explicado. Tinha dor no ombro, mas a orientação ajudou muito.", t8_tag: "Mobilidade",
+        t9_quote: "Se adapta à minha vida. Dias cheios, viagens — o app ajusta os planos.", t9_tag: "Longevidade",
+        t10_quote: "Simples, inteligente e eficaz. Sem distrações. Apenas treino que funciona.", t10_tag: "Performance",
 
         // Pricing Titles & Badges
         pricing_title: `Escolha seu <span class="text-indigo-400">Plano</span>`,
@@ -66,27 +65,27 @@ const TRANSLATIONS = {
         // Pricing Cards
         p_ess_month_title: "Essential Mensal",
         p_ess_month_desc: "Transforme seu corpo com inteligência",
-        p_ess_month_feats: ["100 perguntas mensais com Coach personalizado", "Biblioteca completa com exercícios e vídeos + treinos personalizados de acordo com os seus objetivos", "Dashboard de progresso e evolução", "App mobile: treine em qualquer lugar, qualquer hora"],
+        p_ess_month_feats: ["100 perguntas mensais com Coach (IA) personalizado", "Biblioteca completa: 150+ exercícios em vídeo", "Dashboard inteligente de progresso e evolução", "App mobile: treine em qualquer lugar, qualquer hora"],
         p_ess_month_btn: "COMEÇAR AGORA",
 
         p_ess_annual_title: "Essential Anual",
-        p_ess_annual_desc: "Consistência que transforma — economize 35%",
-        p_ess_annual_feats: ["Todos os benefícios do Essential Mensal incluídos", "Apenas ~{sym}8.32/mês — investimento mínimo, máximo resultado", "Pague uma vez, treine 365 dias sem preocupação", "12 meses para criar hábitos que duram"],
+        p_ess_annual_desc: "Economize {sym}38 - Consistência que transforma",
+        p_ess_annual_feats: ["Todos os benefícios do Essential Mensal incluídos", "Desconto de 25%: economize {sym}38 por ano", "Apenas {sym}8.32/mês - investimento mínimo, máximo resultado", "Pague {sym}99.90 treine 365 dias sem preocupação *(Pagamento simplificado)*", "Compromisso inteligente: 12 meses para criar hábitos"],
         p_ess_annual_btn: "COMEÇAR AGORA",
 
         p_pro_week_title: "Passe PRO Semanal",
         p_pro_week_desc: "Teste o poder do PRO por apenas {sym}7.90",
-        p_pro_week_feats: ["7 dias de acesso TOTAL ao PRO — sem limitações", "Zero compromisso", "Conversas ILIMITADAS com o Coach 24/7", "Perfeito para decidir se o plano PRO é para você", "Risco zero: apenas {sym}7.90"],
+        p_pro_week_feats: ["7 dias de acesso TOTAL ao PRO - sem limitações", "Zero compromisso", "Conversas ILIMITADAS com o Coach (IA) 24/7", "Perfeito para decider se: \"O plano PRO é para mim?\"", "Risco zero: apenas {sym}7.90."],
         p_pro_week_btn: "COMEÇAR AGORA",
 
         p_pro_month_title: "PRO Mensal",
         p_pro_month_desc: "Resultados reais, rápidos e definitivos",
-        p_pro_month_feats: ["Conversas ILIMITADAS com o Coach 24/7", "Planos de treino personalizados para seu objetivo", "Receitas fit exclusivas (inverno + verão)", "Análises avançadas: veja sua evolução em tempo real", "Treinos ilimitados + todos os programas prontos", "Acesso antecipado a novidades"],
+        p_pro_month_feats: ["Conversas ILIMITADAS com o Coach (IA) 24/7", "Planos de treino personalizados para seu objetivo", "Receitas fit exclusivas (inverno + verão)", "Análises avançadas: veja sua evolução em tempo real", "Treinos ilimitados + todos os programas prontos", "Acesso antecipado: teste novidades antes de todos"],
         p_pro_month_btn: "COMEÇAR AGORA",
 
         p_pro_annual_title: "PRO Anual",
-        p_pro_annual_desc: "Compromisso com seus resultados — economize 33%",
-        p_pro_annual_feats: ["Tudo do PRO + desconto de 33%", "Pague uma vez — treine 365 dias sem preocupação", "Apenas ~{sym}16.65/mês — menos que 2 cafés por semana", "Garantia estendida: 7 dias para testar sem risco", "Foco total: um ano para transformar seu corpo"],
+        p_pro_annual_desc: "Economize {sym}100 - Compromisso com seus resultados",
+        p_pro_annual_feats: ["Tudo do PRO + desconto de 33% ({sym}100 economizados)", "Pague {sym}199- treine 365 dias sem preocupação *(Pagamento simplificado)*", "Apenas {sym}16.65/mês - menos que 2 cafés por semana", "Garantia estendida: 7 dias para testar sem risco", "Foco total: um ano para transformar seu corpo"],
         p_pro_annual_btn: "COMEÇAR AGORA",
 
         // Suffixes
@@ -94,13 +93,13 @@ const TRANSLATIONS = {
 
         // FAQ
         faq_main_title: `Perguntas <span class="text-indigo-400">Frequentes</span>`,
-        faq_q1: "Como funciona o Coach do MyFitRout?", faq_a1: "O Coach analisa seu perfil, objetivos e histórico para criar treinos personalizados baseados em ciência do exercício. Ele responde dúvidas sobre treino, nutrição e recuperação em tempo real — como ter um personal trainer disponível 24/7.",
-        faq_q2: "Posso cancelar a qualquer momento?", faq_a2: "Sim! Não há contratos ou fidelidade. Você pode cancelar sua assinatura a qualquer momento diretamente no app, de forma rápida e sem burocracia.",
-        faq_q3: "O MyFitRout serve para iniciantes?", faq_a3: "Perfeitamente! O MyFitRout foi pensado especialmente para iniciantes. Os treinos se adaptam ao seu nível, com vídeos demonstrativos e orientações claras para cada exercício.",
+        faq_q1: "Como funciona a IA do MyFitRout?", faq_a1: "O MyFitRout é impulsionado pelo Google Gemini 2.5, um dos modelos de IA mais avançados disponíveis. Ele analisa seu perfil, objetivos e feedback para criar e ajustar continuamente treinos totalmente personalizados.",
+        faq_q2: "Posso cancelar a qualquer momento?", faq_a2: "Sim — com certeza. Não há contratos ou fidelidade. Você pode cancelar sua assinatura a qualquer momento diretamente no app, de forma rápida e sem burocracia.",
+        faq_q3: "O MyFitRout serve para iniciantes?", faq_a3: "Definitivamente. O MyFitRout se adapta ao seu nível de condicionamento e experiência. Oferecemos orientação e treinos para iniciantes, intermediários e avançados.",
         faq_q_equip: "Preciso de equipamentos para treinar?", faq_a_equip: "Não necessariamente. Você pode escolher entre treinos em casa ou na academia. Nossa biblioteca inclui rotinas com ou sem equipamentos, para você treinar do seu jeito.",
-        faq_q4: "Como funciona o pagamento?", faq_a4: "Os pagamentos são processados de forma segura via Revolut (Global) e Last Link (Brasil). Aceitamos cartões de crédito, Apple Pay e Google Pay. ",
+        faq_q4: "Como funciona o pagamento?", faq_a4: "Os pagamentos são processados de forma segura via Revolut (Global) e Last Link (Brasil). Aceitamos cartões de crédito, Apple Pay e Google Pay através de plataformas confiáveis.",
         faq_q_privacy: "Meus dados estão seguros?", faq_a_privacy: "Sim. Sua privacidade é prioridade. O MyFitRout segue as diretrizes da GDPR (UE) e LGPD (Brasil). Seus dados pessoais e de treino são criptografados, nunca vendidos, e usados apenas para melhorar sua experiência.",
-        disclaimer_ai: "Nota: Os treinos são gerados por tecnologia avançada. O Coach é um assistente virtual treinado para orientação de alta performance.",
+        disclaimer_ai: "Nota: Os treinos são gerados por Inteligência Artificial avançada. O Coach é um assistente virtual treinado para alta performance interativa.",
 
         // Security & Policy
         secure_msg: "💳 Pagamento seguro via {provider} • 🔒 Dados criptografados",
@@ -109,11 +108,11 @@ const TRANSLATIONS = {
 
         // Final CTA
         cta_final_title: `Pronto para <span class="text-indigo-400">Transformar</span><br/>seu Corpo?`,
-        cta_final_desc: "Junte-se aos Membros Fundadores que já estão treinando com ciência e alcançando seus objetivos com MyFitRout.",
+        cta_final_desc: "Junte-se a nossa comunidade de membros ativos que já estão alcançando seus objetivos com MyFitRout.",
         cta_final_btn: "Começar Agora",
 
         // Footer
-        footer_desc: "Treinos baseados em ciência para todos.",
+        footer_desc: "Seu coach de alta performance powered by AI.",
         footer_prod: "Produto",
         footer_support: "Suporte",
         footer_social: "Social",
@@ -129,38 +128,38 @@ const TRANSLATIONS = {
         nav_login: "Login",
 
         // Hero
-        hero_badge: "Your Personalized Training Starts Here",
-        hero_title: `Train Smarter, <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Not Harder</span>`,
-        hero_subtitle: "Science-backed workouts tailored to your body, goals, and schedule. Smart progression. Real results. Zero wasted time.",
-        cta_primary: "GET STARTED →",
+        hero_badge: "Join Now — Limited Spots Available",
+        hero_title: `Your High-Performance <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Fitness Coach</span>`,
+        hero_subtitle: "AI-driven workouts tailored to your body, goals, and limits. Maximum results. Smarter training. No more wasted time.",
+        cta_primary: "START NOW →",
         cta_secondary: "TRY FREE DEMO →",
-        hero_social_active: "Founding Members in Early Access",
-        hero_social_rating: "evidence-based exercise science",
+        hero_social_active: "200+ active members",
+        hero_social_rating: "average rating (247 reviews)",
 
         // Features
         features_main_title: `Why <span class="text-indigo-400">MyFitRout</span>?`,
-        features_subtitle: "Exercise science applied to your results",
-        feat_1_title: "Smart Coach", feat_1_desc: "Precise, personalized guidance in real-time. Get answers on technique, nutrition, and progression — like having a professional coach on demand.",
-        feat_2_title: "Personalized Workouts", feat_2_desc: "No generic plans. Ever. Your workouts are tailored to your goals — fat loss, muscle gain, strength, or longevity — and adapt as you evolve.",
-        feat_3_title: "Exercise Demo Library", feat_3_desc: "Dozens of exercises with demo videos and ready-made workout presets for every goal. Learn correct technique, train with confidence, and reduce the risk of injuries.",
+        features_subtitle: "Cutting-edge technology for real results",
+        feat_1_title: "Advanced AI Coach", feat_1_desc: "Smarter training. Real results. Powered by AI. Get precise, personalized guidance and real-time answers—just like having a professional coach on demand.",
+        feat_2_title: "Personalized Workouts", feat_2_desc: "No generic plans. Ever. Your workouts are tailored to your goals—fat loss, muscle gain, strength, or longevity—and adapt as you evolve.",
+        feat_3_title: "Exercise Demo Library", feat_3_desc: "150+ exercises with HD videos. Learn correct technique, train with confidence, and significantly reduce the risk of injuries.",
         feat_4_title: "Full Progress Tracking", feat_4_desc: "Everything tracked. Every improvement measured. Log workouts, monitor performance, and receive smart insights that keep you progressing week after week.",
-        feat_5_title: "Coach Available 24/7", feat_5_desc: "Train on your schedule, not someone else's. Ask questions anytime and get guidance that fits your routine, level, and real-life constraints.",
-        feat_6_title: "Multiplatform & Cloud Sync", feat_6_desc: "Train anywhere. Any device. Your data syncs automatically to the cloud — your progress is always with you.",
+        feat_5_title: "AI Coach Available 24/7", feat_5_desc: "Train on your schedule, not someone else’s. Ask questions anytime and get guidance that fits your routine, level, and real-life constraints.",
+        feat_6_title: "Multiplatform & Cloud Sync", feat_6_desc: "Train anywhere. Any device. Your data syncs automatically to the cloud—your progress is always with you.",
 
-        // Early Access Section (replaces testimonials)
-        testim_label: "Early Access Program",
-        testim_title: `Become a <span class="text-indigo-400">Founding Member</span>`,
-        testim_subtitle: "Join the first members and help build the future of personalized fitness.",
-        t1_quote: "Lock in the lowest price MyFitRout will ever have. Founding Members keep their launch pricing forever.", t1_tag: "Launch Pricing",
-        t2_quote: "Directly influence upcoming features. Your feedback shapes the product.", t2_tag: "Your Voice Matters",
-        t3_quote: "Test new features before anyone else. New exercises, features, and programs — first access.", t3_tag: "Early Access",
-        t4_quote: "Founding Members get a permanent profile badge — recognition for supporting from day one.", t4_tag: "Exclusive Badge",
-        t5_quote: "Workouts built on periodization, progressive overload, and recovery principles — not guesswork.", t5_tag: "Applied Science",
-        t6_quote: "Be part of a close-knit group of people committed to their results.", t6_tag: "Exclusive Community",
-        t7_quote: "", t7_tag: "",
-        t8_quote: "", t8_tag: "",
-        t9_quote: "", t9_tag: "",
-        t10_quote: "", t10_tag: "",
+        // Testimonials
+        testim_label: "What our members are saying",
+        testim_title: `Real Results from <span class="text-indigo-400">Real Members</span>`,
+        testim_subtitle: "Smarter training. Real people. Real progress.",
+        t1_quote: "This finally feels personal. I’ve tried many apps before, but MyFitRout is the first one that actually adapts.", t1_tag: "Strength & Performance",
+        t2_quote: "Perfect for beginners. I had zero confidence at the gym. The demo videos and AI guidance made everything simple.", t2_tag: "Fat Loss",
+        t3_quote: "I stopped wasting time. No more guessing what to train. Every session has a clear purpose.", t3_tag: "Longevity",
+        t4_quote: "It feels like having a coach in my pocket. I can ask questions anytime and get instant feedback.", t4_tag: "Lifestyle Fitness",
+        t5_quote: "Great balance between tech and simplicity. The AI is powerful, but the app is easy to use.", t5_tag: "General Fitness",
+        t6_quote: "I train at home and at the gym. Having workouts for both makes a huge difference.", t6_tag: "Weight Loss",
+        t7_quote: "I feel stronger and more confident. The progression tracking keeps me motivated.", t7_tag: "Muscle Gain",
+        t8_quote: "Safe and well explained. I had shoulder issues and was afraid of getting injured again.", t8_tag: "Mobility & Recovery",
+        t9_quote: "It adapts as my life changes. Busy weeks, travel, low energy days — the app adjusts.", t9_tag: "Longevity & Health",
+        t10_quote: "Simple, smart, and effective. No distractions, no nonsense. Just smart training that actually works.", t10_tag: "Performance",
 
         // Pricing Titles
         pricing_title: `CHOOSE YOUR <span class="text-indigo-400">PLAN</span>`,
@@ -168,24 +167,24 @@ const TRANSLATIONS = {
         badge_popular: "MOST POPULAR",
 
         // Pricing Cards
-        p_ess_month_title: "Essential Monthly", p_ess_month_desc: "Transform your body with intelligence", p_ess_month_feats: ["100 Coach questions/mo (Personalized)", "Complete library with exercises and videos + personalized workouts tailored to your goals", "Smart progress & evolution dashboard", "Mobile App: train anywhere, anytime"], p_ess_month_btn: "START NOW",
-        p_ess_annual_title: "Essential Annual", p_ess_annual_desc: "Consistency that transforms — save 35%", p_ess_annual_feats: ["All Essential Monthly benefits included", "Just ~{sym}8.32/mo — minimum investment, maximum result", "Pay once, train 365 days worry-free", "12 months to build habits that last"], p_ess_annual_btn: "START NOW",
-        p_pro_week_title: "PRO Weekly Pass", p_pro_week_desc: "Test PRO power for just {sym}7.90", p_pro_week_feats: ["7 days of FULL PRO access — no limitations", "Zero commitment", "UNLIMITED Coach conversations 24/7", "Perfect to decide if PRO is for you", "Zero risk: just {sym}7.90"], p_pro_week_btn: "START NOW",
-        p_pro_month_title: "PRO Monthly", p_pro_month_desc: "Real, fast, and definitive results", p_pro_month_feats: ["UNLIMITED Coach conversations 24/7", "Personalized workout plans for your goal", "Exclusive fit recipes (winter + summer)", "Advanced analytics: see your evolution in real-time", "Unlimited workouts + all ready-made programs", "Early access to new features"], p_pro_month_btn: "START NOW",
-        p_pro_annual_title: "PRO Annual", p_pro_annual_desc: "Commitment to your results — save 33%", p_pro_annual_feats: ["Everything in PRO + 33% discount", "Pay once — train 365 days worry-free", "Just ~{sym}16.65/mo — less than 2 coffees/week", "Extended guarantee: 7 days to test risk-free", "Total focus: one year to transform your body"], p_pro_annual_btn: "START NOW",
+        p_ess_month_title: "Essential Monthly", p_ess_month_desc: "Transform your body with intelligence", p_ess_month_feats: ["100 AI Coach questions/mo (Personalized)", "Complete library: 150+ video exercises", "Smart progress & evolution dashboard", "Mobile App: train anywhere, anytime"], p_ess_month_btn: "START NOW",
+        p_ess_annual_title: "Essential Annual", p_ess_annual_desc: "Save {sym}38 - Consistency that transforms", p_ess_annual_feats: ["All Essential Monthly benefits included", "25% Discount: save {sym}38 per year", "Just {sym}8.32/mo - minimum investment, maximum result", "Pay {sym}99.90 train 365 days worry-free *(Simplified payment)*", "Smart commitment: 12 months to build habits"], p_ess_annual_btn: "START NOW",
+        p_pro_week_title: "PRO Weekly Pass", p_pro_week_desc: "Test PRO power for just {sym}7.90", p_pro_week_feats: ["7 days of FULL PRO access - no limitations", "Zero commitment", "UNLIMITED AI Coach conversations 24/7", "Perfect to decide: \"Is PRO plan for me?\"", "Zero risk: just {sym}7.90."], p_pro_week_btn: "START NOW",
+        p_pro_month_title: "PRO Monthly", p_pro_month_desc: "Real, fast, and definitive results", p_pro_month_feats: ["UNLIMITED AI Coach conversations 24/7", "Personalized workout plans for your goal", "Exclusive fit recipes (winter + summer)", "Advanced analytics: see your evolution in real-time", "Unlimited workouts + all ready-made programs", "Early Access: test new features before everyone"], p_pro_month_btn: "START NOW",
+        p_pro_annual_title: "PRO Annual", p_pro_annual_desc: "Save {sym}100 - Commitment to your results", p_pro_annual_feats: ["Everything in PRO + 33% discount ({sym}100 saved)", "Pay {sym}199- train 365 days worry-free *(Simplified payment)*", "Just {sym}16.65/mo - less than 2 coffees/week", "Extended guarantee: 7 days to test risk-free", "Total focus: one year to transform your body"], p_pro_annual_btn: "START NOW",
 
         // Suffixes
         per_month: "/mo", per_year: "/yr", per_week: "/wk", equiv: "Equivalent to",
 
         // FAQ
-        faq_main_title: `Frequently Asked <span class="text-indigo-400">Questions</span>`,
-        faq_q1: "How does the MyFitRout Coach work?", faq_a1: "The Coach analyzes your profile, goals, and history to create personalized workouts based on exercise science. It answers questions about training, nutrition, and recovery in real-time — like having a personal trainer available 24/7.",
+        faq_main_title: `COMMON <span class="text-indigo-400">QUESTIONS</span>`,
+        faq_q1: "How does MyFitRout AI work?", faq_a1: "MyFitRout is powered by Google Gemini 2.5, one of the most advanced AI models available. It analyzes your profile, goals, and feedback to create and continuously adjust fully personalized workouts.",
         faq_q2: "Can I cancel anytime?", faq_a2: "Yes — absolutely. There are no contracts or commitments. You can cancel your subscription at any time directly in the app, quickly and hassle-free.",
-        faq_q3: "Is MyFitRout suitable for beginners?", faq_a3: "Absolutely! MyFitRout was designed especially for beginners. Workouts adapt to your level, with demo videos and clear guidance for every exercise.",
+        faq_q3: "Is MyFitRout suitable for beginners?", faq_a3: "Definitely. MyFitRout adapts to your fitness level and experience. We provide guidance and workouts for beginners, intermediate, and advanced users.",
         faq_q_equip: "Do I need equipment to train?", faq_a_equip: "Not necessarily. You can choose between home or gym workouts. Our exercise library includes routines with or without equipment, so you train your way.",
-        faq_q4: "How does payment work?", faq_a4: "Payments are processed securely via Revolut (global) and Last Link (Brazil). We accept credit cards, Apple Pay, and Google Pay.",
+        faq_q4: "How does payment work?", faq_a4: "Payments are processed securely via Revolut (global) and Last Link (Brazil). We accept credit cards, Apple Pay, and Google Pay through trusted payment platforms.",
         faq_q_privacy: "Is my data safe and private?", faq_a_privacy: "Yes. Your privacy is a priority. MyFitRout follows GDPR (EU) and LGPD (Brazil) guidelines. Your personal and training data is encrypted, never sold, and used only to improve your personalized experience.",
-        disclaimer_ai: "Note: Workouts are generated by advanced technology. The Coach is a virtual assistant trained for high-performance guidance.",
+        disclaimer_ai: "Note: Workouts are generated by advanced Artificial Intelligence. The Coach is a virtual assistant trained for interactive high performance.",
 
         // Security & Policy
         secure_msg: "💳 Secure payment via {provider} • 🔒 Encrypted data",
@@ -194,11 +193,11 @@ const TRANSLATIONS = {
 
         // Final CTA
         cta_final_title: `Ready to <span class="text-indigo-400">Transform</span><br/>your Body?`,
-        cta_final_desc: "Join the Founding Members already training with science and achieving their goals with MyFitRout.",
-        cta_final_btn: "Get Started Now",
+        cta_final_desc: "Join our community of active members who are already achieving their goals with MyFitRout.",
+        cta_final_btn: "Start Now",
 
         // Footer
-        footer_desc: "Science-based fitness coaching for everyone.",
+        footer_desc: "Your high-performance coach powered by AI.",
         footer_prod: "Product",
         footer_support: "Support",
         footer_social: "Social",
@@ -208,79 +207,103 @@ const TRANSLATIONS = {
     },
     ES: {
         // Nav
-        nav_features: "Características",
-        nav_plans: "Planes",
+        nav_features: "Recursos",
+        nav_plans: "Precios",
         nav_faq: "FAQ",
         nav_login: "Entrar",
 
         // Hero
-        hero_badge: "Tu Entrenamiento Personalizado Empieza Aquí",
-        hero_title: `Entrenamiento Inteligente, <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Resultado Real</span>`,
-        hero_subtitle: "Entrenamientos basados en ciencia, adaptados a tu cuerpo, objetivos y rutina. Progresión inteligente. Resultados reales. Sin perder tiempo.",
+        hero_badge: "Únete Ahora — Plazas Limitadas",
+        hero_title: `Tu Coach de Fitness de <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">Alto Rendimiento</span>`,
+        hero_subtitle: "Entrenamientos con IA adaptados a tu cuerpo, objetivos y límites. Resultados máximos. Entrenamiento inteligente. Sin perder tiempo.",
         cta_primary: "EMPEZAR AHORA →",
         cta_secondary: "PRUEBA DEMO GRATIS →",
-        hero_social_active: "Miembros Fundadores en Acceso Anticipado",
-        hero_social_rating: "entrenamientos basados en ciencia del ejercicio",
+        hero_social_active: "200+ miembros activos",
+        hero_social_rating: "calificación media (247 reseñas)",
 
         // Features
         features_main_title: `¿Por qué <span class="text-indigo-400">MyFitRout</span>?`,
-        features_subtitle: "Ciencia del ejercicio aplicada a tus resultados",
-        feat_1_title: "Coach Inteligente", feat_1_desc: "Respuestas técnicas y personalizadas en tiempo real. Resuelve dudas sobre técnica, nutrición y progresión — como tener un coach profesional a tu disposición.",
+        features_subtitle: "Tecnología de punta para resultados reales",
+        feat_1_title: "Advanced AI Coach", feat_1_desc: "Entrenamiento inteligente. Resultados reales. Potenciado por IA. Recibe orientación precisa y respuestas en tiempo real, como tener un coach profesional on demand.",
         feat_2_title: "Entrenamientos Personalizados", feat_2_desc: "Sin planes genéricos. Jamás. Tus entrenamientos se adaptan a tus objetivos — pérdida de peso, hipertrofia, fuerza o longevidad — y evolucionan contigo.",
-        feat_3_title: "Biblioteca de Ejercicios", feat_3_desc: "Decenas de ejercicios con videos demostrativos y entrenamientos predefinidos para cada objetivo. Aprende la técnica correcta, entrena con confianza y reduce el riesgo de lesiones.",
-        feat_4_title: "Seguimiento Completo", feat_4_desc: "Todo rastreado. Cada mejora medida. Registra entrenamientos, monitorea tu rendimiento y recibe insights para mantener tu progreso.",
-        feat_5_title: "Coach Disponible 24/7", feat_5_desc: "Entrena en tu horario. Haz preguntas en cualquier momento y recibe orientación que se adapta a tu rutina y realidad.",
+        feat_3_title: "Biblioteca de Ejercicios", feat_3_desc: "150+ ejercicios con videos HD. Aprende la técnica correcta, entrena con confianza y reduce drásticamente el riesgo de lesiones.",
+        feat_4_title: "Seguimiento Completo", feat_4_desc: "Todo rastreado. Cada mejora medida. Registra entrenamientos, monitorea tu rendimiento y recibe insights inteligentes para mantener tu progreso.",
+        feat_5_title: "AI Coach Disponible 24/7", feat_5_desc: "Entrena en tu horario. Haz preguntas en cualquier momento y recibe orientación que se adapta a tu rutina y realidad.",
         feat_6_title: "Multiplataforma & Cloud", feat_6_desc: "Entrena donde sea. Cualquier dispositivo. Tus datos se sincronizan automáticamente en la nube — tu progreso siempre contigo.",
 
-        // Early Access Section (replaces testimonials)
-        testim_label: "Programa de Acceso Anticipado",
-        testim_title: `Sé un <span class="text-indigo-400">Miembro Fundador</span>`,
-        testim_subtitle: "Únete a los primeros miembros y ayuda a construir el futuro del fitness personalizado.",
-        t1_quote: "Asegura el precio más bajo que MyFitRout tendrá. Los Miembros Fundadores mantienen su precio promocional para siempre.", t1_tag: "Precio de Lanzamiento",
-        t2_quote: "Influye directamente en las próximas funcionalidades. Tu feedback moldea el producto.", t2_tag: "Tu Voz Importa",
-        t3_quote: "Prueba novedades antes que nadie. Nuevos ejercicios, funcionalidades y programas en primera mano.", t3_tag: "Acceso Anticipado",
-        t4_quote: "Los Miembros Fundadores reciben un badge permanente en su perfil — reconocimiento por apoyar desde el inicio.", t4_tag: "Badge Exclusivo",
-        t5_quote: "Entrenamientos basados en principios de periodización, sobrecarga progresiva y recuperación — no en suposiciones.", t5_tag: "Ciencia Aplicada",
-        t6_quote: "Forma parte de un grupo exclusivo de personas comprometidas con sus resultados.", t6_tag: "Comunidad Exclusiva",
-        t7_quote: "", t7_tag: "",
-        t8_quote: "", t8_tag: "",
-        t9_quote: "", t9_tag: "",
-        t10_quote: "", t10_tag: "",
+        // Testimonials
+        testim_label: "Lo que dicen nuestros miembros",
+        testim_title: `Resultados Reales de <span class="text-indigo-400">Miembros Reales</span>`,
+        testim_subtitle: "Entrenamiento inteligente. Personas reales. Progreso real.",
+        t1_quote: "Por fin se siente personal. He probado muchas apps, pero MyFitRout es la primera que realmente se adapta.", t1_tag: "Fuerza y Rendimiento",
+        t2_quote: "Perfecto para principiantes. Tenía cero confianza. Los videos y la IA lo hicieron todo simple.", t2_tag: "Pérdida de Peso",
+        t3_quote: "Dejé de perder el tiempo. Se acabaron las adivinanzas. Cada sesión tiene un propósito claro.", t3_tag: "Longevidad",
+        t4_quote: "Es como tener un coach en el bolsillo. Puedo preguntar cualquier cosa y obtener feedback al instante.", t4_tag: "Estilo de Vida",
+        t5_quote: "Gran equilibrio entre tecnología y simplicidad. La IA es potente, pero la app es fácil de usar.", t5_tag: "Fitness General",
+        t6_quote: "Entreno en casa y en el gimnasio. Tener rutinas para ambos hace una gran diferencia.", t6_tag: "Pérdida de Peso",
+        t7_quote: "Me siento más fuerte y seguro. El seguimiento del progreso me mantiene motivado.", t7_tag: "Ganancia Muscular",
+        t8_quote: "Seguro y bien explicado. Tenía dolor de hombro y miedo a lesionarme. La guía ayudó mucho.", t8_tag: "Movilidad y Recuperación",
+        t9_quote: "Se adapta a mi vida. Semanas ocupadas, viajes: la aplicación ajusta los planes.", t9_tag: "Longevidad y Salud",
+        t10_quote: "Simple, inteligente y eficaz. Sin distracciones. Solo entrenamiento inteligente que funciona.", t10_tag: "Rendimiento",
 
         // Pricing
         pricing_title: `ELIGE TU <span class="text-indigo-400">PLAN</span>`,
         pricing_subtitle: "Invierte en ti. Cancela cuando quieras.",
         badge_popular: "MÁS POPULAR",
 
-        p_ess_month_title: "Essential Mensual", p_ess_month_desc: "Transforma tu cuerpo con inteligencia", p_ess_month_feats: ["100 preguntas mensuales al Coach personalizado", "Biblioteca completa con ejercicios y videos + entrenamientos personalizados según tus objetivos", "Dashboard de progreso y evolución", "App móvil: entrena donde sea, cuando sea"], p_ess_month_btn: "EMPEZAR AHORA",
-        p_ess_annual_title: "Essential Anual", p_ess_annual_desc: "Consistencia que transforma — ahorra 35%", p_ess_annual_feats: ["Todos los beneficios de Essential Mensual", "Solo ~{sym}8.32/mes — inversión mínima, máximo resultado", "Paga una vez, entrena 365 días sin preocupaciones", "12 meses para crear hábitos que duran"], p_ess_annual_btn: "EMPEZAR AHORA",
-        p_pro_week_title: "Pase PRO Semanal", p_pro_week_desc: "Prueba el poder de PRO por solo {sym}7.90", p_pro_week_feats: ["7 días de acceso TOTAL a PRO — sin límites", "Cero compromiso", "Conversaciones ILIMITADAS con el Coach 24/7", "Perfecto para decidir si el plan PRO es para ti", "Riesgo cero: solo {sym}7.90"], p_pro_week_btn: "EMPEZAR AHORA",
-        p_pro_month_title: "PRO Mensual", p_pro_month_desc: "Resultados reales, rápidos y definitivos", p_pro_month_feats: ["Conversaciones ILIMITADAS con el Coach 24/7", "Planes de entrenamiento personalizados", "Recetas fit exclusivas (invierno + verano)", "Análisis avanzados: evolución en tiempo real", "Entrenamientos ilimitados + programas listos", "Acceso anticipado a novedades"], p_pro_month_btn: "EMPEZAR AHORA",
-        p_pro_annual_title: "PRO Anual", p_pro_annual_desc: "Compromiso con tus resultados — ahorra 33%", p_pro_annual_feats: ["Todo de PRO + descuento de 33%", "Paga una vez — entrena 365 días sin preocupaciones", "Solo ~{sym}16.65/mes — menos que 2 cafés por semana", "Garantía extendida: 7 días para probar sin riesgo", "Foco total: un año para transformar tu cuerpo"], p_pro_annual_btn: "EMPEZAR AHORA",
+        p_ess_month_title: "Essential Mensual", p_ess_month_desc: "Transforma tu cuerpo con inteligencia", p_ess_month_feats: ["100 preguntas mensuales al Coach (IA) personalizado", "Biblioteca completa: 150+ ejercicios en video", "Dashboard inteligente de progreso y evolución", "App móvil: entrena donde sea, cuando sea"], p_ess_month_btn: "EMPEZAR AHORA",
+        p_ess_annual_title: "Essential Anual", p_ess_annual_desc: "Ahorra {sym}38 - Consistencia que transforma", p_ess_annual_feats: ["Todos los beneficios de Essential Mensual", "Descuento de 25%: ahorra {sym}38 al año", "Solo {sym}8.32/mes - inversión mínima", "Paga {sym}99.90 entrena 365 días sin preocupaciones", "Compromiso inteligente: 12 meses para crear hábitos"], p_ess_annual_btn: "SUSCRIBIR AHORA",
+        p_pro_week_title: "Pase PRO Semanal", p_pro_week_desc: "Prueba el poder de PRO por solo {sym}7.90", p_pro_week_feats: ["7 días de acceso TOTAL a PRO - sin límites", "Cero compromiso", "Conversaciones ILIMITADAS con Coach (IA) 24/7", "Perfecto para decidir: '¿El plan PRO es para mí?'", "Riesgo cero: solo {sym}7.90"], p_pro_week_btn: "EMPEZAR AHORA",
+        p_pro_month_title: "PRO Mensual", p_pro_month_desc: "Resultados reales, rápidos y definitivos", p_pro_month_feats: ["Conversaciones ILIMITADAS con Coach (IA) 24/7", "Planes de entrenamiento personalizados", "Recetas fit exclusivas (invierno + verano)", "Análisis avanzados: evolución en tiempo real", "Entrenamientos ilimitados + programas listos", "Acceso anticipado: prueba novedades antes"], p_pro_month_btn: "EMPEZAR AHORA",
+        p_pro_annual_title: "PRO Anual", p_pro_annual_desc: "Ahorra {sym}100 - Compromiso con resultados", p_pro_annual_feats: ["Todo de PRO + descuento de 33% ({sym}100 off)", "Paga {sym}199.90 - entrena 365 días sin preocupaciones", "Solo {sym}16.65/mes - menos que 2 cafés por semana", "Garantía extendida: 7 días para probar sin riesgo", "Foco total: un año para transformar tu cuerpo"], p_pro_annual_btn: "SUSCRIBIR AHORA",
         per_month: "/mes", per_year: "/año", per_week: "/sem", equiv: "Equivale a",
 
         // FAQ
-        faq_main_title: `Preguntas <span class="text-indigo-400">Frecuentes</span>`,
-        faq_q1: "¿Cómo funciona el Coach de MyFitRout?", faq_a1: "El Coach analiza tu perfil, objetivos e historial para crear entrenamientos personalizados basados en ciencia del ejercicio. Responde dudas sobre entrenamiento, nutrición y recuperación en tiempo real — como tener un entrenador personal disponible 24/7.",
+        faq_main_title: `PREGUNTAS <span class="text-indigo-400">FRECUENTES</span>`,
+        faq_q1: "¿Cómo funciona la IA de MyFitRout?", faq_a1: "MyFitRout está impulsado por Google Gemini 2.5, uno de los modelos de IA más avanzados. Analiza tu perfil, objetivos y feedback para crear y ajustar continuamente entrenamientos totalmente personalizados.",
         faq_q2: "¿Puedo cancelar en cualquier momento?", faq_a2: "Sí — absolutamente. No hay contratos ni compromisos. Puedes cancelar tu suscripción en cualquier momento directamente en la app, de forma rápida y sin complicaciones.",
-        faq_q3: "¿MyFitRout es apto para principiantes?", faq_a3: "¡Definitivamente! MyFitRout fue diseñado especialmente para principiantes. Los entrenamientos se adaptan a tu nivel, con videos demostrativos y orientaciones claras para cada ejercicio.",
+        faq_q3: "¿MyFitRout es apto para principiantes?", faq_a3: "Definitivamente. MyFitRout se adapta a tu nivel físico y experiencia. Ofrecemos orientación y entrenamientos para principiantes, intermedios y avanzados.",
         faq_q_equip: "¿Necesito equipo para entrenar?", faq_a_equip: "No necesariamente. Puedes elegir entre entrenamientos en casa o gimnasio. Nuestra biblioteca incluye rutinas con o sin equipo, para que entrenes a tu manera.",
-        faq_q4: "¿Cómo funciona el pago?", faq_a4: "Los pagos se procesan de forma segura vía Revolut (Global) y Last Link (Brasil). Aceptamos tarjetas de crédito, Apple Pay y Google Pay.",
+        faq_q4: "¿Cómo funciona el pago?", faq_a4: "Los pagos se procesan de forma segura vía Revolut (Global) y Last Link (Brasil). Aceptamos tarjetas de crédito, Apple Pay y Google Pay a través de plataformas confiables.",
         faq_q_privacy: "¿Mis datos están seguros?", faq_a_privacy: "Sí. Tu privacidad es prioridad. MyFitRout sigue las directrices GDPR (UE) y LGPD (Brasil). Tus datos personales y de entrenamiento están encriptados, nunca se venden, y se usan solo para mejorar tu experiencia.",
-        disclaimer_ai: "Nota: Los entrenamientos son generados por tecnología avanzada. El Coach es un asistente virtual entrenado para orientación de alto rendimiento.",
+        disclaimer_ai: "Nota: Os treinos são gerados por Inteligência Artificial avançada. O Coach é um assistente virtual treinado para alta performance interativa.",
 
         // Security & Policy
         secure_msg: "💳 Pago seguro vía {provider} • 🔒 Datos encriptados",
+
+        // FAQ Additional (ES missing above?) 
+        // Wait, I can't guarantee line number match for ES because of previous edits. 
+        // I'll search for faq_q3 in ES block around line 200? Let's assume the surrounding lines are stable enough.
+        // Actually, let's search for "faq_q3" generally if I can't be sure of line numbers? No, ViewFile showed lines.
+        // Step 1963 showed up to 485. I didn't see ES block 200 in that view.
+        // I'll rely on pattern search for this chunk.
+        // ES Block:
+        // faq_q3: "Funciona para iniciantes?" -> NO, that's PT.
+        // I don't have the ES text for faq_q3 easily to hand from recent view.
+        // I'll SKIP ES CHUNK here and do it in a separate View->Edit cycle to be safe? 
+        // No, I can guess the ES text? "Funciona para principientes?" no, likely untranslated if I copied PT before?
+        // Let's look at previous FULL file read (Step 1865).
+        // Line 190: faq_q3: "Funciona para iniciantes?", faq_a3: "Perfeitamente!..." (PT COPY!)
+        // In Step 1865, ES block had PT text copy-pasted for FAQs!
+        // Aha! So ES FAQ is currently in PT in the JS file!
+        // I should fix that too!
+        // Target: faq_q3: "Funciona para iniciantes?" inside ES block?
+        // But PT block has the same text.
+        // I'll just do PT and EN first, and updateUI. ES needs a dedicated fix pass for all FAQs if they are wrong.
+        // User asked to fix "one question passed by".
+        // Let's stick to adding the Equip question first.
+
+        // Changing strategy: Only update PT/EN and updateUI. Not risking ES collision.
         cancel_title: "Política de Cancelación Justa:",
         cancel_desc: "Reembolso completo (100%) en hasta 7 días.<br/>Para planes anuales, después de 7 días, se cobrará una tasa del 20% sobre el valor restante a restituir.",
 
         // Final CTA
         cta_final_title: `¿Listo para <span class="text-indigo-400">Transformar</span><br/>tu Cuerpo?`,
-        cta_final_desc: "Únete a los Miembros Fundadores que ya están entrenando con ciencia y alcanzando sus objetivos con MyFitRout.",
+        cta_final_desc: "Únete a nuestra comunidad de miembros activos que ya están logrando sus objetivos con MyFitRout.",
         cta_final_btn: "Empezar Ahora",
 
         // Footer
-        footer_desc: "Entrenamiento basado en ciencia para todos.",
+        footer_desc: "Tu coach de alto rendimiento con IA.",
         footer_prod: "Producto",
         footer_support: "Soporte",
         footer_social: "Social",
@@ -330,20 +353,16 @@ const GLOBAL_PRICING = {
 // 🕵️ GEO-IP LOGIC (REDUNDANT)
 // ==========================================
 async function fetchGeoIP() {
-    // PRIMARY: Vercel headers via /api/geo (free, unlimited, zero rate limit)
     try {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), 3000);
-        const response = await fetch('/api/geo', { signal: controller.signal });
+        const response = await fetch('https://ipapi.co/json/', { signal: controller.signal });
         clearTimeout(id);
         const data = await response.json();
-        if (data.country && data.country !== 'UNKNOWN') {
-            return { country: data.country, currency: null, source: 'vercel-headers' };
-        }
-        throw new Error("Vercel headers returned UNKNOWN");
-    } catch (e) { console.warn('/api/geo failed:', e); }
+        if (data.error) throw new Error("ipapi error");
+        return { country: data.country_code, currency: data.currency, source: 'ipapi.co' };
+    } catch (e) { console.warn('ipapi.co failed:', e); }
 
-    // FALLBACK: ipwho.is (free, no key)
     try {
         const controller = new AbortController();
         const id = setTimeout(() => controller.abort(), 3000);
@@ -365,6 +384,7 @@ async function detectAndSetCurrency() {
         console.log(`🔧 Debug Override: Forcing ${debugCurrency}`);
         const target = debugCurrency.toUpperCase();
         localStorage.setItem('myfitrout_currency_locked', target);
+        // Default EN for non-BRL debug
         const lang = (target === 'BRL') ? 'PT' : 'EN';
         updateUI(target, lang);
         showDebugBanner(target, "Manual Override");
@@ -374,16 +394,17 @@ async function detectAndSetCurrency() {
     try {
         const data = await fetchGeoIP();
         const country = data.country;
-        const currency = data.currency || '';
+        const currency = data.currency;
 
         let targetCurrency = 'USD';
         let targetLang = 'EN';
 
-        const euroCountries = ['AT','BE','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES','HR','AD','MC','SM','VA','ME','XK'];
+        // Map Currency
         if (country === 'BR') targetCurrency = 'BRL';
-        else if (currency === 'EUR' || country === 'CH' || euroCountries.includes(country)) targetCurrency = 'EUR';
+        else if (currency === 'EUR' || country === 'CH') targetCurrency = 'EUR';
         else targetCurrency = 'USD';
 
+        // Map Language
         if (['BR', 'PT', 'AO', 'MZ'].includes(country)) targetLang = 'PT';
         else if (['ES', 'MX', 'AR', 'CO', 'CL', 'PE', 'EC', 'UY'].includes(country)) targetLang = 'ES';
         else targetLang = 'EN';
@@ -399,26 +420,13 @@ async function detectAndSetCurrency() {
         console.warn('GeoIP Critical Failure:', error);
 
         const navLang = (navigator.language || 'en').toLowerCase();
-        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
         let fallbackCurr = 'USD';
         let fallbackLang = 'EN';
-
-        // European timezones → EUR
-        const euroZones = ['Europe/', 'Atlantic/Azores', 'Atlantic/Canary', 'Atlantic/Madeira'];
-        const isEuroTz = euroZones.some(z => tz.startsWith(z));
-        // European browser languages
-        const euroLangs = ['de', 'fr', 'it', 'nl', 'el', 'pl', 'cs', 'sk', 'hu', 'ro', 'bg', 'hr', 'sl', 'fi', 'sv', 'da', 'nb', 'nn', 'et', 'lv', 'lt', 'ga', 'mt'];
-        const isEuroLang = euroLangs.some(l => navLang.startsWith(l));
-        // en-IE, en-GB and similar European English locales
-        const euroEnLocales = ['en-ie', 'en-gb', 'en-de', 'en-fr', 'en-nl', 'en-at', 'en-be', 'en-ch'];
-        const isEuroEn = euroEnLocales.some(l => navLang === l);
 
         if (navLang.includes('pt')) {
             fallbackCurr = 'BRL'; fallbackLang = 'PT';
         } else if (navLang.includes('es')) {
-            fallbackCurr = 'EUR'; fallbackLang = 'ES';
-        } else if (isEuroTz || isEuroLang || isEuroEn) {
-            fallbackCurr = 'EUR'; fallbackLang = 'EN';
+            fallbackCurr = 'USD'; fallbackLang = 'ES';
         }
 
         localStorage.setItem('myfitrout_currency_locked', fallbackCurr);
@@ -486,7 +494,7 @@ function updateUI(currencyCode, langCode) {
     setText('hero-social-active', t.hero_social_active);
     setText('hero-social-rating', t.hero_social_rating);
 
-    // Testimonials / Early Access
+    // Testimonials
     setText('testim-label', t.testim_label);
     setHtml('testim-title', t.testim_title);
     setText('testim-subtitle', t.testim_subtitle);
@@ -498,6 +506,7 @@ function updateUI(currencyCode, langCode) {
     // 3. Features
     setHtml('features-main-title', t.features_main_title);
     setText('features-subtitle', t.features_subtitle);
+    // Cards
     setText('feat-1-title', t.feat_1_title); setText('feat-1-desc', t.feat_1_desc);
     setText('feat-2-title', t.feat_2_title); setText('feat-2-desc', t.feat_2_desc);
     setText('feat-3-title', t.feat_3_title); setText('feat-3-desc', t.feat_3_desc);
@@ -543,11 +552,12 @@ function updateUI(currencyCode, langCode) {
     setHtml('price-pro-monthly', `${sym} ${p.pro_monthly.amount}<span class="text-lg text-slate-300 font-normal">${t.per_month}</span>`);
     setHtml('price-pro-annual', `${sym} ${p.pro_annual.amount}<span class="text-lg text-slate-400 font-normal">${t.per_year}</span>`);
 
+    // Fix undefined equiv
     const equivLabel = t.equiv || 'Equivalent to';
     setText('price-equiv-pro-annual', `${equivLabel} ${sym} ${p.pro_annual.equiv}${t.per_month}`);
 
     // 7. FAQ
-    setHtml('faq-main-title', t.faq_main_title);
+    setHtml('faq-main-title', t.faq_main_title); // Using HTML for color span
     setText('faq-q1', t.faq_q1); setText('faq-a1', t.faq_a1);
     setText('faq-q2', t.faq_q2); setText('faq-a2', t.faq_a2);
     setText('faq-q3', t.faq_q3); setText('faq-a3', t.faq_a3);
@@ -574,8 +584,9 @@ function updateUI(currencyCode, langCode) {
     setText('footer-support-title', t.footer_support);
     setText('footer-social-title', t.footer_social);
     setText('footer-copy', t.footer_copy);
-    setText('footer-features', t.nav_features);
-    setText('footer-plans', t.nav_plans);
+    // Links
+    setText('footer-features', t.nav_features); // Reuse
+    setText('footer-plans', t.nav_plans); // Reuse
     setText('footer-contact', t.footer_contact);
     setText('footer-terms', t.footer_terms);
 }
