@@ -385,8 +385,9 @@ export const translations = {
       preWorkout: "Pré-Treino",
       postWorkout: "Pós-Treino",
       dinner: "Jantar"
-    },
-    socialShare: {
+    }
+  },
+  socialShare: {
     socialShare: {
       header: "Partilhar Conquista",
       copy: "Copiar Texto",
@@ -784,8 +785,9 @@ export const translations = {
       preWorkout: "Pre-Workout",
       postWorkout: "Post-Workout",
       dinner: "Jantar"
-    },
-    socialShare: {
+    }
+  },
+  socialShare: {
       header: "Share Glory",
       copy: "Copy Text",
       download: "Download Card",
@@ -801,8 +803,8 @@ export const translations = {
       exportChat: "Export Chat",
       copyLogs: "Copy Logs"
     }
-  },
-  [Language.ES]: {
+  }
+[Language.ES]: {
     welcome: "Bienvenido a MyFitRout",
     onboardingTitle: "Tu Longevidad, Nuestra Prioridad",
     safetyNotes: "Notas de Seguridad",
