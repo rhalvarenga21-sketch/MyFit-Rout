@@ -184,14 +184,13 @@ const App: React.FC = () => {
     const start = new Date(profile.trialStartDate || new Date());
     if (isNaN(start.getTime())) return null; // Safety check
     const elapsedMs = now.getTime() - start.getTime();
-    const totalMs = 48 * 60 * 60 * 1000;
+    const totalMs = 7 * 24 * 60 * 60 * 1000;
     const leftMs = totalMs - elapsedMs;
-
-    if (leftMs <= 0) return { expired: true, h: 0, m: 0 };
-
+    if (leftMs <= 0) return { expired: true, d: 0, h: 0, m: 0 };
     return {
       expired: false,
-      h: Math.floor(leftMs / (1000 * 60 * 60)),
+      d: Math.floor(leftMs / (1000 * 60 * 60 * 24)),
+      h: Math.floor((leftMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
       m: Math.floor((leftMs % (1000 * 60 * 60)) / (1000 * 60))
     };
   }, [profile, now]);
@@ -423,7 +422,7 @@ const handleResetPassword = async () => {
           <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-indigo-600 text-white px-5 py-2 rounded-full shadow-xl shadow-indigo-500/30 text-xs font-bold animate-pulse whitespace-nowrap border border-indigo-400 flex items-center gap-2">
             <span className="text-indigo-200">🔥 {lang === Language.PT ? 'Teste Grátis: ' : 'Free Trial: '}</span>
             <span className="text-white text-sm font-black tracking-widest font-mono">
-              {String(trialRemaining.h).padStart(2, '0')}h {String(trialRemaining.m).padStart(2, '0')}m
+              {trialRemaining.d}d {String(trialRemaining.h).padStart(2, '0')}h {String(trialRemaining.m).padStart(2, '0')}m
             </span>
             <span className="text-indigo-200">{lang === Language.PT ? 'restantes' : 'left'}</span>
           </div>
