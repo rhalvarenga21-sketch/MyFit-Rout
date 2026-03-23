@@ -18,11 +18,18 @@ const supabaseAdmin = createClient(
 
 // ---- Planos Hotmart → MyFitRout ----
 const OFFER_MAP: Record<string, { plan: string; tier: string }> = {
+  // BRL
   a24mmass: { plan: "pro_monthly", tier: "pro" },
   v775lxjs: { plan: "pro_yearly", tier: "pro" },
   uptevh7a: { plan: "pro_weekly", tier: "pro" },
   n3bo8q0c: { plan: "essential_monthly", tier: "essential" },
   njxtdc3t: { plan: "essential_yearly", tier: "essential" },
+  // EUR
+  "1zl6d8w9": { plan: "pro_monthly", tier: "pro" },
+  c0r9s3og: { plan: "pro_yearly", tier: "pro" },
+  mte3dfmj: { plan: "pro_weekly", tier: "pro" },
+  phalz1au: { plan: "essential_monthly", tier: "essential" },
+  qw0idc8f: { plan: "essential_yearly", tier: "essential" },
 };
 
 export default async function handler(req: any, res: any) {
