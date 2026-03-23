@@ -490,7 +490,7 @@ function buildWelcomeEmail(params: {
       </div>
       <p style="color:#6b7280;font-size:14px;line-height:1.5;">
         Qualquer dúvida, responda este email ou entre em contato pelo
-        <a href="mailto:r.alvarenga@myfitrout.com" style="color:#4338ca;">r.alvarenga@myfitrout.com</a>.
+        <a href="mailto:support@myfitrout.com" style="color:#4338ca;">support@myfitrout.com</a>.
       </p>
       <p style="color:#374151;font-size:14px;margin-top:24px;">
         Bons treinos! 💪<br/>
