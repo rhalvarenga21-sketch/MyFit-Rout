@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
+import { createClient } from "@supabase/supabase-js";
 
 // =============================================================
-// MyFitRout - Hotmart Webhook
+// MyFitRout - Hotmart Webhook (Vercel Serverless Function)
 // Handles: PURCHASE_APPROVED, PURCHASE_COMPLETE,
 //          PURCHASE_CANCELED, PURCHASE_REFUNDED,
 //          SUBSCRIPTION_CANCELLATION
@@ -12,8 +11,8 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL || "",
+  process.env.SUPABASE_SERVICE_ROLE_KEY || "",
   { auth: { autoRefreshToken: false, persistSession: false } }
 );
 
@@ -26,71 +25,34 @@ const OFFER_MAP: Record<string, { plan: string; tier: string }> = {
   njxtdc3t: { plan: "essential_yearly", tier: "essential" },
 };
 
-// ---- Tipos ----
-interface HotmartBuyer {
-  email: string;
-  name: string;
-  first_name?: string;
-  last_name?: string;
-  checkout_phone?: string;
-  document?: string;
-}
+export default async function handler(req: any, res: any) {
+  // ---- Health check (GET) ----
+  if (req.method === "GET") {
+    const hasResendKey = !!process.env.RESEND_API_KEY;
+    const hasResendFrom = !!process.env.RESEND_FROM_EMAIL;
+    const hasSupabaseUrl = !!(process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL);
+    const hasSupabaseKey = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const hasHottok = !!process.env.HOTMART_HOTTOK;
 
-interface HotmartPayload {
-  id: string;
-  creation_date: number;
-  event: string;
-  version?: string;
-  data: {
-    product?: { id: number; name: string; ucode?: string };
-    buyer: HotmartBuyer;
-    purchase?: {
-      transaction?: string;
-      order_date?: number;
-      approved_date?: number;
-      status?: string;
-      price?: { value: number; currency_value?: string };
-      payment?: { type?: string; installments_number?: number };
-      offer?: { code?: string };
-      subscription?: {
-        subscriber_code?: string;
-        status?: string;
-        plan?: { id?: number; name?: string };
-      };
-    };
-    subscription?: {
-      subscriber_code?: string;
-      status?: string;
-      plan?: { id?: number; name?: string };
-    };
-  };
-  hottok?: string;
-}
+    return res.status(200).json({
+      status: "ok",
+      service: "MyFitRout Hotmart Webhook",
+      config: {
+        RESEND_API_KEY: hasResendKey ? "✅" : "❌ MISSING",
+        RESEND_FROM_EMAIL: hasResendFrom ? "✅" : "❌ MISSING",
+        SUPABASE_URL: hasSupabaseUrl ? "✅" : "❌ MISSING",
+        SUPABASE_SERVICE_ROLE_KEY: hasSupabaseKey ? "✅" : "❌ MISSING",
+        HOTMART_HOTTOK: hasHottok ? "✅" : "⚠️ Not set",
+      },
+      timestamp: new Date().toISOString(),
+    });
+  }
 
-// ---- Health check ----
-export async function GET() {
-  const hasResendKey = !!process.env.RESEND_API_KEY;
-  const hasResendFrom = !!process.env.RESEND_FROM_EMAIL;
-  const hasSupabaseUrl = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const hasSupabaseKey = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const hasHottok = !!process.env.HOTMART_HOTTOK;
+  // ---- Only POST allowed ----
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-  return NextResponse.json({
-    status: "ok",
-    service: "MyFitRout Hotmart Webhook",
-    config: {
-      RESEND_API_KEY: hasResendKey ? "✅" : "❌ MISSING",
-      RESEND_FROM_EMAIL: hasResendFrom ? "✅" : "❌ MISSING",
-      SUPABASE_URL: hasSupabaseUrl ? "✅" : "❌ MISSING",
-      SUPABASE_SERVICE_ROLE_KEY: hasSupabaseKey ? "✅" : "❌ MISSING",
-      HOTMART_HOTTOK: hasHottok ? "✅ (signature verification enabled)" : "⚠️ Not set (verification disabled)",
-    },
-    timestamp: new Date().toISOString(),
-  });
-}
-
-// ---- Main webhook handler ----
-export async function POST(req: NextRequest) {
   const startTime = Date.now();
   console.log("\n" + "=".repeat(60));
   console.log("🔔 HOTMART WEBHOOK RECEIVED -", new Date().toISOString());
@@ -98,7 +60,7 @@ export async function POST(req: NextRequest) {
 
   try {
     // 1. Parse body
-    const body: HotmartPayload = await req.json();
+    const body = req.body;
     console.log("📦 Event:", body.event);
     console.log("📦 Payload ID:", body.id);
     console.log("📦 Version:", body.version || "unknown");
@@ -108,14 +70,11 @@ export async function POST(req: NextRequest) {
     if (hottok) {
       const receivedToken =
         body.hottok ||
-        req.headers.get("x-hotmart-hottok") ||
+        req.headers["x-hotmart-hottok"] ||
         "";
       if (receivedToken !== hottok) {
         console.log("❌ HOTTOK MISMATCH - Request rejected");
-        return NextResponse.json(
-          { error: "Unauthorized" },
-          { status: 401 }
-        );
+        return res.status(401).json({ error: "Unauthorized" });
       }
       console.log("🔐 Hottok verified ✅");
     }
@@ -127,8 +86,7 @@ export async function POST(req: NextRequest) {
     const product = body.data?.product;
     const subscription =
       body.data?.subscription || body.data?.purchase?.subscription;
-    const offerCode =
-      body.data?.purchase?.offer?.code || "";
+    const offerCode = body.data?.purchase?.offer?.code || "";
     const planInfo = OFFER_MAP[offerCode] || {
       plan: "unknown",
       tier: "unknown",
@@ -139,28 +97,25 @@ export async function POST(req: NextRequest) {
     console.log("  Buyer:", buyer?.email, "-", buyer?.name);
     console.log("  Product:", product?.name, `(ID: ${product?.id})`);
     console.log("  Offer code:", offerCode, "→", planInfo.plan);
-    console.log(
-      "  Subscription:",
-      subscription?.subscriber_code || "N/A"
-    );
+    console.log("  Subscription:", subscription?.subscriber_code || "N/A");
 
     // 4. Route by event type
     switch (event) {
       case "PURCHASE_APPROVED":
       case "PURCHASE_COMPLETE":
-        return await handlePurchaseApproved(buyer, purchase, planInfo, offerCode, startTime);
+        return await handlePurchaseApproved(buyer, purchase, planInfo, offerCode, startTime, res);
 
       case "PURCHASE_CANCELED":
       case "PURCHASE_REFUNDED":
       case "PURCHASE_CHARGEBACK":
-        return await handlePurchaseCanceled(buyer, event, startTime);
+        return await handlePurchaseCanceled(buyer, event, startTime, res);
 
       case "SUBSCRIPTION_CANCELLATION":
-        return await handleSubscriptionCanceled(buyer, subscription, startTime);
+        return await handleSubscriptionCanceled(buyer, subscription, startTime, res);
 
       default:
         console.log(`⚠️ Event "${event}" not handled - ignoring`);
-        return NextResponse.json({
+        return res.status(200).json({
           success: true,
           message: `Event "${event}" acknowledged but not processed`,
           duration: Date.now() - startTime + "ms",
@@ -169,10 +124,10 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("❌ WEBHOOK ERROR:", error.message);
     console.error(error.stack);
-    return NextResponse.json(
-      { error: "Internal server error", message: error.message },
-      { status: 500 }
-    );
+    return res.status(500).json({
+      error: "Internal server error",
+      message: error.message,
+    });
   }
 }
 
@@ -181,18 +136,16 @@ export async function POST(req: NextRequest) {
 // → Create Supabase account + send welcome email
 // =============================================================
 async function handlePurchaseApproved(
-  buyer: HotmartBuyer | undefined,
-  purchase: HotmartPayload["data"]["purchase"],
+  buyer: any,
+  purchase: any,
   planInfo: { plan: string; tier: string },
   offerCode: string,
-  startTime: number
+  startTime: number,
+  res: any
 ) {
   if (!buyer?.email) {
     console.log("❌ No buyer email in payload");
-    return NextResponse.json(
-      { error: "Buyer email missing" },
-      { status: 400 }
-    );
+    return res.status(400).json({ error: "Buyer email missing" });
   }
 
   const email = buyer.email.toLowerCase().trim();
@@ -214,7 +167,7 @@ async function handlePurchaseApproved(
     const { data: existingUsers } =
       await supabaseAdmin.auth.admin.listUsers();
     const existing = existingUsers?.users?.find(
-      (u) => u.email?.toLowerCase() === email
+      (u: any) => u.email?.toLowerCase() === email
     );
 
     if (existing) {
@@ -240,12 +193,11 @@ async function handlePurchaseApproved(
 
       if (createError) {
         console.error("  ❌ Error creating user:", createError.message);
-        // If user already exists error, try to find them
         if (createError.message.includes("already been registered")) {
           const { data: retryList } =
             await supabaseAdmin.auth.admin.listUsers();
           const retryUser = retryList?.users?.find(
-            (u) => u.email?.toLowerCase() === email
+            (u: any) => u.email?.toLowerCase() === email
           );
           if (retryUser) {
             userId = retryUser.id;
@@ -262,7 +214,6 @@ async function handlePurchaseApproved(
     }
   } catch (err: any) {
     console.error("  ❌ Supabase auth error:", err.message);
-    // Continue to send email even if auth fails
   }
 
   // --- Step 2: Save purchase in database ---
@@ -292,7 +243,6 @@ async function handlePurchaseApproved(
 
       if (upsertError) {
         console.error("  ⚠️ DB upsert error:", upsertError.message);
-        // Don't fail the webhook for DB errors
       } else {
         console.log("  ✅ Subscription saved in DB");
       }
@@ -305,7 +255,6 @@ async function handlePurchaseApproved(
   try {
     const appUrl = "https://myfitrout-app.vercel.app";
     const loginUrl = `${appUrl}/login`;
-
     const planDisplayName = getPlanDisplayName(planInfo.plan);
     const showPassword = isNewUser && tempPassword;
 
@@ -332,21 +281,18 @@ async function handlePurchaseApproved(
 
     if (emailError) {
       console.error("  ❌ Email error:", emailError);
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Email send failed",
-          details: emailError,
-          userId,
-          duration: Date.now() - startTime + "ms",
-        },
-        { status: 500 }
-      );
+      return res.status(500).json({
+        success: false,
+        error: "Email send failed",
+        details: emailError,
+        userId,
+        duration: Date.now() - startTime + "ms",
+      });
     }
 
     console.log("  🎉 EMAIL SENT! ID:", emailResult?.id);
 
-    return NextResponse.json({
+    return res.status(200).json({
       success: true,
       event: "PURCHASE_APPROVED",
       userId,
@@ -357,34 +303,28 @@ async function handlePurchaseApproved(
     });
   } catch (err: any) {
     console.error("  ❌ Email send error:", err.message);
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Email send failed",
-        message: err.message,
-        userId,
-        duration: Date.now() - startTime + "ms",
-      },
-      { status: 500 }
-    );
+    return res.status(500).json({
+      success: false,
+      error: "Email send failed",
+      message: err.message,
+      userId,
+      duration: Date.now() - startTime + "ms",
+    });
   }
 }
 
 // =============================================================
 // PURCHASE CANCELED / REFUNDED / CHARGEBACK
-// → Deactivate subscription
 // =============================================================
 async function handlePurchaseCanceled(
-  buyer: HotmartBuyer | undefined,
+  buyer: any,
   event: string,
-  startTime: number
+  startTime: number,
+  res: any
 ) {
   if (!buyer?.email) {
     console.log("❌ No buyer email for cancellation");
-    return NextResponse.json(
-      { error: "Buyer email missing" },
-      { status: 400 }
-    );
+    return res.status(400).json({ error: "Buyer email missing" });
   }
 
   const email = buyer.email.toLowerCase().trim();
@@ -409,7 +349,7 @@ async function handlePurchaseCanceled(
     console.error("  ⚠️ DB error:", err.message);
   }
 
-  return NextResponse.json({
+  return res.status(200).json({
     success: true,
     event,
     email,
@@ -419,28 +359,22 @@ async function handlePurchaseCanceled(
 
 // =============================================================
 // SUBSCRIPTION CANCELLATION
-// → Deactivate subscription
 // =============================================================
 async function handleSubscriptionCanceled(
-  buyer: HotmartBuyer | undefined,
+  buyer: any,
   subscription: any,
-  startTime: number
+  startTime: number,
+  res: any
 ) {
   if (!buyer?.email) {
     console.log("❌ No buyer email for subscription cancellation");
-    return NextResponse.json(
-      { error: "Buyer email missing" },
-      { status: 400 }
-    );
+    return res.status(400).json({ error: "Buyer email missing" });
   }
 
   const email = buyer.email.toLowerCase().trim();
   console.log("\n🟡 PROCESSING SUBSCRIPTION CANCELLATION");
   console.log("  Email:", email);
-  console.log(
-    "  Subscriber code:",
-    subscription?.subscriber_code || "N/A"
-  );
+  console.log("  Subscriber code:", subscription?.subscriber_code || "N/A");
 
   try {
     const { error } = await supabaseAdmin
@@ -460,7 +394,7 @@ async function handleSubscriptionCanceled(
     console.error("  ⚠️ DB error:", err.message);
   }
 
-  return NextResponse.json({
+  return res.status(200).json({
     success: true,
     event: "SUBSCRIPTION_CANCELLATION",
     email,
@@ -504,8 +438,9 @@ function buildWelcomeEmail(params: {
   const { firstName, email, tempPassword, loginUrl, planName, isNewUser } =
     params;
 
-  const credentialsBlock = isNewUser && tempPassword
-    ? `
+  const credentialsBlock =
+    isNewUser && tempPassword
+      ? `
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:24px 0;">
         <p style="margin:0 0 12px;font-weight:600;color:#166534;">🔑 Seus dados de acesso:</p>
         <table style="width:100%;border-collapse:collapse;">
@@ -520,44 +455,32 @@ function buildWelcomeEmail(params: {
         </table>
         <p style="margin:12px 0 0;font-size:13px;color:#6b7280;">⚠️ Recomendamos trocar a senha após o primeiro login.</p>
       </div>`
-    : `
+      : `
       <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px;margin:24px 0;">
         <p style="margin:0;color:#1e40af;">Você já tem uma conta! Faça login com seu email <strong>${email}</strong> e sua senha atual.</p>
       </div>`;
 
-  return `
-<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:20px;">
-    
-    <!-- Header -->
     <div style="background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%);border-radius:16px 16px 0 0;padding:32px;text-align:center;">
       <h1 style="margin:0;color:#ffffff;font-size:28px;font-weight:700;">MyFitRout</h1>
       <p style="margin:8px 0 0;color:#a5b4fc;font-size:14px;">Seu Treino Personalizado Inteligente</p>
     </div>
-
-    <!-- Body -->
     <div style="background:#ffffff;padding:32px;border-radius:0 0 16px 16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-      
       <h2 style="margin:0 0 16px;color:#1e1b4b;font-size:22px;">Olá, ${firstName}! 🎉</h2>
-      
       <p style="color:#374151;font-size:16px;line-height:1.6;">
-        Sua assinatura <strong style="color:#4338ca;">${planName}</strong> está ativa! 
+        Sua assinatura <strong style="color:#4338ca;">${planName}</strong> está ativa!
         Agora você tem acesso completo ao MyFitRout para treinar de forma inteligente e personalizada.
       </p>
-
       ${credentialsBlock}
-
-      <!-- CTA Button -->
       <div style="text-align:center;margin:28px 0;">
         <a href="${loginUrl}" style="display:inline-block;background:linear-gradient(135deg,#4338ca,#7c3aed);color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(67,56,202,0.4);">
           🏋️ Acessar Meu Treino
         </a>
       </div>
-
-      <!-- What you get -->
       <div style="background:#faf5ff;border-radius:12px;padding:20px;margin:24px 0;">
         <p style="margin:0 0 12px;font-weight:600;color:#581c87;">O que você pode fazer agora:</p>
         <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Treinos personalizados baseados no seu nível</p>
@@ -565,19 +488,15 @@ function buildWelcomeEmail(params: {
         <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Acompanhamento de progresso</p>
         <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Suporte via email</p>
       </div>
-
       <p style="color:#6b7280;font-size:14px;line-height:1.5;">
-        Qualquer dúvida, responda este email ou entre em contato pelo 
+        Qualquer dúvida, responda este email ou entre em contato pelo
         <a href="mailto:r.alvarenga@myfitrout.com" style="color:#4338ca;">r.alvarenga@myfitrout.com</a>.
       </p>
-
       <p style="color:#374151;font-size:14px;margin-top:24px;">
         Bons treinos! 💪<br/>
         <strong>Equipe MyFitRout</strong>
       </p>
     </div>
-
-    <!-- Footer -->
     <div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px;">
       <p style="margin:4px 0;">MyFitRout - Seu Treino Personalizado</p>
       <p style="margin:4px 0;">
