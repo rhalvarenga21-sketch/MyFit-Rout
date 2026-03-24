@@ -6,6 +6,7 @@ import { createClient } from "@supabase/supabase-js";
 // Handles: PURCHASE_APPROVED, PURCHASE_COMPLETE,
 //          PURCHASE_CANCELED, PURCHASE_REFUNDED,
 //          SUBSCRIPTION_CANCELLATION
+// Supports: PT / EN / ES emails based on buyer country
 // =============================================================
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -31,6 +32,103 @@ const OFFER_MAP: Record<string, { plan: string; tier: string }> = {
   phalz1au: { plan: "essential_monthly", tier: "essential" },
   qw0idc8f: { plan: "essential_yearly", tier: "essential" },
 };
+
+// ---- Países hispanofalantes ----
+const SPANISH_COUNTRIES = [
+  "ES", "MX", "AR", "CO", "CL", "PE", "UY", "PY", "EC",
+  "VE", "BO", "CR", "GT", "HN", "SV", "NI", "PA", "DO", "CU",
+];
+
+// ---- Detectar idioma pelo país ----
+function detectLanguage(countryIso: string | undefined): "pt" | "en" | "es" {
+  if (!countryIso) return "en";
+  const iso = countryIso.toUpperCase();
+  if (iso === "BR") return "pt";
+  if (SPANISH_COUNTRIES.includes(iso)) return "es";
+  return "en";
+}
+
+// ---- Traduções ----
+function getTranslations(lang: "pt" | "en" | "es") {
+  const translations = {
+    pt: {
+      emailSubject: "🏋️ Bem-vindo ao MyFitRout, {name}! Seu treino está pronto",
+      tagline: "Seu Treino Personalizado Inteligente",
+      greeting: "Olá, {name}! 🎉",
+      subscriptionActive: "Sua assinatura <strong style=\"color:#4338ca;\">{plan}</strong> está ativa! Agora você tem acesso completo ao MyFitRout para treinar de forma inteligente e personalizada.",
+      credentialsTitle: "🔑 Seus dados de acesso:",
+      emailLabel: "Email:",
+      passwordLabel: "Senha temporária:",
+      changePasswordNote: "⚠️ Recomendamos trocar a senha após o primeiro login.",
+      existingAccount: "Você já tem uma conta! Faça login com seu email <strong>{email}</strong> e sua senha atual.",
+      ctaButton: "🏋️ Acessar Meu Treino",
+      featuresTitle: "O que você pode fazer agora:",
+      feature1: "✅ Treinos personalizados baseados no seu nível",
+      feature2: "✅ Vídeos demonstrativos dos exercícios",
+      feature3: "✅ Acompanhamento de progresso",
+      feature4: "✅ Suporte via email",
+      supportText: "Qualquer dúvida, responda este email ou entre em contato pelo",
+      closing: "Bons treinos! 💪",
+      team: "Equipe MyFitRout",
+      footer: "MyFitRout - Seu Treino Personalizado",
+    },
+    en: {
+      emailSubject: "🏋️ Welcome to MyFitRout, {name}! Your workout is ready",
+      tagline: "Your Smart Personalized Training",
+      greeting: "Hi, {name}! 🎉",
+      subscriptionActive: "Your <strong style=\"color:#4338ca;\">{plan}</strong> subscription is active! You now have full access to MyFitRout for smart, personalized training.",
+      credentialsTitle: "🔑 Your login details:",
+      emailLabel: "Email:",
+      passwordLabel: "Temporary password:",
+      changePasswordNote: "⚠️ We recommend changing your password after your first login.",
+      existingAccount: "You already have an account! Log in with your email <strong>{email}</strong> and your current password.",
+      ctaButton: "🏋️ Access My Workout",
+      featuresTitle: "What you can do now:",
+      feature1: "✅ Personalized workouts based on your level",
+      feature2: "✅ Exercise demonstration videos",
+      feature3: "✅ Progress tracking",
+      feature4: "✅ Email support",
+      supportText: "Any questions? Reply to this email or contact us at",
+      closing: "Happy training! 💪",
+      team: "MyFitRout Team",
+      footer: "MyFitRout - Your Personalized Training",
+    },
+    es: {
+      emailSubject: "🏋️ Bienvenido a MyFitRout, {name}! Tu entrenamiento está listo",
+      tagline: "Tu Entrenamiento Personalizado Inteligente",
+      greeting: "¡Hola, {name}! 🎉",
+      subscriptionActive: "Tu suscripción <strong style=\"color:#4338ca;\">{plan}</strong> está activa. Ahora tienes acceso completo a MyFitRout para entrenar de forma inteligente y personalizada.",
+      credentialsTitle: "🔑 Tus datos de acceso:",
+      emailLabel: "Email:",
+      passwordLabel: "Contraseña temporal:",
+      changePasswordNote: "⚠️ Te recomendamos cambiar tu contraseña después del primer inicio de sesión.",
+      existingAccount: "¡Ya tienes una cuenta! Inicia sesión con tu email <strong>{email}</strong> y tu contraseña actual.",
+      ctaButton: "🏋️ Acceder a Mi Entrenamiento",
+      featuresTitle: "Lo que puedes hacer ahora:",
+      feature1: "✅ Entrenamientos personalizados según tu nivel",
+      feature2: "✅ Videos demostrativos de los ejercicios",
+      feature3: "✅ Seguimiento de progreso",
+      feature4: "✅ Soporte por email",
+      supportText: "¿Alguna pregunta? Responde a este email o contáctanos en",
+      closing: "¡Buenos entrenamientos! 💪",
+      team: "Equipo MyFitRout",
+      footer: "MyFitRout - Tu Entrenamiento Personalizado",
+    },
+  };
+  return translations[lang];
+}
+
+// ---- Nomes dos planos por idioma ----
+function getPlanDisplayName(plan: string, lang: "pt" | "en" | "es"): string {
+  const names: Record<string, Record<string, string>> = {
+    pro_monthly: { pt: "PRO Mensal", en: "PRO Monthly", es: "PRO Mensual" },
+    pro_yearly: { pt: "PRO Anual", en: "PRO Annual", es: "PRO Anual" },
+    pro_weekly: { pt: "PRO Semanal", en: "PRO Weekly", es: "PRO Semanal" },
+    essential_monthly: { pt: "Essential Mensal", en: "Essential Monthly", es: "Essential Mensual" },
+    essential_yearly: { pt: "Essential Anual", en: "Essential Annual", es: "Essential Anual" },
+  };
+  return names[plan]?.[lang] || plan;
+}
 
 export default async function handler(req: any, res: any) {
   // ---- Health check (GET) ----
@@ -98,19 +196,25 @@ export default async function handler(req: any, res: any) {
       plan: "unknown",
       tier: "unknown",
     };
+    const countryIso =
+      purchase?.checkout_country?.iso ||
+      buyer?.address?.country_iso ||
+      "";
+    const lang = detectLanguage(countryIso);
 
     console.log("\n📊 EXTRACTED DATA:");
     console.log("  Event:", event);
     console.log("  Buyer:", buyer?.email, "-", buyer?.name);
     console.log("  Product:", product?.name, `(ID: ${product?.id})`);
     console.log("  Offer code:", offerCode, "→", planInfo.plan);
+    console.log("  Country:", countryIso, "→ Language:", lang);
     console.log("  Subscription:", subscription?.subscriber_code || "N/A");
 
     // 4. Route by event type
     switch (event) {
       case "PURCHASE_APPROVED":
       case "PURCHASE_COMPLETE":
-        return await handlePurchaseApproved(buyer, purchase, planInfo, offerCode, startTime, res);
+        return await handlePurchaseApproved(buyer, purchase, planInfo, offerCode, lang, startTime, res);
 
       case "PURCHASE_CANCELED":
       case "PURCHASE_REFUNDED":
@@ -140,13 +244,13 @@ export default async function handler(req: any, res: any) {
 
 // =============================================================
 // PURCHASE APPROVED / COMPLETE
-// → Create Supabase account + send welcome email
 // =============================================================
 async function handlePurchaseApproved(
   buyer: any,
   purchase: any,
   planInfo: { plan: string; tier: string },
   offerCode: string,
+  lang: "pt" | "en" | "es",
   startTime: number,
   res: any
 ) {
@@ -163,6 +267,7 @@ async function handlePurchaseApproved(
   console.log("  Email:", email);
   console.log("  Name:", name);
   console.log("  Plan:", planInfo.plan);
+  console.log("  Language:", lang);
 
   // --- Step 1: Create or retrieve Supabase user ---
   let userId: string | null = null;
@@ -170,7 +275,6 @@ async function handlePurchaseApproved(
   let isNewUser = false;
 
   try {
-    // Check if user already exists
     const { data: existingUsers } =
       await supabaseAdmin.auth.admin.listUsers();
     const existing = existingUsers?.users?.find(
@@ -181,7 +285,6 @@ async function handlePurchaseApproved(
       userId = existing.id;
       console.log("  👤 User already exists:", userId);
     } else {
-      // Generate temporary password
       tempPassword = generatePassword();
       const { data: newUser, error: createError } =
         await supabaseAdmin.auth.admin.createUser({
@@ -195,6 +298,7 @@ async function handlePurchaseApproved(
             plan: planInfo.plan,
             tier: planInfo.tier,
             offer_code: offerCode,
+            language: lang,
           },
         });
 
@@ -239,7 +343,9 @@ async function handlePurchaseApproved(
             status: "active",
             hotmart_transaction: purchase?.transaction || null,
             subscriber_code:
-              purchase?.subscription?.subscriber_code || null,
+              purchase?.subscription?.subscriber?.code ||
+              purchase?.subscription?.subscriber_code ||
+              null,
             price: purchase?.price?.value || null,
             payment_method: purchase?.payment?.type || null,
             purchased_at: new Date().toISOString(),
@@ -262,8 +368,9 @@ async function handlePurchaseApproved(
   try {
     const appUrl = "https://myfitrout-app.vercel.app";
     const loginUrl = `${appUrl}/login`;
-    const planDisplayName = getPlanDisplayName(planInfo.plan);
+    const planDisplayName = getPlanDisplayName(planInfo.plan, lang);
     const showPassword = isNewUser && tempPassword;
+    const t = getTranslations(lang);
 
     const emailHtml = buildWelcomeEmail({
       firstName,
@@ -272,17 +379,20 @@ async function handlePurchaseApproved(
       loginUrl,
       planName: planDisplayName,
       isNewUser,
+      t,
+      lang,
     });
 
     console.log("\n📧 SENDING WELCOME EMAIL:");
     console.log("  From:", process.env.RESEND_FROM_EMAIL);
     console.log("  To:", email);
+    console.log("  Language:", lang);
 
     const { data: emailResult, error: emailError } =
       await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL!,
         to: email,
-        subject: `🏋️ Bem-vindo ao MyFitRout, ${firstName}! Seu treino está pronto`,
+        subject: t.emailSubject.replace("{name}", firstName),
         html: emailHtml,
       });
 
@@ -306,6 +416,7 @@ async function handlePurchaseApproved(
       isNewUser,
       emailId: emailResult?.id,
       plan: planInfo.plan,
+      language: lang,
       duration: Date.now() - startTime + "ms",
     });
   } catch (err: any) {
@@ -381,7 +492,7 @@ async function handleSubscriptionCanceled(
   const email = buyer.email.toLowerCase().trim();
   console.log("\n🟡 PROCESSING SUBSCRIPTION CANCELLATION");
   console.log("  Email:", email);
-  console.log("  Subscriber code:", subscription?.subscriber_code || "N/A");
+  console.log("  Subscriber code:", subscription?.subscriber_code || subscription?.subscriber?.code || "N/A");
 
   try {
     const { error } = await supabaseAdmin
@@ -423,17 +534,6 @@ function generatePassword(): string {
   return password;
 }
 
-function getPlanDisplayName(plan: string): string {
-  const names: Record<string, string> = {
-    pro_monthly: "PRO Mensal",
-    pro_yearly: "PRO Anual",
-    pro_weekly: "PRO Semanal",
-    essential_monthly: "Essential Mensal",
-    essential_yearly: "Essential Anual",
-  };
-  return names[plan] || plan;
-}
-
 function buildWelcomeEmail(params: {
   firstName: string;
   email: string;
@@ -441,71 +541,74 @@ function buildWelcomeEmail(params: {
   loginUrl: string;
   planName: string;
   isNewUser: boolean;
+  t: ReturnType<typeof getTranslations>;
+  lang: "pt" | "en" | "es";
 }): string {
-  const { firstName, email, tempPassword, loginUrl, planName, isNewUser } =
+  const { firstName, email, tempPassword, loginUrl, planName, isNewUser, t, lang } =
     params;
+
+  const htmlLang = lang === "pt" ? "pt-BR" : lang === "es" ? "es" : "en";
 
   const credentialsBlock =
     isNewUser && tempPassword
       ? `
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:20px;margin:24px 0;">
-        <p style="margin:0 0 12px;font-weight:600;color:#166534;">🔑 Seus dados de acesso:</p>
+        <p style="margin:0 0 12px;font-weight:600;color:#166534;">${t.credentialsTitle}</p>
         <table style="width:100%;border-collapse:collapse;">
           <tr>
-            <td style="padding:6px 0;color:#374151;font-weight:500;">Email:</td>
+            <td style="padding:6px 0;color:#374151;font-weight:500;">${t.emailLabel}</td>
             <td style="padding:6px 0;color:#111827;font-family:monospace;">${email}</td>
           </tr>
           <tr>
-            <td style="padding:6px 0;color:#374151;font-weight:500;">Senha temporária:</td>
+            <td style="padding:6px 0;color:#374151;font-weight:500;">${t.passwordLabel}</td>
             <td style="padding:6px 0;color:#111827;font-family:monospace;font-size:16px;font-weight:700;">${tempPassword}</td>
           </tr>
         </table>
-        <p style="margin:12px 0 0;font-size:13px;color:#6b7280;">⚠️ Recomendamos trocar a senha após o primeiro login.</p>
+        <p style="margin:12px 0 0;font-size:13px;color:#6b7280;">${t.changePasswordNote}</p>
       </div>`
       : `
       <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px;margin:24px 0;">
-        <p style="margin:0;color:#1e40af;">Você já tem uma conta! Faça login com seu email <strong>${email}</strong> e sua senha atual.</p>
+        <p style="margin:0;color:#1e40af;">${t.existingAccount.replace("{email}", email)}</p>
       </div>`;
 
   return `<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="${htmlLang}">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:20px;">
     <div style="background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%);border-radius:16px 16px 0 0;padding:32px;text-align:center;">
       <h1 style="margin:0;color:#ffffff;font-size:28px;font-weight:700;">MyFitRout</h1>
-      <p style="margin:8px 0 0;color:#a5b4fc;font-size:14px;">Seu Treino Personalizado Inteligente</p>
+      <p style="margin:8px 0 0;color:#a5b4fc;font-size:14px;">${t.tagline}</p>
     </div>
     <div style="background:#ffffff;padding:32px;border-radius:0 0 16px 16px;box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-      <h2 style="margin:0 0 16px;color:#1e1b4b;font-size:22px;">Olá, ${firstName}! 🎉</h2>
+      <h2 style="margin:0 0 16px;color:#1e1b4b;font-size:22px;">${t.greeting.replace("{name}", firstName)}</h2>
       <p style="color:#374151;font-size:16px;line-height:1.6;">
-        Sua assinatura <strong style="color:#4338ca;">${planName}</strong> está ativa!
-        Agora você tem acesso completo ao MyFitRout para treinar de forma inteligente e personalizada.
+        ${t.subscriptionActive.replace("{plan}", planName)}
       </p>
       ${credentialsBlock}
       <div style="text-align:center;margin:28px 0;">
         <a href="${loginUrl}" style="display:inline-block;background:linear-gradient(135deg,#4338ca,#7c3aed);color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(67,56,202,0.4);">
-          🏋️ Acessar Meu Treino
+          ${t.ctaButton}
         </a>
       </div>
       <div style="background:#faf5ff;border-radius:12px;padding:20px;margin:24px 0;">
-        <p style="margin:0 0 12px;font-weight:600;color:#581c87;">O que você pode fazer agora:</p>
-        <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Treinos personalizados baseados no seu nível</p>
-        <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Vídeos demonstrativos dos exercícios</p>
-        <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Acompanhamento de progresso</p>
-        <p style="margin:4px 0;color:#374151;font-size:14px;">✅ Suporte via email</p>
+        <p style="margin:0 0 12px;font-weight:600;color:#581c87;">${t.featuresTitle}</p>
+        <p style="margin:4px 0;color:#374151;font-size:14px;">${t.feature1}</p>
+        <p style="margin:4px 0;color:#374151;font-size:14px;">${t.feature2}</p>
+        <p style="margin:4px 0;color:#374151;font-size:14px;">${t.feature3}</p>
+        <p style="margin:4px 0;color:#374151;font-size:14px;">${t.feature4}</p>
       </div>
       <p style="color:#6b7280;font-size:14px;line-height:1.5;">
-        Qualquer dúvida, responda este email ou entre em contato pelo
+        ${t.supportText}
         <a href="mailto:support@myfitrout.com" style="color:#4338ca;">support@myfitrout.com</a>.
       </p>
       <p style="color:#374151;font-size:14px;margin-top:24px;">
-        Bons treinos! 💪<br/>
-        <strong>Equipe MyFitRout</strong>
+        ${t.closing}<br/>
+        <strong>${t.team}</strong>
       </p>
     </div>
     <div style="text-align:center;padding:20px;color:#9ca3af;font-size:12px;">
-      <p style="margin:4px 0;">MyFitRout - Seu Treino Personalizado</p>
+      <p style="margin:4px 0;">${t.footer}</p>
       <p style="margin:4px 0;">
         <a href="https://myfitrout.com" style="color:#6366f1;">myfitrout.com</a>
       </p>
