@@ -1,16 +1,26 @@
 // MyFitRout - Global Checkout & GeoIP v4 (Redundant & Hardened & Full Translation)
 // Agent 3.0 - Full Page Translation (Nav + Hero + Features + Pricing + FAQ + Footer)
 // v4.1 - Updated copy: science-based, no AI/Gemini mentions, honest social proof
+// v4.2 - Hotmart checkout (BRL + EUR), updated BRL prices, removed USD/Revolut/Lastlink
 
 // ==========================================
-// 🔗 LAST LINK CONFIGURATION
+// 🔗 HOTMART CHECKOUT CONFIGURATION
 // ==========================================
-const LASTLINK_CONFIG = {
-    essential_monthly: "https://lastlink.com/p/CD85C185A/checkout-payment/",
-    essential_annual: "https://lastlink.com/p/C00235787/checkout-payment/",
-    pro_weekly: "https://lastlink.com/p/CD7968A27/checkout-payment/",
-    pro_monthly: "https://lastlink.com/p/C3A4ECD3D/checkout-payment/",
-    pro_annual: "https://lastlink.com/p/C35F0D49B/checkout-payment/"
+const HOTMART_CONFIG = {
+    BRL: {
+        essential_monthly: "https://pay.hotmart.com/T104995317D?off=n3bo8q0c",
+        essential_annual: "https://pay.hotmart.com/T104995317D?off=njxtdc3t",
+        pro_weekly: "https://pay.hotmart.com/T104995317D?off=uptevh7a",
+        pro_monthly: "https://pay.hotmart.com/T104995317D?off=a24mmass",
+        pro_annual: "https://pay.hotmart.com/T104995317D?off=v775lxjs"
+    },
+    EUR: {
+        essential_monthly: "https://pay.hotmart.com/T104995317D?off=phalz1au",
+        essential_annual: "https://pay.hotmart.com/T104995317D?off=qw0idc8f",
+        pro_weekly: "https://pay.hotmart.com/T104995317D?off=mte3dfmj",
+        pro_monthly: "https://pay.hotmart.com/T104995317D?off=1zl6d8w9",
+        pro_annual: "https://pay.hotmart.com/T104995317D?off=c0r9s3og"
+    }
 };
 
 // ==========================================
@@ -43,7 +53,7 @@ const TRANSLATIONS = {
         feat_5_title: "Coach Disponível 24/7", feat_5_desc: "Treine no seu horário. Tire dúvidas a qualquer momento e receba orientações que se adaptam à sua rotina e realidade.",
         feat_6_title: "Multiplataforma & Cloud", feat_6_desc: "Treine em qualquer lugar. Qualquer dispositivo. Seus dados sincronizam automaticamente na nuvem — seu progresso está sempre com você.",
 
-        // Early Access Section (replaces testimonials)
+        // Early Access Section
         testim_label: "Programa de Acesso Antecipado",
         testim_title: `Seja um <span class="text-indigo-400">Membro Fundador</span>`,
         testim_subtitle: "Junte-se aos primeiros membros e ajude a construir o futuro do fitness personalizado.",
@@ -71,12 +81,12 @@ const TRANSLATIONS = {
 
         p_ess_annual_title: "Essential Anual",
         p_ess_annual_desc: "Consistência que transforma — economize 35%",
-        p_ess_annual_feats: ["Todos os benefícios do Essential Mensal incluídos", "Apenas ~{sym}8.32/mês — investimento mínimo, máximo resultado", "Pague uma vez, treine 365 dias sem preocupação", "12 meses para criar hábitos que duram"],
+        p_ess_annual_feats: ["Todos os benefícios do Essential Mensal incluídos", "Apenas ~{sym}24,75/mês — investimento mínimo, máximo resultado", "Pague uma vez, treine 365 dias sem preocupação", "12 meses para criar hábitos que duram"],
         p_ess_annual_btn: "COMEÇAR AGORA",
 
         p_pro_week_title: "Passe PRO Semanal",
-        p_pro_week_desc: "Teste o poder do PRO por apenas {sym}7.90",
-        p_pro_week_feats: ["7 dias de acesso TOTAL ao PRO — sem limitações", "Zero compromisso", "Conversas ILIMITADAS com o Coach 24/7", "Perfeito para decidir se o plano PRO é para você", "Risco zero: apenas {sym}7.90"],
+        p_pro_week_desc: "Teste o poder do PRO por apenas {sym}19,90",
+        p_pro_week_feats: ["7 dias de acesso TOTAL ao PRO — sem limitações", "Zero compromisso", "Conversas ILIMITADAS com o Coach 24/7", "Perfeito para decidir se o plano PRO é para você", "Risco zero: apenas {sym}19,90"],
         p_pro_week_btn: "COMEÇAR AGORA",
 
         p_pro_month_title: "PRO Mensal",
@@ -86,7 +96,7 @@ const TRANSLATIONS = {
 
         p_pro_annual_title: "PRO Anual",
         p_pro_annual_desc: "Compromisso com seus resultados — economize 33%",
-        p_pro_annual_feats: ["Tudo do PRO + desconto de 33%", "Pague uma vez — treine 365 dias sem preocupação", "Apenas ~{sym}16.65/mês — menos que 2 cafés por semana", "Garantia estendida: 7 dias para testar sem risco", "Foco total: um ano para transformar seu corpo"],
+        p_pro_annual_feats: ["Tudo do PRO + desconto de 33%", "Pague uma vez — treine 365 dias sem preocupação", "Apenas ~{sym}49,75/mês — menos que 2 cafés por semana", "Garantia estendida: 7 dias para testar sem risco", "Foco total: um ano para transformar seu corpo"],
         p_pro_annual_btn: "COMEÇAR AGORA",
 
         // Suffixes
@@ -98,7 +108,7 @@ const TRANSLATIONS = {
         faq_q2: "Posso cancelar a qualquer momento?", faq_a2: "Sim! Não há contratos ou fidelidade. Você pode cancelar sua assinatura a qualquer momento diretamente no app, de forma rápida e sem burocracia.",
         faq_q3: "O MyFitRout serve para iniciantes?", faq_a3: "Perfeitamente! O MyFitRout foi pensado especialmente para iniciantes. Os treinos se adaptam ao seu nível, com vídeos demonstrativos e orientações claras para cada exercício.",
         faq_q_equip: "Preciso de equipamentos para treinar?", faq_a_equip: "Não necessariamente. Você pode escolher entre treinos em casa ou na academia. Nossa biblioteca inclui rotinas com ou sem equipamentos, para você treinar do seu jeito.",
-        faq_q4: "Como funciona o pagamento?", faq_a4: "Os pagamentos são processados de forma segura via Revolut (Global) e Last Link (Brasil). Aceitamos cartões de crédito, Apple Pay e Google Pay. ",
+        faq_q4: "Como funciona o pagamento?", faq_a4: "Os pagamentos são processados de forma segura via Hotmart. Aceitamos cartões de crédito, PIX, boleto, Apple Pay e Google Pay.",
         faq_q_privacy: "Meus dados estão seguros?", faq_a_privacy: "Sim. Sua privacidade é prioridade. O MyFitRout segue as diretrizes da GDPR (UE) e LGPD (Brasil). Seus dados pessoais e de treino são criptografados, nunca vendidos, e usados apenas para melhorar sua experiência.",
         disclaimer_ai: "Nota: Os treinos são gerados por tecnologia avançada. O Coach é um assistente virtual treinado para orientação de alta performance.",
 
@@ -147,7 +157,7 @@ const TRANSLATIONS = {
         feat_5_title: "Coach Available 24/7", feat_5_desc: "Train on your schedule, not someone else's. Ask questions anytime and get guidance that fits your routine, level, and real-life constraints.",
         feat_6_title: "Multiplatform & Cloud Sync", feat_6_desc: "Train anywhere. Any device. Your data syncs automatically to the cloud — your progress is always with you.",
 
-        // Early Access Section (replaces testimonials)
+        // Early Access Section
         testim_label: "Early Access Program",
         testim_title: `Become a <span class="text-indigo-400">Founding Member</span>`,
         testim_subtitle: "Join the first members and help build the future of personalized fitness.",
@@ -183,7 +193,7 @@ const TRANSLATIONS = {
         faq_q2: "Can I cancel anytime?", faq_a2: "Yes — absolutely. There are no contracts or commitments. You can cancel your subscription at any time directly in the app, quickly and hassle-free.",
         faq_q3: "Is MyFitRout suitable for beginners?", faq_a3: "Absolutely! MyFitRout was designed especially for beginners. Workouts adapt to your level, with demo videos and clear guidance for every exercise.",
         faq_q_equip: "Do I need equipment to train?", faq_a_equip: "Not necessarily. You can choose between home or gym workouts. Our exercise library includes routines with or without equipment, so you train your way.",
-        faq_q4: "How does payment work?", faq_a4: "Payments are processed securely via Revolut (global) and Last Link (Brazil). We accept credit cards, Apple Pay, and Google Pay.",
+        faq_q4: "How does payment work?", faq_a4: "Payments are processed securely via Hotmart. We accept credit cards, PIX, PayPal, Apple Pay, and Google Pay.",
         faq_q_privacy: "Is my data safe and private?", faq_a_privacy: "Yes. Your privacy is a priority. MyFitRout follows GDPR (EU) and LGPD (Brazil) guidelines. Your personal and training data is encrypted, never sold, and used only to improve your personalized experience.",
         disclaimer_ai: "Note: Workouts are generated by advanced technology. The Coach is a virtual assistant trained for high-performance guidance.",
 
@@ -232,7 +242,7 @@ const TRANSLATIONS = {
         feat_5_title: "Coach Disponible 24/7", feat_5_desc: "Entrena en tu horario. Haz preguntas en cualquier momento y recibe orientación que se adapta a tu rutina y realidad.",
         feat_6_title: "Multiplataforma & Cloud", feat_6_desc: "Entrena donde sea. Cualquier dispositivo. Tus datos se sincronizan automáticamente en la nube — tu progreso siempre contigo.",
 
-        // Early Access Section (replaces testimonials)
+        // Early Access Section
         testim_label: "Programa de Acceso Anticipado",
         testim_title: `Sé un <span class="text-indigo-400">Miembro Fundador</span>`,
         testim_subtitle: "Únete a los primeros miembros y ayuda a construir el futuro del fitness personalizado.",
@@ -265,7 +275,7 @@ const TRANSLATIONS = {
         faq_q2: "¿Puedo cancelar en cualquier momento?", faq_a2: "Sí — absolutamente. No hay contratos ni compromisos. Puedes cancelar tu suscripción en cualquier momento directamente en la app, de forma rápida y sin complicaciones.",
         faq_q3: "¿MyFitRout es apto para principiantes?", faq_a3: "¡Definitivamente! MyFitRout fue diseñado especialmente para principiantes. Los entrenamientos se adaptan a tu nivel, con videos demostrativos y orientaciones claras para cada ejercicio.",
         faq_q_equip: "¿Necesito equipo para entrenar?", faq_a_equip: "No necesariamente. Puedes elegir entre entrenamientos en casa o gimnasio. Nuestra biblioteca incluye rutinas con o sin equipo, para que entrenes a tu manera.",
-        faq_q4: "¿Cómo funciona el pago?", faq_a4: "Los pagos se procesan de forma segura vía Revolut (Global) y Last Link (Brasil). Aceptamos tarjetas de crédito, Apple Pay y Google Pay.",
+        faq_q4: "¿Cómo funciona el pago?", faq_a4: "Los pagos se procesan de forma segura vía Hotmart. Aceptamos tarjetas de crédito, PIX, PayPal, Apple Pay y Google Pay.",
         faq_q_privacy: "¿Mis datos están seguros?", faq_a_privacy: "Sí. Tu privacidad es prioridad. MyFitRout sigue las directrices GDPR (UE) y LGPD (Brasil). Tus datos personales y de entrenamiento están encriptados, nunca se venden, y se usan solo para mejorar tu experiencia.",
         disclaimer_ai: "Nota: Los entrenamientos son generados por tecnología avanzada. El Coach es un asistente virtual entrenado para orientación de alto rendimiento.",
 
@@ -297,21 +307,11 @@ const GLOBAL_PRICING = {
     BRL: {
         symbol: 'R$', lang: 'PT',
         products: {
-            essential_monthly: { id: 'price_essential_monthly', amount: '12,90' },
-            essential_annual: { id: 'price_essential_annual', amount: '99,90' },
-            pro_weekly: { id: 'price_pro_weekly', amount: '7,90' },
-            pro_monthly: { id: 'price_pro_monthly', amount: '24,90' },
-            pro_annual: { id: 'price_pro_annual', amount: '199,90', equiv: '16,65' }
-        }
-    },
-    USD: {
-        symbol: '$', lang: 'EN',
-        products: {
-            essential_monthly: { id: 'price_essential_monthly_usd', amount: '12.90' },
-            essential_annual: { id: 'price_essential_annual_usd', amount: '99.90' },
-            pro_weekly: { id: 'price_pro_weekly_usd', amount: '7.90' },
-            pro_monthly: { id: 'price_pro_monthly_usd', amount: '24.90' },
-            pro_annual: { id: 'price_pro_annual_usd', amount: '199.90', equiv: '16.65' }
+            essential_monthly: { id: 'price_essential_monthly', amount: '29,90' },
+            essential_annual: { id: 'price_essential_annual', amount: '297,00' },
+            pro_weekly: { id: 'price_pro_weekly', amount: '19,90' },
+            pro_monthly: { id: 'price_pro_monthly', amount: '59,90' },
+            pro_annual: { id: 'price_pro_annual', amount: '597,00', equiv: '49,75' }
         }
     },
     EUR: {
@@ -376,19 +376,18 @@ async function detectAndSetCurrency() {
         const country = data.country;
         const currency = data.currency || '';
 
-        let targetCurrency = 'USD';
+        let targetCurrency = 'EUR';
         let targetLang = 'EN';
 
         const euroCountries = ['AT','BE','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES','HR','AD','MC','SM','VA','ME','XK'];
         if (country === 'BR') targetCurrency = 'BRL';
-        else if (currency === 'EUR' || country === 'CH' || euroCountries.includes(country)) targetCurrency = 'EUR';
-        else targetCurrency = 'USD';
+        else targetCurrency = 'EUR';
 
-        if (['BR', 'PT', 'AO', 'MZ'].includes(country)) targetLang = 'PT';
+        if (['BR'].includes(country)) targetLang = 'PT';
         else if (['ES', 'MX', 'AR', 'CO', 'CL', 'PE', 'EC', 'UY'].includes(country)) targetLang = 'ES';
         else targetLang = 'EN';
 
-        console.log(`🌍 Detected (${data.source}): ${country}/${currency} -> Target: ${targetCurrency}`);
+        console.log(`🌍 Detected (${data.source}): ${country}/${currency} -> Target: ${targetCurrency}/${targetLang}`);
 
         localStorage.setItem('myfitrout_currency_locked', targetCurrency);
         updateUI(targetCurrency, targetLang);
@@ -400,25 +399,13 @@ async function detectAndSetCurrency() {
 
         const navLang = (navigator.language || 'en').toLowerCase();
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        let fallbackCurr = 'USD';
+        let fallbackCurr = 'EUR';
         let fallbackLang = 'EN';
-
-        // European timezones → EUR
-        const euroZones = ['Europe/', 'Atlantic/Azores', 'Atlantic/Canary', 'Atlantic/Madeira'];
-        const isEuroTz = euroZones.some(z => tz.startsWith(z));
-        // European browser languages
-        const euroLangs = ['de', 'fr', 'it', 'nl', 'el', 'pl', 'cs', 'sk', 'hu', 'ro', 'bg', 'hr', 'sl', 'fi', 'sv', 'da', 'nb', 'nn', 'et', 'lv', 'lt', 'ga', 'mt'];
-        const isEuroLang = euroLangs.some(l => navLang.startsWith(l));
-        // en-IE, en-GB and similar European English locales
-        const euroEnLocales = ['en-ie', 'en-gb', 'en-de', 'en-fr', 'en-nl', 'en-at', 'en-be', 'en-ch'];
-        const isEuroEn = euroEnLocales.some(l => navLang === l);
 
         if (navLang.includes('pt')) {
             fallbackCurr = 'BRL'; fallbackLang = 'PT';
         } else if (navLang.includes('es')) {
             fallbackCurr = 'EUR'; fallbackLang = 'ES';
-        } else if (isEuroTz || isEuroLang || isEuroEn) {
-            fallbackCurr = 'EUR'; fallbackLang = 'EN';
         }
 
         localStorage.setItem('myfitrout_currency_locked', fallbackCurr);
@@ -557,7 +544,7 @@ function updateUI(currencyCode, langCode) {
     setText('disclaimer-ai', t.disclaimer_ai);
 
     // Security & Policy
-    const providerName = (currencyCode === 'BRL') ? 'Lastlink' : 'Revolut';
+    const providerName = 'Hotmart';
     setText('secure-msg', t.secure_msg.replace('{provider}', providerName));
 
     setText('cancel-title', t.cancel_title);
@@ -587,40 +574,22 @@ async function checkout(planType) {
     if (window.va) window.va('event', { name: 'Landing Checkout Click', data: { plan: planType } });
 
     try {
-        const currency = localStorage.getItem('myfitrout_currency_locked') || 'USD';
+        const currency = localStorage.getItem('myfitrout_currency_locked') || 'EUR';
+        const targetCurrency = (currency === 'BRL') ? 'BRL' : 'EUR';
+        const links = HOTMART_CONFIG[targetCurrency];
 
-        // 🇧🇷 LASTLINK (BR)
-        if (currency === 'BRL') {
-            const checkoutUrl = LASTLINK_CONFIG[planType];
-            if (!checkoutUrl) { alert("Check configuration"); return; }
-            let finalUrl = checkoutUrl;
-            if (window.location.search) {
-                finalUrl += (finalUrl.includes('?') ? '&' : '?') + window.location.search.substring(1);
-            }
-            window.location.href = finalUrl;
+        const checkoutUrl = links[planType];
+        if (!checkoutUrl) { alert("Check configuration"); return; }
+
+        let finalUrl = checkoutUrl;
+        if (window.location.search) {
+            finalUrl += (finalUrl.includes('?') ? '&' : '?') + window.location.search.substring(1);
         }
-        // 🌍 REVOLUT (GLOBAL)
-        else {
-            const REVOLUT_MAP = {
-                essential_monthly: { EUR: "https://checkout.revolut.com/pay/e4aad20a-068b-49e9-adb6-bb48e09da1de", USD: "https://checkout.revolut.com/pay/c08ffc90-35fe-4701-8029-7a947c0ae1bb" },
-                essential_annual: { EUR: "https://checkout.revolut.com/pay/f5514a23-333a-403d-8899-a0458433d466", USD: "https://checkout.revolut.com/pay/4c7f4d85-413f-455a-a753-7c7be9535103" },
-                pro_weekly: { EUR: "https://checkout.revolut.com/pay/be2ef2b1-2774-47ed-ac96-316e8f524238", USD: "https://checkout.revolut.com/pay/371c21b0-020e-4bbf-bc5a-4b2e1cd179fc" },
-                pro_monthly: { EUR: "https://checkout.revolut.com/pay/44bfee78-ac75-4c1b-a3e0-2639be29ef4f", USD: "https://checkout.revolut.com/pay/120ecee5-fb51-4ccf-b8f4-de6ca59df310" },
-                pro_annual: { EUR: "https://checkout.revolut.com/pay/3c4dd027-3d72-4c3c-bc75-e264d8f9360f", USD: "https://checkout.revolut.com/pay/71190496-e02a-4ebf-bacc-f22bde2e0da1" }
-            };
+        window.location.href = finalUrl;
 
-            const targetCurr = (currency === 'EUR') ? 'EUR' : 'USD';
-            const planUrls = REVOLUT_MAP[planType];
-            let targetUrlReal = planUrls ? planUrls[targetCurr] : REVOLUT_MAP['essential_monthly']['USD'];
-
-            if (window.location.search) {
-                targetUrlReal += (targetUrlReal.includes('?') ? '&' : '?') + window.location.search.substring(1);
-            }
-            window.location.href = targetUrlReal;
-        }
     } catch (e) {
         console.error("Checkout Fatal:", e);
-        window.location.href = "https://checkout.revolut.com/pay/c08ffc90-35fe-4701-8029-7a947c0ae1bb";
+        window.location.href = HOTMART_CONFIG.EUR.essential_monthly;
     }
 }
 
