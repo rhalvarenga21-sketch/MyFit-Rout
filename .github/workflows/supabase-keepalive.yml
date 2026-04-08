@@ -1,0 +1,42 @@
+name: Supabase Keep-Alive
+
+on:
+  # Roda a cada 4 dias às 10:00 UTC
+  schedule:
+    - cron: '0 10 */4 * *'
+  # Permite rodar manualmente para teste
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Ping Supabase via Keep-Alive Endpoint
+        run: |
+          echo "🔄 Pinging Supabase keep-alive..."
+          
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            "${{ secrets.KEEPALIVE_URL }}" \
+            -H "Content-Type: application/json" \
+            --max-time 30)
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          
+          echo "📊 Status: $HTTP_CODE"
+          echo "📦 Response: $BODY"
+          
+          if [ "$HTTP_CODE" -eq 200 ]; then
+            echo "✅ Supabase está vivo!"
+          else
+            echo "❌ FALHA! HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+      - name: Log resultado
+        if: always()
+        run: |
+          echo "⏰ Executado em: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "📋 Próximo ping: em ~4 dias"
