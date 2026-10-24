@@ -195,7 +195,7 @@ const App: React.FC = () => {
     };
   }, [profile, now]);
 
-  const isTrialExpired = trialRemaining?.expired || false;
+  const isTrialExpired = false; // TRIAL DESACTIVADO (freemium mode) - reverter trocando esta linha
 
   // Force Paywall if Expired
   useEffect(() => {

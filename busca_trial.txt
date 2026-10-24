@@ -1,0 +1,174 @@
+﻿hotmart-webhook.ts:8 -> //          SUBSCRIPTION_CANCELLATION
+hotmart-webhook.ts:58 -> subscriptionActive: "Sua assinatura <strong style=\"color:#4338ca;\">{plan}</strong> está ativa! Agora você tem acesso c
+hotmart-webhook.ts:79 -> subscriptionActive: "Your <strong style=\"color:#4338ca;\">{plan}</strong> subscription is active! You now have full acc
+hotmart-webhook.ts:100 -> subscriptionActive: "Tu suscripción <strong style=\"color:#4338ca;\">{plan}</strong> está activa. Ahora tienes acceso co
+hotmart-webhook.ts:192 -> const subscription =
+hotmart-webhook.ts:193 -> body.data?.subscription || body.data?.purchase?.subscription;
+hotmart-webhook.ts:211 -> console.log("  Subscription:", subscription?.subscriber_code || "N/A");
+hotmart-webhook.ts:224 -> case "SUBSCRIPTION_CANCELLATION":
+hotmart-webhook.ts:225 -> return await handleSubscriptionCanceled(buyer, subscription, startTime, res);
+hotmart-webhook.ts:334 -> .from("user_subscriptions")
+hotmart-webhook.ts:346 -> purchase?.subscription?.subscriber?.code ||
+hotmart-webhook.ts:347 -> purchase?.subscription?.subscriber_code ||
+hotmart-webhook.ts:360 -> console.log("  ✅ Subscription saved in DB");
+hotmart-webhook.ts:454 -> .from("user_subscriptions")
+hotmart-webhook.ts:464 -> console.log("  ✅ Subscription deactivated");
+hotmart-webhook.ts:479 -> // SUBSCRIPTION CANCELLATION
+hotmart-webhook.ts:481 -> async function handleSubscriptionCanceled(
+hotmart-webhook.ts:483 -> subscription: any,
+hotmart-webhook.ts:488 -> console.log("❌ No buyer email for subscription cancellation");
+hotmart-webhook.ts:493 -> console.log("\n🟡 PROCESSING SUBSCRIPTION CANCELLATION");
+hotmart-webhook.ts:495 -> console.log("  Subscriber code:", subscription?.subscriber_code || subscription?.subscriber?.code || "N/A");
+hotmart-webhook.ts:499 -> .from("user_subscriptions")
+hotmart-webhook.ts:509 -> console.log("  ✅ Subscription canceled in DB");
+hotmart-webhook.ts:517 -> event: "SUBSCRIPTION_CANCELLATION",
+hotmart-webhook.ts:586 -> ${t.subscriptionActive.replace("{plan}", planName)}
+keep-alive.ts:25 -> .from("user_subscriptions")
+metrics.ts:50 -> // and see if subscription_active is true.
+metrics.ts:51 -> // const { data: profiles } = await supabase.from('profiles').select('id, subscription_active, email').in('id', stats.le
+AIQuotaDisplay.tsx:3 -> import { SubscriptionPlan } from '../types';
+AIQuotaDisplay.tsx:8 -> subscription: SubscriptionPlan;
+AIQuotaDisplay.tsx:15 -> subscription,
+AIQuotaDisplay.tsx:20 -> if (isPROPlan(subscription)) {
+CoachChat.tsx:77 -> const quota = getAIQuota(profile.id, profile.subscription, profile.name);
+CoachChat.tsx:136 -> const decision = shouldUseRealAI(textToSend, profile.id, profile.subscription, profile.name);
+CoachChat.tsx:562 -> <AIQuotaDisplay quota={quota} subscription={profile.subscription} language={lang} onUpgrade={onUpgrade} />
+cache-life.d.ts:75 -> *   expire:     604800 seconds (1 week)
+cache-life.d.ts:88 -> *   revalidate: 604800 seconds (1 week)
+activate_bruna.ts:60 -> subscription: 'pro',
+activate_bruna.ts:61 -> subscription_status: 'active',
+activate_bruna.ts:62 -> subscription_active: true,
+activate_pro.ts:20 -> subscription: 'pro',
+activate_pro.ts:21 -> subscription_status: 'active',
+activate_pro.ts:22 -> subscription_active: true,  // THIS IS THE KEY FIELD!
+activate_pro.ts:35 -> console.log('🎯 Subscription: PRO');
+activate_pro.ts:37 -> console.log('🔓 subscription_active: TRUE');
+activate_vip_users.ts:61 -> // Check current subscription status
+activate_vip_users.ts:64 -> .select('subscription, subscription_status, subscription_active')
+activate_vip_users.ts:68 -> if (profile?.subscription_active) {
+activate_vip_users.ts:78 -> subscription: 'pro',
+activate_vip_users.ts:79 -> subscription_status: 'active',
+activate_vip_users.ts:80 -> subscription_active: true,
+check_subscription.ts:10 -> const checkSubscription = async () => {
+check_subscription.ts:11 -> console.log('🔍 Checking subscription for: rafael_henrique21@hotmail.com\n');
+check_subscription.ts:28 -> console.log('   Subscription Status:', profile.subscription_status || 'none');
+check_subscription.ts:29 -> console.log('   Subscription Tier:', profile.subscription_tier || 'none');
+check_subscription.ts:30 -> console.log('   Trial Ends:', profile.trial_ends_at || 'N/A');
+check_subscription.ts:34 -> // Check subscriptions table
+check_subscription.ts:35 -> const { data: subscriptions, error: subError } = await supabase
+check_subscription.ts:36 -> .from('subscriptions')
+check_subscription.ts:41 -> console.error('\n❌ Error fetching subscriptions:', subError);
+check_subscription.ts:43 -> console.log('\n💳 SUBSCRIPTIONS:');
+check_subscription.ts:44 -> if (subscriptions && subscriptions.length > 0) {
+check_subscription.ts:45 -> subscriptions.forEach((sub, idx) => {
+check_subscription.ts:46 -> console.log(`\n   Subscription ${idx + 1}:`);
+check_subscription.ts:50 -> console.log('   Stripe Sub ID:', sub.stripe_subscription_id || 'N/A');
+check_subscription.ts:53 -> console.log('   ⚠️ No subscriptions found');
+check_subscription.ts:62 -> checkSubscription();
+check_user_data.ts:62 -> console.log('   Subscription: ACTIVE ✓');
+check_user_data.ts:63 -> console.log('   Only subscription status was updated - all other data intact!');
+get_full_data.ts:45 -> console.log('   Subscription:', profile.subscription);
+get_full_data.ts:46 -> console.log('   Subscription Active:', profile.subscription_active);
+test-webhook.ts:93 -> subscription: 'PRO',
+test-webhook.ts:94 -> subscription_status: 'active',
+aiQuota.ts:1 -> import { UserProfile, SubscriptionPlan } from '../types';
+aiQuota.ts:43 -> [SubscriptionPlan.NONE]: 50,           // Aumentado para 50 para o USER testar à vontade
+aiQuota.ts:44 -> [SubscriptionPlan.ESSENTIAL]: 100,
+aiQuota.ts:45 -> [SubscriptionPlan.ESSENTIAL_ANNUAL]: 100,
+aiQuota.ts:46 -> [SubscriptionPlan.PRO_MONTHLY]: 9999,
+aiQuota.ts:47 -> [SubscriptionPlan.PRO_ANNUAL]: 9999,
+aiQuota.ts:48 -> [SubscriptionPlan.TEST_PRO]: 9999
+aiQuota.ts:54 -> export const isPROPlan = (subscription: SubscriptionPlan, profile?: { id: string, name: string }): boolean => {
+aiQuota.ts:57 -> return subscription === SubscriptionPlan.PRO_MONTHLY ||
+aiQuota.ts:58 -> subscription === SubscriptionPlan.PRO_ANNUAL ||
+aiQuota.ts:59 -> subscription === SubscriptionPlan.TEST_PRO;
+aiQuota.ts:65 -> export const getAIQuota = (userId: string, subscription: SubscriptionPlan, userName: string = ''): AIQuota => {
+aiQuota.ts:75 -> const limit = QUOTA_LIMITS[subscription] || QUOTA_LIMITS[SubscriptionPlan.NONE];
+aiQuota.ts:108 -> export const canUseRealAI = (userId: string, subscription: SubscriptionPlan, userName: string = ''): boolean => {
+aiQuota.ts:111 -> const quota = getAIQuota(userId, subscription, userName);
+aiQuota.ts:140 -> subscription: SubscriptionPlan,
+aiQuota.ts:149 -> const hasQuota = canUseRealAI(userId, subscription, userName);
+database.ts:2 -> import { UserProfile, UserRole, ActivityLevel, SplitStyle, Gender, SubscriptionPlan, ExperienceLevel, FitnessGoal, Langu
+database.ts:34 -> subscription: profile.subscription,
+database.ts:35 -> subscription_active: profile.subscriptionActive,
+database.ts:43 -> trial_start_date: profile.trialStartDate,
+database.ts:100 -> subscription: data.subscription || SubscriptionPlan.NONE,
+database.ts:101 -> subscriptionActive: data.subscription_active || false,
+database.ts:102 -> hasPass: data.subscription_active || false,
+database.ts:103 -> trialStartDate: data.trial_start_date || data.created_at || new Date().toISOString(),
+database.ts:162 -> // Simplest streak logic: count logs in last 7 days?
+gamification.ts:29 -> { id: 'streak_7', name: 'Semana Forte', description: '7 dias consecutivos', icon: '🔥', requirement: 7, type: 'streak' }
+socialShare.ts:329 -> 'streak_7': `🔥 ${userName} está em uma sequência de 7 dias de treino!`,
+workoutIntegration.ts:108 -> // Últimos 7 dias
+workoutIntegration.ts:109 -> const last7Days = recentWorkouts.slice(0, 7);
+workoutIntegration.ts:110 -> const totalVolume = last7Days.reduce((sum, w) => sum + (w.total_volume || 0), 0);
+workoutIntegration.ts:111 -> const avgDuration = last7Days.reduce((sum, w) => sum + (w.duration_minutes || 0), 0) / last7Days.length;
+workoutIntegration.ts:113 -> context += `\nÚLTIMOS 7 DIAS: ${last7Days.length} treinos realizados. `;
+workoutIntegration.ts:118 -> const muscleGroups = last7Days
+workoutIntegration.ts:204 -> const last7Days = recentWorkouts.slice(0, 7);
+workoutIntegration.ts:205 -> const trainedMuscles = new Set(last7Days.map(w => w.workout_type).filter(Boolean));
+workoutIntegration.ts:211 -> suggestions.push(`Você não treinou ${notTrained[0]} nos últimos 7 dias. Que tal focar nisso?`);
+workoutIntegration.ts:215 -> if (last7Days.length > 0) {
+workoutIntegration.ts:216 -> const avgVolume = last7Days.reduce((sum, w) => sum + (w.total_volume || 0), 0) / last7Days.length;
+extensions.ts:70 -> subscription: {
+extensions.ts:76 -> trialing: 'Período de Teste'
+extensions.ts:172 -> subscription: {
+extensions.ts:178 -> trialing: 'Trial Period'
+extensions.ts:180 -> manage: 'Manage Subscription',
+extensions.ts:182 -> cancel: 'Cancel Subscription',
+extensions.ts:185 -> cancelConfirm: 'Are you sure you want to cancel your subscription?'
+extensions.ts:274 -> subscription: {
+extensions.ts:280 -> trialing: 'Período de Prueba'
+App.tsx:12 -> Language, UserProfile, DayPlan, UserRole, PresetWorkout, Gender, ActivityLevel, FitnessGoal, ExperienceLevel, CustomWork
+App.tsx:107 -> const [pendingPlan, setPendingPlan] = useState<{ name: string, price: string, type: SubscriptionPlan } | null>(null);
+App.tsx:174 -> // Trial Logic (48h) - Moved to top to avoid Hook Errors
+App.tsx:182 -> const trialRemaining = useMemo(() => {
+App.tsx:183 -> if (!profile || profile.subscriptionActive) return null;
+App.tsx:184 -> const start = new Date(profile.trialStartDate || new Date());
+App.tsx:187 -> const totalMs = 7 * 24 * 60 * 60 * 1000;
+App.tsx:198 -> const isTrialExpired = trialRemaining?.expired || false;
+App.tsx:202 -> if (isTrialExpired && view !== 'membership') {
+App.tsx:205 -> }, [isTrialExpired, view]);
+App.tsx:420 -> {/* Trial Banner */}
+App.tsx:421 -> {trialRemaining && !trialRemaining.expired && (
+App.tsx:423 -> <span className="text-indigo-200">🔥 {lang === Language.PT ? 'Teste Grátis: ' : 'Free Trial: '}</span>
+App.tsx:425 -> {trialRemaining.d}d {String(trialRemaining.h).padStart(2, '0')}h {String(trialRemaining.m).padStart(2, '0')}m
+App.tsx:539 -> <p className={`text-xl font-black ${profile.subscriptionActive ? 'text-green-400' : 'text-rose-400'}`}>
+App.tsx:540 -> {profile.subscriptionActive ? t.membership.active : t.membership.inactive}
+App.tsx:548 -> <div onClick={() => setPendingPlan({ name: `${t.membership.plans.essential} (${t.membership.monthly})`, price: PRICES[cu
+App.tsx:549 -> className={`p-6 rounded-3xl border-2 cursor-pointer transition-all ${profile.subscription === SubscriptionPlan.ESSENTIAL
+App.tsx:568 -> <div onClick={() => setPendingPlan({ name: `${t.membership.plans.pro} (${t.membership.monthly})`, price: PRICES[currency
+App.tsx:591 -> <div onClick={(e) => { e.stopPropagation(); setPendingPlan({ name: 'Test Drive (7 Days)', price: PRICES[currency].test, 
+App.tsx:604 -> <div onClick={() => setPendingPlan({ name: `${t.membership.plans.essential} (${t.membership.annual})`, price: PRICES[cur
+App.tsx:613 -> <div onClick={() => setPendingPlan({ name: `${t.membership.plans.pro} (${t.membership.annual})`, price: PRICES[currency]
+App.tsx:652 -> [SubscriptionPlan.ESSENTIAL]: "https://lastlink.com/p/CD85C185A/checkout-payment/",
+App.tsx:653 -> [SubscriptionPlan.ESSENTIAL_ANNUAL]: "https://lastlink.com/p/C00235787/checkout-payment/",
+App.tsx:654 -> [SubscriptionPlan.PRO_MONTHLY]: "https://lastlink.com/p/C3A4ECD3D/checkout-payment/",
+App.tsx:655 -> [SubscriptionPlan.PRO_ANNUAL]: "https://lastlink.com/p/C35F0D49B/checkout-payment/",
+App.tsx:656 -> [SubscriptionPlan.TEST_PRO]: "https://lastlink.com/p/CD7968A27/checkout-payment/"
+App.tsx:670 -> [SubscriptionPlan.ESSENTIAL]: "https://checkout.revolut.com/pay/e4aad20a-068b-49e9-adb6-bb48e09da1de",
+App.tsx:671 -> [SubscriptionPlan.PRO_MONTHLY]: "https://checkout.revolut.com/pay/44bfee78-ac75-4c1b-a3e0-2639be29ef4f",
+App.tsx:672 -> [SubscriptionPlan.ESSENTIAL_ANNUAL]: "https://checkout.revolut.com/pay/f5514a23-333a-403d-8899-a0458433d466",
+App.tsx:673 -> [SubscriptionPlan.PRO_ANNUAL]: "https://checkout.revolut.com/pay/3c4dd027-3d72-4c3c-bc75-e264d8f9360f",
+App.tsx:674 -> [SubscriptionPlan.TEST_PRO]: "https://checkout.revolut.com/pay/be2ef2b1-2774-47ed-ac96-316e8f524238",
+App.tsx:677 -> [SubscriptionPlan.ESSENTIAL]: "https://checkout.revolut.com/pay/c08ffc90-35fe-4701-8029-7a947c0ae1bb",
+App.tsx:678 -> [SubscriptionPlan.PRO_MONTHLY]: "https://checkout.revolut.com/pay/120ecee5-fb51-4ccf-b8f4-de6ca59df310",
+App.tsx:679 -> [SubscriptionPlan.ESSENTIAL_ANNUAL]: "https://checkout.revolut.com/pay/4c7f4d85-413f-455a-a753-7c7be9535103",
+App.tsx:680 -> [SubscriptionPlan.PRO_ANNUAL]: "https://checkout.revolut.com/pay/71190496-e02a-4ebf-bacc-f22bde2e0da1",
+App.tsx:681 -> [SubscriptionPlan.TEST_PRO]: "https://checkout.revolut.com/pay/371c21b0-020e-4bbf-bc5a-4b2e1cd179fc"
+App.tsx:699 -> saveProfile({ ...profile, subscription: pendingPlan.type, subscriptionActive: true });
+App.tsx:712 -> {profile.subscriptionActive && (
+App.tsx:713 -> <button onClick={() => saveProfile({ ...profile, subscriptionActive: false, subscription: SubscriptionPlan.NONE })} clas
+App.tsx:753 -> {profile.subscriptionActive && <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 bg-amber
+App.tsx:1816 -> ...fd, id: user.id, email: user.email, language: lang, role: UserRole.MEMBER, trialStartDate: existingProfile?.trialStar
+App.tsx:1817 -> completedDays: [], customWorkouts: [], customExercises: [], customSchedule: {}, subscription: SubscriptionPlan.NONE, sub
+translations.ts:76 -> testPro: "Testar PRO por 7 dias",
+translations.ts:459 -> cancel: "Cancel Subscription",
+translations.ts:475 -> testPro: "Test PRO for 7 days",
+translations_old.ts:77 -> testPro: "Testar PRO por 7 dias",
+translations_old.ts:461 -> cancel: "Cancel Subscription",
+translations_old.ts:477 -> testPro: "Test PRO for 7 days",
+types.ts:74 -> export enum SubscriptionPlan {
+types.ts:150 -> subscription: SubscriptionPlan;
+types.ts:151 -> subscriptionActive: boolean;
+types.ts:153 -> trialStartDate: string;
