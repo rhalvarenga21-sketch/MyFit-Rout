@@ -3,9 +3,9 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "scripts": {
+"scripts": {
     "dev": "vite",
-    "build": "npm rebuild && vite build",
+    "build": "npm install --legacy-peer-deps && vite build",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "test": "vitest",
